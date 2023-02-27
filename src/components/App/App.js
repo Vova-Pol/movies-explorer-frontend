@@ -1,9 +1,10 @@
 import '../../index.css';
+import Main from '../Main/Main';
 
 function App() {
   return (
     <div className="app">
-      <h1>Hello</h1>
+      <Main />
     </div>
   );
 }

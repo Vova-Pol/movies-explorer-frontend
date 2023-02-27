@@ -1,0 +1,31 @@
+.login-link {
+  margin-left: auto;
+}
+
+.login-link__login,
+.login-link__regestration {
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.login-link__regestration {
+  color: #fff;
+  margin-right: 30px;
+}
+
+.login-link__login {
+  color: #000;
+  background-color: #3ddc84;
+  border-radius: 3px;
+  padding: 8px 20px;
+}
+
+.login-link__login:hover {
+  opacity: 0.8;
+}
+
+.login-link__regestration:hover {
+  opacity: 0.7;
+}

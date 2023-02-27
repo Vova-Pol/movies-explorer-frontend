@@ -1,0 +1,14 @@
+.header {
+  min-height: 74px;
+  background-color: inherit;
+  padding: 0 70px;
+  display: flex;
+  align-items: center;
+}
+
+.header__logo {
+  background-image: url('../../images/logo.png');
+  width: 38px;
+  height: 38px;
+  margin-right: 44px;
+}
