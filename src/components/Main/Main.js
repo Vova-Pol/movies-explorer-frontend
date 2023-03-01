@@ -5,11 +5,12 @@ import Promo from '../Promo/Promo';
 import NavTab from '../NavTab/NavTab';
 import AboutProject from '../AboutProject/AboutProject';
 import Techs from '../Techs/Techs';
+import AboutMe from '../AboutMe/AboutMe';
 
 function Main() {
   const [loggedIn, setLoggedIn] = useState(true);
 
-  // --- Компоненту NavTab прописать якорные ссылки
+  // --- Компоненту NavTab/AboutMe прописать ссылки
   return (
     <div className="main">
       <Header loggedIn={loggedIn} />
@@ -17,6 +18,7 @@ function Main() {
       <NavTab />
       <AboutProject />
       <Techs />
+      <AboutMe />
     </div>
   );
 }
