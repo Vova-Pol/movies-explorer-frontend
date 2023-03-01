@@ -9,8 +9,7 @@ import AboutMe from '../AboutMe/AboutMe';
 import Footer from '../Footer/Footer';
 
 function Main() {
-  const [loggedIn, setLoggedIn] = useState(true);
-
+  const [loggedIn, setLoggedIn] = useState(false);
   // --- Компоненту NavTab/AboutMe прописать ссылки
   return (
     <div className="main">
