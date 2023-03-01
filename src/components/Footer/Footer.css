@@ -1,0 +1,37 @@
+.footer {
+  background-color: #202020;
+  padding: 79px 70px 20px 70px;
+}
+
+.footer__text {
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 16px;
+  text-align: center;
+  color: #8b8b8b;
+}
+
+.footer__line {
+  border-bottom: 1px solid #424242;
+  margin-bottom: 20px;
+}
+
+.footer__container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.footer__date,
+.footer__link {
+  margin: 0;
+  font-size: 13px;
+  line-height: 16px;
+}
+
+.footer__links-container {
+  display: flex;
+}
+
+.footer__link:first-of-type {
+  margin-right: 20px;
+}
