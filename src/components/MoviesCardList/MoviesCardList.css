@@ -1,0 +1,9 @@
+.movies-card-list {
+  padding: 70px 70px 0 70px;
+}
+
+.movies-card-list__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
