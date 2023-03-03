@@ -6,6 +6,7 @@ import Preloader from '../Preloader/Preloader';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Footer from '../Footer/Footer';
 import More from '../More/More';
+import { movies } from '../../utils/data';
 
 function Movies() {
   const [loggedIn, setLoggedIn] = useState(true);
@@ -15,8 +16,8 @@ function Movies() {
       <Header loggedIn={loggedIn} />
       <SearchForm />
       <Preloader />
-      <MoviesCardList />
-      <More />
+      <MoviesCardList isSaved={false} moviesList={movies} />
+      <More moviesList={movies} />
       <Footer />
     </div>
   );

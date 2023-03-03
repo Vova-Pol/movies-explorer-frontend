@@ -7,13 +7,15 @@ function MoviesCard(props) {
         <div className="movies-card-list__info">
           <p className="movies-card-list__title">{props.title}</p>
           <p className="movies-card-list__duration">{props.duration}</p>
-          <span
+          <button
             className={
-              props.isLiked
-                ? 'movies-card-list__like_type_liked'
-                : 'movies-card-list__like'
+              props.isSaved
+                ? 'movies-card-list__icon movies-card-list__icon_type_saved'
+                : props.isLiked
+                ? 'movies-card-list__icon movies-card-list__icon_type_liked'
+                : 'movies-card-list__icon movies-card-list__icon_type_unliked'
             }
-          ></span>
+          ></button>
         </div>
         <img
           className="movies-card-list__image"

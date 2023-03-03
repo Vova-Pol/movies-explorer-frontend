@@ -31,24 +31,31 @@
   margin: 0 0 30px 0;
 }
 
-.movies-card-list__like {
-  display: block;
+.movies-card-list__icon {
   width: 14px;
   height: 12px;
-  background-image: url('../../images/like-icon-empty.png');
   cursor: pointer;
+  border: none;
+  padding: 0;
+  background-color: #ffffff00;
 }
 
-.movies-card-list__like:hover {
+.movies-card-list__icon_type_unliked {
+  background-image: url('../../images/icon-unliked.png');
+}
+
+.movies-card-list__icon_type_liked {
+  background-image: url('../../images/icon-liked.png');
+}
+
+.movies-card-list__icon_type_saved {
+  background-image: url('../../images/icon-saved.png');
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.movies-card-list__icon:hover {
   opacity: 0.7;
-}
-
-.movies-card-list__like_type_liked {
-  display: block;
-  width: 14px;
-  height: 12px;
-  background-image: url('../../images/like-icon-full.png');
-  cursor: pointer;
 }
 
 .movies-card-list__image {

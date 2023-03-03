@@ -1,5 +1,6 @@
 .more {
   padding: 50px 70px 0 70px;
+  min-height: 140px;
 }
 
 .more__button {

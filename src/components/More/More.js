@@ -1,9 +1,11 @@
 import './More.css';
 
-function More() {
+function More(props) {
   return (
     <div className="more">
-      <button className="more__button">Ещё</button>
+      {props.moviesList.length > 7 ? (
+        <button className="more__button">Ещё</button>
+      ) : null}
     </div>
   );
 }
