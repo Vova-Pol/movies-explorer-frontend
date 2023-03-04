@@ -1,0 +1,28 @@
+.not-found {
+  background-color: #202020;
+  max-width: 1440px;
+  margin: 0 auto;
+  text-align: center;
+  padding-top: 246px;
+  padding-bottom: 60px;
+}
+
+.not-found__title {
+  margin: 0 auto 5px auto;
+  font-weight: 400;
+  font-size: 140px;
+  line-height: 169px;
+}
+
+.not-found__subtitle {
+  font-size: 16px;
+  line-height: 19px;
+  margin: 0 0 184px 0;
+}
+
+.not-found__link {
+  font-size: 14px;
+  line-height: 17px;
+  color: #4285f4;
+  text-decoration: none;
+}
