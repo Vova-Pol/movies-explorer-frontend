@@ -1,14 +1,16 @@
 import '../../index.css';
 import Main from '../Main/Main';
 import Movies from '../Movies/Movies';
+import Register from '../Register/Register';
 import SavedMovies from '../SavedMovies/SavedMovies';
 
 function App() {
   return (
     <div className="app">
+      <Register />
       {/* <Main /> */}
       {/* <Movies /> */}
-      <SavedMovies />
+      {/* <SavedMovies /> */}
     </div>
   );
 }
