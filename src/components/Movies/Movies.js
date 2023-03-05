@@ -15,7 +15,7 @@ function Movies() {
     <div className="movies">
       <Header loggedIn={loggedIn} />
       <SearchForm />
-      <Preloader />
+      {/* <Preloader /> */}
       <MoviesCardList isSaved={false} moviesList={movies} />
       <More moviesList={movies} />
       <Footer />
