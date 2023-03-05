@@ -3,7 +3,7 @@ import useResize from '../../hooks/use-resize';
 import Navigation from '../Navigation/Navigation';
 import LoginLink from '../LoginLink/LoginLink';
 import ProfileLink from '../ProfileLink/ProfileLink';
-import BurgerMenu from '../BurgerMenu/BurgerMenu';
+import MobileMenu from '../MobileMenu/MobileMenu';
 import { useEffect } from 'react';
 
 function Header(props) {
@@ -23,12 +23,10 @@ function Header(props) {
       ) : !loggedIn ? (
         <LoginLink />
       ) : (isScreenTablet || isScreenMobile) && loggedIn ? (
-        <BurgerMenu />
+        <MobileMenu />
       ) : !loggedIn ? (
         <LoginLink />
       ) : null}
-      {/* {loggedIn ? <Navigation /> : null}
-      {loggedIn ? <ProfileLink /> : <LoginLink />} */}
     </header>
   );
 }
