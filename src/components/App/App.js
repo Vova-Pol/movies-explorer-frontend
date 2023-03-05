@@ -5,14 +5,16 @@ import Movies from '../Movies/Movies';
 import Register from '../Register/Register';
 import SavedMovies from '../SavedMovies/SavedMovies';
 import NotFound from '../NotFound/NotFound';
+import Profile from '../Profile/Profile';
 
 function App() {
   return (
     <div className="app">
       {/* <Login /> */}
       {/* <Register /> */}
+      <Profile />
       {/* <Main /> */}
-      <Movies />
+      {/* <Movies /> */}
       {/* <SavedMovies /> */}
       {/* <NotFound /> */}
     </div>
