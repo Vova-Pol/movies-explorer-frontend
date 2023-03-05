@@ -1,7 +1,6 @@
 import './Login.css';
 import AuthTop from '../AuthTop/AuthTop';
 import AuthForm from '../AuthForm/AuthForm';
-import AuthSubmit from '../AuthSubmit/AuthSubmit';
 
 function Login() {
   const inputsList = [
@@ -17,8 +16,6 @@ function Login() {
     },
   ];
 
-  const formId = 'login-form';
-
   const buttonText = 'Войти';
   const suggestText = 'Ещё не зарегистрированы?';
   const linkPath = '/signup';
@@ -27,8 +24,8 @@ function Login() {
   return (
     <div className="login">
       <AuthTop title="Рады видеть!" />
-      <AuthForm inputsList={inputsList} fromId={formId} />
-      <AuthSubmit
+      <AuthForm
+        inputsList={inputsList}
         buttonText={buttonText}
         suggestText={suggestText}
         linkPath={linkPath}

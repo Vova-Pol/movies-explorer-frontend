@@ -1,7 +1,6 @@
 import './Register.css';
 import AuthTop from '../AuthTop/AuthTop';
 import AuthForm from '../AuthForm/AuthForm';
-import AuthSubmit from '../AuthSubmit/AuthSubmit';
 
 function Register() {
   const inputsList = [
@@ -22,8 +21,6 @@ function Register() {
     },
   ];
 
-  const formId = 'register-form';
-
   const buttonText = 'Зарегистрироваться';
   const suggestText = 'Уже зарегистрированы?';
   const linkPath = '/signin';
@@ -32,9 +29,8 @@ function Register() {
   return (
     <div className="register">
       <AuthTop title="Добро пожаловать!" />
-      <AuthForm inputsList={inputsList} formId={formId} />
-      <AuthSubmit
-        formId={formId}
+      <AuthForm
+        inputsList={inputsList}
         buttonText={buttonText}
         suggestText={suggestText}
         linkPath={linkPath}

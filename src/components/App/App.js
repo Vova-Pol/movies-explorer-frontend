@@ -14,7 +14,7 @@ function App() {
       {/* <Main /> */}
       {/* <Movies /> */}
       {/* <SavedMovies /> */}
-      <NotFound />
+      {/* <NotFound /> */}
     </div>
   );
 }
