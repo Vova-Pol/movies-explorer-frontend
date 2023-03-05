@@ -12,7 +12,7 @@ function App() {
       {/* <Login /> */}
       {/* <Register /> */}
       {/* <Main /> */}
-      {/* <Movies /> */}
+      <Movies />
       {/* <SavedMovies /> */}
       {/* <NotFound /> */}
     </div>
