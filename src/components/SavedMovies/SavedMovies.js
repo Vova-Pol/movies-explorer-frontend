@@ -11,8 +11,10 @@ function SavedMovies() {
   return (
     <div className="saved-movies">
       <Header loggedIn={loggedIn} />
-      <MoviesCardList isSaved={true} moviesList={savedMovies} />
-      <More moviesList={savedMovies} />
+      <main>
+        <MoviesCardList isSaved={true} moviesList={savedMovies} />
+        <More moviesList={savedMovies} />
+      </main>
       <Footer />
     </div>
   );

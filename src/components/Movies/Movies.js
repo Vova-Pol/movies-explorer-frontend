@@ -14,10 +14,12 @@ function Movies() {
   return (
     <div className="movies">
       <Header loggedIn={loggedIn} />
-      <SearchForm />
-      {/* <Preloader /> */}
-      <MoviesCardList isSaved={false} moviesList={movies} />
-      <More moviesList={movies} />
+      <main>
+        <SearchForm />
+        {/* <Preloader /> */}
+        <MoviesCardList isSaved={false} moviesList={movies} />
+        <More moviesList={movies} />
+      </main>
       <Footer />
     </div>
   );

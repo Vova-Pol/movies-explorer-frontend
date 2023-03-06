@@ -14,11 +14,13 @@ function Main() {
   return (
     <div className="main">
       <Header loggedIn={loggedIn} />
-      <Promo />
-      <NavTab />
-      <AboutProject />
-      <Techs />
-      <AboutMe />
+      <main>
+        <Promo />
+        <NavTab />
+        <AboutProject />
+        <Techs />
+        <AboutMe />
+      </main>
       <Footer />
     </div>
   );
