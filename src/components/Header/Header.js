@@ -15,17 +15,15 @@ function Header(props) {
   return (
     <header className="header">
       <div className="header__logo"></div>
-      {isScreenLaptop && loggedIn ? (
+      {!loggedIn ? (
+        <LoginLink />
+      ) : isScreenLaptop ? (
         <>
           <Navigation />
           <ProfileLink />
         </>
-      ) : !loggedIn ? (
-        <LoginLink />
-      ) : (isScreenTablet || isScreenMobile) && loggedIn ? (
+      ) : isScreenTablet || isScreenMobile ? (
         <MobileMenu />
-      ) : !loggedIn ? (
-        <LoginLink />
       ) : null}
     </header>
   );
