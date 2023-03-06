@@ -9,6 +9,7 @@
   line-height: 16px;
   text-align: center;
   color: #8b8b8b;
+  margin: 0 0 20px 0;
 }
 
 .footer__line {
@@ -34,4 +35,11 @@
 
 .footer__link:first-of-type {
   margin-right: 20px;
+}
+
+@media screen and (max-width: 768px) {
+  .footer {
+    padding-left: 30px;
+    padding-right: 30px;
+  }
 }

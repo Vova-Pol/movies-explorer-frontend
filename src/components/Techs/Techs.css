@@ -44,6 +44,7 @@
   max-width: 690px;
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
 }
 
 .tech__skill-item {
@@ -60,4 +61,37 @@
   font-size: 14px;
   line-height: 17px;
   letter-spacing: -0.04em;
+}
+
+@media screen and (max-width: 768px) {
+  .techs {
+    padding: 90px 50px;
+  }
+
+  .techs__line {
+    margin-bottom: 80px;
+  }
+
+  .techs__article {
+    margin-bottom: 83px;
+  }
+
+  .techs__article-title {
+    margin-bottom: 22px;
+  }
+
+  .techs__text {
+    font-size: 12px;
+    line-height: 18px;
+  }
+
+  .tech__skill-item {
+    min-width: 84px;
+    min-height: 57px;
+  }
+
+  .tech__skill {
+    font-size: 12px;
+    line-height: 15px;
+  }
 }

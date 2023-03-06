@@ -24,6 +24,7 @@
 
 .about-me__article-container {
   max-width: 600px;
+  margin-right: 50px;
 }
 
 .about-me__article-title {
@@ -53,6 +54,12 @@
   line-height: 17px;
   color: #fff;
   text-decoration: none;
+}
+
+.about-me__image {
+  max-width: 270px;
+  max-height: 327px;
+  border-radius: 10px;
 }
 
 .about-me__portfolio-title {
@@ -97,4 +104,62 @@
 
 .about-me__portfolio-line {
   border-bottom: 1px solid #424242;
+}
+
+@media screen and (max-width: 768px) {
+  .about-me {
+    padding: 90px 50px;
+  }
+
+  .about-me__article {
+    margin-bottom: 91px;
+  }
+
+  .about-me__article-container {
+    max-width: 364px;
+  }
+
+  .about-me__image {
+    max-width: 255px;
+    max-height: 307px;
+  }
+
+  .about-me__article-title {
+    font-weight: 400;
+    font-size: 40px;
+    margin-bottom: 16px;
+  }
+
+  .about-me__article-subtitle {
+    font-size: 12px;
+    line-height: 18px;
+    margin-bottom: 20px;
+  }
+
+  .about-me__text {
+    font-size: 12px;
+    line-height: 18px;
+    margin-bottom: 87px;
+  }
+
+  .about-me__portfolio-title {
+    color: #a0a0a0;
+  }
+
+  .about-me__portfolio-list {
+    margin-bottom: 90px;
+  }
+
+  .about-me__portfolio-text {
+    font-size: 28px;
+  }
+
+  .about-me__portfolio-link {
+    width: 27px;
+    height: 27px;
+  }
+
+  .about-me__portfolio-line {
+    border-color: #e6e6e6;
+  }
 }
