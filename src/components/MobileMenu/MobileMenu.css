@@ -11,10 +11,17 @@
 .mobile-menu__toggle {
   width: 44px;
   height: 44px;
-  z-index: 10;
   position: absolute;
   opacity: 0;
   cursor: pointer;
+  z-index: 10;
+  transition: all 0.4s ease;
+}
+
+.mobile-menu__toggle:checked {
+  position: fixed;
+  top: 26px;
+  right: 38px;
 }
 
 /* Полоски иконки */
@@ -25,6 +32,7 @@
   height: 3px;
   width: 28px;
   transition: all 0.4s ease;
+  z-index: 9;
 }
 
 .mobile-menu__icon::before,
@@ -46,6 +54,7 @@
 
 .mobile-menu__toggle:checked + .mobile-menu__icon {
   background-color: #ffffff00;
+  position: fixed;
 }
 
 .mobile-menu__toggle:checked + .mobile-menu__icon::before {
@@ -58,4 +67,38 @@
   top: 0;
   width: 22px;
   transform: rotate(135deg);
+}
+
+/* Выезжающий фон для меню */
+
+.mobile-menu__background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: #000;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: all 0.8s ease;
+}
+
+.mobile-menu__toggle:checked ~ .mobile-menu__background {
+  opacity: 0.3;
+}
+
+.mobile-menu__menu {
+  position: fixed;
+  top: 0;
+  right: -520px;
+  background-color: #202020;
+  width: 520px;
+  height: 100%;
+  transition: all 0.8s ease;
+  padding-top: 159px;
+  display: flex;
+  flex-direction: column;
+}
+
+.mobile-menu__toggle:checked ~ .mobile-menu__menu {
+  right: 0px;
 }
