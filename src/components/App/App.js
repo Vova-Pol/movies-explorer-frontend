@@ -12,9 +12,9 @@ function App() {
     <div className="app">
       {/* <Login /> */}
       {/* <Register /> */}
-      {/* <Profile /> */}
+      <Profile />
       {/* <Main /> */}
-      <Movies />
+      {/* <Movies /> */}
       {/* <SavedMovies /> */}
       {/* <NotFound /> */}
     </div>
