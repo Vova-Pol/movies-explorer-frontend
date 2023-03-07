@@ -7,3 +7,9 @@
   flex-direction: column;
   align-items: center;
 }
+
+@media screen and (max-width: 768px) {
+  .register {
+    padding: 232px 0;
+  }
+}
