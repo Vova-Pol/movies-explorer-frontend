@@ -10,6 +10,7 @@
   display: flex;
   justify-content: space-between;
   background-color: #2f2f2f;
+  max-height: 134px;
 }
 
 .movies-card-list__info {

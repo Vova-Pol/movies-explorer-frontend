@@ -7,3 +7,9 @@
   padding: 0;
   list-style: none;
 }
+
+@media screen and (max-width: 768px) {
+  .movies-card-list {
+    padding: 60px 30px 0 30px;
+  }
+}
