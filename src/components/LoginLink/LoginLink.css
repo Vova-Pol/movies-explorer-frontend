@@ -29,3 +29,15 @@
 .login-link__regestration:hover {
   opacity: 0.7;
 }
+
+@media screen and (max-width: 420px) {
+  .login-link__regestration {
+    margin-right: 14px;
+    font-size: 10px;
+  }
+
+  .login-link__login {
+    font-size: 10px;
+    padding: 5px 12px;
+  }
+}

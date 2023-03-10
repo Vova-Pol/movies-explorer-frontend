@@ -18,3 +18,9 @@
     padding: 0 30px;
   }
 }
+
+@media screen and (max-width: 420px) {
+  .header {
+    padding: 0 14px;
+  }
+}

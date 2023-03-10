@@ -43,3 +43,45 @@
     padding-right: 30px;
   }
 }
+
+@media screen and (max-width: 420px) {
+  .footer {
+    padding: 79px 10px 20px 10px;
+  }
+
+  .footer__text {
+    font-size: 12px;
+    line-height: 15px;
+    margin-bottom: 21px;
+  }
+
+  .footer__line {
+    margin-bottom: 30px;
+  }
+
+  .footer__container {
+    flex-direction: column-reverse;
+    align-items: center;
+  }
+
+  .footer__date {
+    font-size: 12px;
+    line-height: 15px;
+    color: #8b8b8b;
+  }
+
+  .footer__links-container {
+    margin-bottom: 30px;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .footer__link {
+    font-size: 12px;
+    line-height: 15px;
+  }
+
+  .footer__link:first-of-type {
+    margin: 0 0 12px 0;
+  }
+}

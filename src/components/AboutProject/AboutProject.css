@@ -17,8 +17,7 @@
 }
 
 .about-project__article {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
   grid-gap: 40px;
   margin-bottom: 110px;
 }
@@ -105,5 +104,68 @@
   .about-project__undertext {
     font-weight: 400;
     color: #a0a0a0;
+  }
+
+  .about-project__left-container {
+    width: 21%;
+  }
+
+  .about-project__right-container {
+    width: 79%;
+  }
+}
+
+@media screen and (max-width: 420px) {
+  .about-project {
+    padding: 70px 18px;
+  }
+
+  .about-project__title {
+    font-size: 18px;
+    line-height: 22px;
+    margin-bottom: 28px;
+  }
+
+  .about-project__line {
+    margin-bottom: 60px;
+  }
+
+  .about-project__article {
+    margin-bottom: 60px;
+    flex-direction: column;
+    grid-gap: 58px;
+  }
+
+  .about-project__article-title {
+    font-size: 18px;
+    line-height: 22px;
+    margin-bottom: 14px;
+  }
+
+  .about-project__article-text {
+    font-size: 11px;
+    line-height: 16px;
+  }
+
+  .about-project__left-container {
+    width: 35.2%;
+  }
+
+  .about-project__right-container {
+    width: 64.8%;
+  }
+
+  .about-project__infographics-left-container,
+  .about-project__infographics-right-container {
+    margin-bottom: 10px;
+    min-height: 35px;
+  }
+
+  .about-project__first-part,
+  .about-project__second-part,
+  .about-project__undertext {
+    font-weight: 400;
+    font-size: 11px;
+    line-height: 13px;
   }
 }
