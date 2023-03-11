@@ -13,3 +13,9 @@
     padding: 232px 0;
   }
 }
+
+@media screen and (max-width: 420px) {
+  .register {
+    padding: 56px 30px 30px 30px;
+  }
+}
