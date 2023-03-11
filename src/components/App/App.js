@@ -14,8 +14,8 @@ function App() {
       {/* <Register /> */}
       {/* <Profile /> */}
       {/* <Main /> */}
-      <Movies />
-      {/* <SavedMovies /> */}
+      {/* <Movies /> */}
+      <SavedMovies />
       {/* <NotFound /> */}
     </div>
   );
