@@ -12,10 +12,10 @@ function App() {
     <div className="app">
       {/* <Login /> */}
       {/* <Register /> */}
-      {/* <Profile /> */}
+      <Profile />
       {/* <Main /> */}
       {/* <Movies /> */}
-      <SavedMovies />
+      {/* <SavedMovies /> */}
       {/* <NotFound /> */}
     </div>
   );
