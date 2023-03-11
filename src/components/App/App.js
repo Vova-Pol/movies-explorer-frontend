@@ -11,12 +11,12 @@ function App() {
   return (
     <div className="app">
       {/* <Login /> */}
-      <Register />
+      {/* <Register /> */}
       {/* <Profile /> */}
       {/* <Main /> */}
       {/* <Movies /> */}
       {/* <SavedMovies /> */}
-      {/* <NotFound /> */}
+      <NotFound />
     </div>
   );
 }
