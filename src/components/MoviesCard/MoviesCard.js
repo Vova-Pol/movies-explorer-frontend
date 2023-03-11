@@ -5,8 +5,10 @@ function MoviesCard(props) {
     <li className="movies-card-list__item">
       <div className="movies-card-list__container">
         <div className="movies-card-list__info">
-          <p className="movies-card-list__title">{props.title}</p>
-          <p className="movies-card-list__duration">{props.duration}</p>
+          <div className="movies-card-list__text-container">
+            <p className="movies-card-list__title">{props.title}</p>
+            <p className="movies-card-list__duration">{props.duration}</p>
+          </div>
           <button
             className={
               props.isSaved

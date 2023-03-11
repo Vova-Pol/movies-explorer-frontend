@@ -9,7 +9,7 @@
   display: inline-block;
   width: 36px;
   height: 20px;
-  margin-right: 13px;
+  margin-right: 12px;
 }
 
 .search-form__switch-input {
@@ -58,4 +58,14 @@
   font-weight: 400;
   font-size: 12px;
   line-height: 18px;
+}
+
+@media screen and (max-width: 420px) {
+  .search-form__filter-checkbox {
+    margin-right: 13px;
+  }
+
+  .search-form__slider-title {
+    font-size: 11px;
+  }
 }

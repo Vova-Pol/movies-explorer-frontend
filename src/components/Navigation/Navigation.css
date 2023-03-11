@@ -32,7 +32,21 @@
     margin: 0 0 28px 0;
   }
 
+  .navigation__link:last-of-type {
+    margin-bottom: 0;
+  }
+
   .navigation__link:active {
     border-bottom: 2px solid #fff;
+  }
+}
+
+@media screen and (max-width: 420px) {
+  .navigation {
+    margin-bottom: 444px;
+  }
+
+  .navigation__link {
+    margin-bottom: 24px;
   }
 }
