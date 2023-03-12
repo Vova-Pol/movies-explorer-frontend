@@ -6,16 +6,25 @@ import Register from '../Register/Register';
 import SavedMovies from '../SavedMovies/SavedMovies';
 import NotFound from '../NotFound/NotFound';
 import Profile from '../Profile/Profile';
+import { Route, Routes } from 'react-router-dom';
 
 function App() {
   return (
     <div className="app">
-      {/* <Login /> */}
-      {/* <Register /> */}
-      {/* <Profile /> */}
-      {/* <Main /> */}
-      <Movies />
-      {/* <SavedMovies /> */}
+      <Routes>
+        <Route path="/signup" element={<Register />} />
+
+        <Route path="/signin" element={<Login />} />
+
+        <Route exact path="/" element={<Main />} />
+
+        <Route path="/movies" element={<Movies />} />
+
+        <Route path="/saved-movies" element={<SavedMovies />} />
+
+        <Route path="/profile" element={<Profile />} />
+      </Routes>
+
       {/* <NotFound /> */}
     </div>
   );
