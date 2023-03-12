@@ -6,8 +6,8 @@ function MoviesCardList(props) {
   return (
     <section className="movies-card-list">
       <ul className="movies-card-list__list">
-        {moviesList.map((card) => {
-          if (moviesList.indexOf(card) <= 6) {
+        {moviesList.map((card, index) => {
+          if (index <= 6) {
             return (
               <MoviesCard
                 key={card._id}
