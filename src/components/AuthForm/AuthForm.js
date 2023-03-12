@@ -6,10 +6,10 @@ function AuthForm(props) {
   return (
     <form className="auth-form">
       <div className="auth-form__inputs-container">
-        {inputsList.map((input) => {
+        {inputsList.map((input, index) => {
           return (
-            <>
-              <label for={input.name} className="auth-form__label">
+            <div className="auth-form__input-box" key={index}>
+              <label htmlFor={input.name} className="auth-form__label">
                 {input.title}
               </label>
               <input
@@ -18,7 +18,7 @@ function AuthForm(props) {
                 className="auth-form__input"
               ></input>
               <span className="auth-form__error-text"></span>
-            </>
+            </div>
           );
         })}
       </div>
