@@ -14,7 +14,7 @@ function Header(props) {
 
   return (
     <header className="header">
-      <Link className="header__logo"></Link>
+      <Link to="/" className="header__logo"></Link>
       {!loggedIn ? (
         <LoginLink />
       ) : isScreenLaptop ? (
