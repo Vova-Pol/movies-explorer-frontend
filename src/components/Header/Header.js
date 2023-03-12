@@ -5,6 +5,7 @@ import Navigation from '../Navigation/Navigation';
 import LoginLink from '../LoginLink/LoginLink';
 import ProfileLink from '../ProfileLink/ProfileLink';
 import MobileMenu from '../MobileMenu/MobileMenu';
+import Logo from '../Logo/Logo';
 
 function Header(props) {
   const { loggedIn } = props;
@@ -14,7 +15,9 @@ function Header(props) {
 
   return (
     <header className="header">
-      <Link to="/" className="header__logo"></Link>
+      <Link to="/" className="header__logo">
+        <Logo />
+      </Link>
       {!loggedIn ? (
         <LoginLink />
       ) : isScreenLaptop ? (
