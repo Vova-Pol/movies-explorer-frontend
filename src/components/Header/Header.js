@@ -5,7 +5,7 @@ import Navigation from '../Navigation/Navigation';
 import LoginLink from '../LoginLink/LoginLink';
 import ProfileLink from '../ProfileLink/ProfileLink';
 import MobileMenu from '../MobileMenu/MobileMenu';
-import Logo from '../Logo/Logo';
+import { ReactComponent as Logo } from '../../images/logo.svg';
 
 function Header(props) {
   const { loggedIn } = props;
