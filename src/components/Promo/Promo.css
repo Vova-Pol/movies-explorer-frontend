@@ -16,11 +16,7 @@
 }
 
 .promo__background {
-  background-image: url('../../images/background-icon.png');
-  width: 320px;
-  height: 320px;
   position: absolute;
-  background-size: contain;
 }
 
 @media screen and (max-width: 420px) {

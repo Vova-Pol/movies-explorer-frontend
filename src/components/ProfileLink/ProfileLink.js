@@ -1,5 +1,6 @@
 import './ProfileLink.css';
 import { Link } from 'react-router-dom';
+import { ReactComponent as AccountIcon } from '../../images/account-icon.svg';
 
 function ProfileLink() {
   return (
@@ -7,7 +8,7 @@ function ProfileLink() {
       <Link to="/profile" className="profile-link__link">
         Аккаунт
       </Link>
-      <div className="profile-link__icon"></div>
+      <AccountIcon />
     </div>
   );
 }

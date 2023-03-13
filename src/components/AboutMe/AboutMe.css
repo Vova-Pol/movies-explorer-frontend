@@ -95,8 +95,9 @@
 
 .about-me__portfolio-arrow {
   display: block;
-  background-image: url('../../images/portfolio-link-icon.png');
+  background-image: url('../../images/icon-arrow.svg');
   background-repeat: no-repeat;
+  background-position: center;
   width: 29px;
   height: 29px;
 }

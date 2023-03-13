@@ -1,4 +1,5 @@
 import './Promo.css';
+import { ReactComponent as BackgroundIcon } from '../../images/background-icon.svg';
 
 function Promo() {
   return (
@@ -6,7 +7,7 @@ function Promo() {
       <h1 className="promo__title">
         Учебный проект студента факультета Веб-разработки.
       </h1>
-      <div className="promo__background"></div>
+      <BackgroundIcon className="promo__background" />
     </section>
   );
 }
