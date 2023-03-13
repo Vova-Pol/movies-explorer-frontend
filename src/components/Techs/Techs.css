@@ -48,7 +48,7 @@
   grid-gap: 10px;
 }
 
-.tech__skill-item {
+.techs__skill-item {
   background-color: #303030;
   border-radius: 10px;
   min-height: 60px;
@@ -57,7 +57,7 @@
   align-items: center;
 }
 
-.tech__skill {
+.techs__skill {
   font-size: 14px;
   line-height: 17px;
   letter-spacing: -0.04em;
@@ -90,11 +90,11 @@
     grid-template-columns: repeat(auto-fill, 84px);
   }
 
-  .tech__skill-item {
+  .techs__skill-item {
     min-height: 57px;
   }
 
-  .tech__skill {
+  .techs__skill {
     font-size: 12px;
     line-height: 15px;
     margin: 21px 16px 21px 15px;

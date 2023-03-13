@@ -13,26 +13,26 @@ function Techs() {
         </p>
       </article>
       <ul className="techs__stack-list">
-        <li className="tech__skill-item">
-          <p className="tech__skill">HTML</p>
+        <li className="techs__skill-item">
+          <p className="techs__skill">HTML</p>
         </li>
-        <li className="tech__skill-item">
-          <p className="tech__skill">CSS</p>
+        <li className="techs__skill-item">
+          <p className="techs__skill">CSS</p>
         </li>
-        <li className="tech__skill-item">
-          <p className="tech__skill">JS</p>
+        <li className="techs__skill-item">
+          <p className="techs__skill">JS</p>
         </li>
-        <li className="tech__skill-item">
-          <p className="tech__skill">React</p>
+        <li className="techs__skill-item">
+          <p className="techs__skill">React</p>
         </li>
-        <li className="tech__skill-item">
-          <p className="tech__skill">Git</p>
+        <li className="techs__skill-item">
+          <p className="techs__skill">Git</p>
         </li>
-        <li className="tech__skill-item">
-          <p className="tech__skill">Express.js</p>
+        <li className="techs__skill-item">
+          <p className="techs__skill">Express.js</p>
         </li>
-        <li className="tech__skill-item">
-          <p className="tech__skill">mongoDB</p>
+        <li className="techs__skill-item">
+          <p className="techs__skill">mongoDB</p>
         </li>
       </ul>
     </section>
