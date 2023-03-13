@@ -24,29 +24,35 @@ function AboutMe() {
             Github
           </Link>
         </div>
-        {/* <div className="about-me__image-container"> */}
         <img
           className="about-me__image"
           src={studentImg}
           alt="фото студента"
         ></img>
-        {/* </div> */}
       </article>
       <h3 className="about-me__portfolio-title">Портфолио</h3>
       <ul className="about-me__portfolio-list">
-        <li className="about-me__portfolio-item">
-          <p className="about-me__portfolio-text">Статичный сайт</p>
-          <Link to="" className="about-me__portfolio-link"></Link>
+        <li>
+          <Link to="" className="about-me__portfolio-link">
+            <p className="about-me__portfolio-text">Статичный сайт</p>
+            <span className="about-me__portfolio-arrow"></span>
+          </Link>
         </li>
         <div className="about-me__portfolio-line"></div>
-        <li className="about-me__portfolio-item">
-          <p className="about-me__portfolio-text">Адаптивный сайт</p>
-          <Link to="" className="about-me__portfolio-link"></Link>
+        <li>
+          <Link to="" className="about-me__portfolio-link">
+            <p className="about-me__portfolio-text">Адаптивный сайт</p>
+            <span className="about-me__portfolio-arrow"></span>
+          </Link>
         </li>
         <div className="about-me__portfolio-line"></div>
-        <li className="about-me__portfolio-item">
-          <p className="about-me__portfolio-text">Одностраничное приложение</p>
-          <Link to="" className="about-me__portfolio-link"></Link>
+        <li>
+          <Link to="" className="about-me__portfolio-link">
+            <p className="about-me__portfolio-text">
+              Одностраничное приложение
+            </p>
+            <span className="about-me__portfolio-arrow"></span>
+          </Link>
         </li>
       </ul>
     </section>
