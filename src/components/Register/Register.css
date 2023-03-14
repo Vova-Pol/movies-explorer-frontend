@@ -1,0 +1,21 @@
+.register {
+  background-color: #202020;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 70px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+@media screen and (max-width: 768px) {
+  .register {
+    padding: 232px 0;
+  }
+}
+
+@media screen and (max-width: 420px) {
+  .register {
+    padding: 56px 30px 30px 30px;
+  }
+}
