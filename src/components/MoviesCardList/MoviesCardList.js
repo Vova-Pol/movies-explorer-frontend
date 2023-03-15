@@ -1,20 +1,20 @@
 import './MoviesCardList.css';
 import MoviesCard from '../MoviesCard/MoviesCard';
+import moviesApiURL from '../../utils/MoviesApi';
 
 function MoviesCardList(props) {
-  const { moviesList } = props;
   return (
     <section className="movies-card-list">
       <ul className="movies-card-list__list">
-        {moviesList.map((card, index) => {
+        {props.moviesList.map((card, index) => {
           if (index <= 6) {
             return (
               <MoviesCard
-                key={card._id}
-                title={card.title}
+                key={card.id}
+                title={card.nameRU}
                 duration={card.duration}
-                imgLink={card.imgLink}
-                isLiked={card.isLiked}
+                imgLink={card.image.formats.thumbnail.url}
+                isLiked={false}
                 isSaved={props.isSaved}
               />
             );

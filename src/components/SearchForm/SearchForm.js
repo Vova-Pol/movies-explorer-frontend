@@ -26,6 +26,7 @@ function SearchForm(props) {
           movie.nameRU.toLowerCase().includes(values.search),
       );
       props.onUpdateMoviesList(filteredMoviesList);
+      console.log(filteredMoviesList);
       resetForm();
       return;
     }
