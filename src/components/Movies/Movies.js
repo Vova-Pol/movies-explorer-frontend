@@ -10,15 +10,20 @@ import { movies } from '../../utils/data';
 
 function Movies() {
   const [loggedIn, setLoggedIn] = useState(true);
+  const [moviesList, setMoviesList] = useState([]);
+
+  function handleSearchForm(data) {
+    setMoviesList(data);
+  }
 
   return (
     <div className="movies">
       <Header loggedIn={loggedIn} />
       <main>
-        <SearchForm />
+        <SearchForm onUpdateMoviesList={handleSearchForm} />
         {/* <Preloader /> */}
-        <MoviesCardList isSaved={false} moviesList={movies} />
-        <More moviesList={movies} />
+        <MoviesCardList isSaved={false} moviesList={moviesList} />
+        <More moviesList={moviesList} />
       </main>
       <Footer />
     </div>
