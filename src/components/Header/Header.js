@@ -1,6 +1,6 @@
 import './Header.css';
 import { Link } from 'react-router-dom';
-import useResize from '../../hooks/use-resize';
+import useResize from '../../hooks/useResize';
 import Navigation from '../Navigation/Navigation';
 import LoginLink from '../LoginLink/LoginLink';
 import ProfileLink from '../ProfileLink/ProfileLink';

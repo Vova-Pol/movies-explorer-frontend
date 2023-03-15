@@ -1,6 +1,6 @@
 import './Navigation.css';
 import { Link } from 'react-router-dom';
-import useResize from '../../hooks/use-resize';
+import useResize from '../../hooks/useResize';
 
 function Navigation() {
   const { isScreenTablet, isScreenMobile } = useResize();
