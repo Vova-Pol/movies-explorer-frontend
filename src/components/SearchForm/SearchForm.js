@@ -1,9 +1,7 @@
 import './SearchForm.css';
+import { useState } from 'react';
 import { useFormAndValidation } from '../../hooks/useFormAndValidation';
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
-import getMoviesList from '../../utils/MoviesApi';
-import { movies } from '../../utils/data';
-import { useState } from 'react';
 
 function SearchForm(props) {
   const { values, handleChange, setValues, errors, isValid, resetForm } =
@@ -19,14 +17,7 @@ function SearchForm(props) {
       return;
     } else {
       setErrText('');
-      const moviesList = await getMoviesList();
-      const filteredMoviesList = moviesList.filter(
-        (movie) =>
-          movie.nameEN.toLowerCase().includes(values.search) ||
-          movie.nameRU.toLowerCase().includes(values.search),
-      );
-      props.onUpdateMoviesList(filteredMoviesList);
-      console.log(filteredMoviesList);
+      props.onHandleSubmit(values);
       resetForm();
       return;
     }
