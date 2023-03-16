@@ -43,9 +43,6 @@ function Movies() {
     setMoviesAmount(moviesAmount + 7);
   }
 
-  console.log(moviesList);
-  console.log(moviesList.length);
-  console.log(moviesAmount);
   return (
     <div className="movies">
       <Header loggedIn={loggedIn} />

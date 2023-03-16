@@ -82,6 +82,7 @@
 
   .movies-card-list__image {
     padding: 0;
+    width: 100%;
   }
 
   .movies-card-list__info {
