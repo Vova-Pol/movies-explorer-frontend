@@ -89,6 +89,7 @@
     flex-direction: row;
     justify-content: space-between;
     padding: 14px 16px 14px 12px;
+    max-width: 100%;
   }
 
   .movies-card-list__text-container {
