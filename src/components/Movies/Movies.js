@@ -7,7 +7,6 @@ import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Footer from '../Footer/Footer';
 import More from '../More/More';
 import getMoviesList from '../../utils/MoviesApi';
-import { movies } from '../../utils/data';
 
 function Movies() {
   const [loggedIn, setLoggedIn] = useState(true);

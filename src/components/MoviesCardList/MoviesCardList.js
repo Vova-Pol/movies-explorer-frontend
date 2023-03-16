@@ -1,12 +1,10 @@
 import './MoviesCardList.css';
 import { useState, useEffect } from 'react';
 import MoviesCard from '../MoviesCard/MoviesCard';
+import { nothingFoundText, serverErrorText } from '../../utils/constants';
 
 function MoviesCardList(props) {
   const [resultText, setResultText] = useState('');
-  const nothingFoundText = 'Ничего не найдено';
-  const serverErrorText =
-    'Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз';
 
   useEffect(() => {
     if (props.nothingFound) {

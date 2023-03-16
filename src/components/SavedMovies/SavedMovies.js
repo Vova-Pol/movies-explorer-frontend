@@ -5,17 +5,17 @@ import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Footer from '../Footer/Footer';
 import More from '../More/More';
-import { savedMovies } from '../../utils/data';
 
 function SavedMovies() {
   const [loggedIn, setLoggedIn] = useState(true);
+  const [moviesList, setMoviesList] = useState([]);
   return (
     <div className="saved-movies">
       <Header loggedIn={loggedIn} />
       <main>
         <SearchForm />
-        <MoviesCardList isSaved={true} moviesList={savedMovies} />
-        <More moviesList={savedMovies} />
+        <MoviesCardList isSaved={true} moviesList={moviesList} />
+        <More moviesList={moviesList} />
       </main>
       <Footer />
     </div>

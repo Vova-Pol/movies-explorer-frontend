@@ -1,14 +1,8 @@
 import './MoviesCard.css';
+import countDuration from '../../utils/utils';
+import { imagesUrl } from '../../utils/constants';
 
 function MoviesCard(props) {
-  const imageApiUrl = 'https://api.nomoreparties.co';
-
-  function countDuration(num) {
-    const hours = Math.floor(num / 60);
-    const minutes = num % 60;
-    return `${hours}ч ${minutes}м`;
-  }
-
   return (
     <li className="movies-card-list__item">
       <div className="movies-card-list__container">
@@ -32,7 +26,7 @@ function MoviesCard(props) {
         <img
           className="movies-card-list__image"
           alt={props.title}
-          src={`${imageApiUrl}${props.imgLink}`}
+          src={`${imagesUrl}${props.imgLink}`}
         ></img>
       </div>
     </li>
