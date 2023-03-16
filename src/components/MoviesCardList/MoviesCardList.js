@@ -22,7 +22,7 @@ function MoviesCardList(props) {
       ) : (
         <ul className="movies-card-list__list">
           {props.moviesList.map((card, index) => {
-            if (index <= 6) {
+            if (index <= props.moviesAmount - 1) {
               return (
                 <MoviesCard
                   key={card.id}

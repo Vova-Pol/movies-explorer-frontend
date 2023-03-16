@@ -14,6 +14,7 @@ function Movies() {
   const [isLoading, setIsLoading] = useState(false);
   const [isNothingFound, setIsNothingFound] = useState(false);
   const [isServerError, setIsServerError] = useState(false);
+  const [moviesAmount, setMoviesAmount] = useState(7);
 
   async function handleSearchForm(values) {
     try {
@@ -38,6 +39,13 @@ function Movies() {
     }
   }
 
+  function handleMoreButton() {
+    setMoviesAmount(moviesAmount + 7);
+  }
+
+  console.log(moviesList);
+  console.log(moviesList.length);
+  console.log(moviesAmount);
   return (
     <div className="movies">
       <Header loggedIn={loggedIn} />
@@ -51,9 +59,12 @@ function Movies() {
             moviesList={moviesList}
             nothingFound={isNothingFound}
             serverError={isServerError}
+            moviesAmount={moviesAmount}
           />
         )}
-        <More moviesList={moviesList} />
+        {moviesList.length >= moviesAmount ? (
+          <More moviesList={moviesList} onLoadMoreMovies={handleMoreButton} />
+        ) : null}
       </main>
       <Footer />
     </div>
