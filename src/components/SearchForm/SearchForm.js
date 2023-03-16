@@ -11,7 +11,6 @@ function SearchForm(props) {
 
   async function handleSubmit(evt) {
     evt.preventDefault();
-    console.log(values);
     if (!isValid || !values) {
       setErrText('Нужно ввести ключевое слово');
       return;

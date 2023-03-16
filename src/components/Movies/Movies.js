@@ -13,17 +13,23 @@ function Movies() {
   const [loggedIn, setLoggedIn] = useState(true);
   const [moviesList, setMoviesList] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [nothingFound, setNothingFound] = useState(false);
 
   async function handleSearchForm(values) {
     try {
       setIsLoading(true);
+      setNothingFound(false);
+
       const moviesList = await getMoviesList();
       const filteredMoviesList = moviesList.filter(
         (movie) =>
           movie.nameEN.toLowerCase().includes(values.search) ||
           movie.nameRU.toLowerCase().includes(values.search),
       );
+
       setMoviesList(filteredMoviesList);
+      setNothingFound(filteredMoviesList.length === 0);
+
       setIsLoading(false);
     } catch (err) {
       console.error(`Что-то пошло не так: ${err}`);
@@ -38,7 +44,11 @@ function Movies() {
         {isLoading ? (
           <Preloader />
         ) : (
-          <MoviesCardList isSaved={false} moviesList={moviesList} />
+          <MoviesCardList
+            isSaved={false}
+            moviesList={moviesList}
+            nothingFound={nothingFound}
+          />
         )}
         <More moviesList={moviesList} />
       </main>
