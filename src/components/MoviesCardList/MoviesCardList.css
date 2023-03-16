@@ -1,6 +1,5 @@
 .movies-card-list {
   padding: 70px 70px 0 70px;
-  min-height: 20px;
 }
 
 .movies-card-list__list {
@@ -9,7 +8,7 @@
   list-style: none;
 }
 
-.movies-card-list__not-found-text {
+.movies-card-list__result-text {
   display: block;
   text-align: center;
   color: #8b8b8b;

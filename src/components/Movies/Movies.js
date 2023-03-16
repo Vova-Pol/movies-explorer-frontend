@@ -13,12 +13,14 @@ function Movies() {
   const [loggedIn, setLoggedIn] = useState(true);
   const [moviesList, setMoviesList] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [nothingFound, setNothingFound] = useState(false);
+  const [isNothingFound, setIsNothingFound] = useState(false);
+  const [isServerError, setIsServerError] = useState(false);
 
   async function handleSearchForm(values) {
     try {
       setIsLoading(true);
-      setNothingFound(false);
+      setIsNothingFound(false);
+      setIsServerError(false);
 
       const moviesList = await getMoviesList();
       const filteredMoviesList = moviesList.filter(
@@ -28,10 +30,11 @@ function Movies() {
       );
 
       setMoviesList(filteredMoviesList);
-      setNothingFound(filteredMoviesList.length === 0);
+      setIsNothingFound(filteredMoviesList.length === 0);
 
       setIsLoading(false);
     } catch (err) {
+      setIsServerError(true);
       console.error(`Что-то пошло не так: ${err}`);
     }
   }
@@ -47,7 +50,8 @@ function Movies() {
           <MoviesCardList
             isSaved={false}
             moviesList={moviesList}
-            nothingFound={nothingFound}
+            nothingFound={isNothingFound}
+            serverError={isServerError}
           />
         )}
         <More moviesList={moviesList} />
