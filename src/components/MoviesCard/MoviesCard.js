@@ -1,8 +1,20 @@
 import './MoviesCard.css';
+import { useLocation } from 'react-router-dom';
 import countDuration from '../../utils/utils';
 import { imagesUrl } from '../../utils/constants';
+import { useState } from 'react';
 
 function MoviesCard(props) {
+  const pathname = useLocation().pathname;
+  const isOnSearchPage = pathname === '/movies';
+  const isOnSavedPage = pathname === '/saved-movies';
+
+  const [isLiked, setIsLiked] = useState(false);
+
+  function handleLikeButton() {
+    setIsLiked(!isLiked);
+  }
+
   return (
     <li className="movies-card-list__item">
       <div className="movies-card-list__container">
@@ -13,15 +25,18 @@ function MoviesCard(props) {
               {countDuration(props.duration)}
             </p>
           </div>
-          <button
-            className={
-              props.isSaved
-                ? 'movies-card-list__icon movies-card-list__icon_type_saved'
-                : props.isLiked
-                ? 'movies-card-list__icon movies-card-list__icon_type_liked'
-                : 'movies-card-list__icon movies-card-list__icon_type_unliked'
-            }
-          ></button>
+          {isOnSavedPage ? (
+            <button className="movies-card-list__icon movies-card-list__icon_type_saved"></button>
+          ) : isOnSearchPage ? (
+            <button
+              onClick={handleLikeButton}
+              className={
+                isLiked
+                  ? 'movies-card-list__icon movies-card-list__icon_type_liked'
+                  : 'movies-card-list__icon movies-card-list__icon_type_unliked'
+              }
+            ></button>
+          ) : null}
         </div>
         <img
           className="movies-card-list__image"

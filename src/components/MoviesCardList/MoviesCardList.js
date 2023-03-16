@@ -29,7 +29,6 @@ function MoviesCardList(props) {
                   title={card.nameRU}
                   duration={card.duration}
                   imgLink={card.image.formats.thumbnail.url}
-                  isLiked={false}
                   isSaved={props.isSaved}
                 />
               );
