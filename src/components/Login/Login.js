@@ -2,6 +2,7 @@ import './Login.css';
 import AuthTop from '../AuthTop/AuthTop';
 import AuthBottom from '../AuthBottom/AuthBottom';
 import { useFormAndValidation } from '../../hooks/useFormAndValidation';
+import { emailRegex, passwordRegex } from '../../utils/constants';
 
 function Login() {
   const { values, handleChange, setValues, errors, isValid, resetForm } =
@@ -30,6 +31,7 @@ function Login() {
           onChange={handleChange}
           value={values.email}
           required
+          pattern={emailRegex.source}
         ></input>
         <span className="login__error-text">{isValid ? '' : errors.email}</span>
 
@@ -43,6 +45,7 @@ function Login() {
           onChange={handleChange}
           value={values.password}
           required
+          pattern={passwordRegex.source}
         ></input>
         <span className="login__error-text">
           {isValid ? '' : errors.password}

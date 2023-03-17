@@ -2,6 +2,7 @@ import './Register.css';
 import AuthTop from '../AuthTop/AuthTop';
 import AuthBottom from '../AuthBottom/AuthBottom';
 import { useFormAndValidation } from '../../hooks/useFormAndValidation';
+import { nameRegex, emailRegex, passwordRegex } from '../../utils/constants';
 
 function Register() {
   const { values, handleChange, setValues, errors, isValid, resetForm } =
@@ -31,6 +32,9 @@ function Register() {
           onChange={handleChange}
           value={values.name}
           required
+          minLength="2"
+          maxLength="30"
+          pattern={nameRegex.source}
         ></input>
         <span className="register__error-text">
           {isValid ? '' : errors.name}
@@ -46,6 +50,7 @@ function Register() {
           onChange={handleChange}
           value={values.email}
           required
+          pattern={emailRegex.source}
         ></input>
         <span className="register__error-text">
           {isValid ? '' : errors.email}
@@ -61,6 +66,8 @@ function Register() {
           onChange={handleChange}
           value={values.password}
           required
+          minLength="8"
+          pattern={passwordRegex.source}
         ></input>
         <span className="register__error-text">
           {isValid ? '' : errors.password}
