@@ -5,9 +5,8 @@ import { imagesUrl } from '../../utils/constants';
 import { useState } from 'react';
 
 function MoviesCard(props) {
-  const pathname = useLocation().pathname;
-  const isOnSearchPage = pathname === '/movies';
-  const isOnSavedPage = pathname === '/saved-movies';
+  const isOnSearchPage = useLocation().pathname === '/movies';
+  const isOnSavedPage = useLocation().pathname === '/saved-movies';
 
   const [isLiked, setIsLiked] = useState(false);
 

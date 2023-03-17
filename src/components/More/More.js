@@ -3,11 +3,9 @@ import './More.css';
 function More(props) {
   return (
     <div className="more">
-      {props.moviesList.length > 7 ? (
-        <button className="more__button" onClick={props.onLoadMoreMovies}>
-          Ещё
-        </button>
-      ) : null}
+      <button className="more__button" onClick={props.onLoadMoreMovies}>
+        Ещё
+      </button>
     </div>
   );
 }

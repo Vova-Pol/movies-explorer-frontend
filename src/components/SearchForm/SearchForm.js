@@ -1,13 +1,16 @@
 import './SearchForm.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import { useFormAndValidation } from '../../hooks/useFormAndValidation';
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 
 function SearchForm(props) {
   const { values, handleChange, setValues, errors, isValid, resetForm } =
-    useFormAndValidation('');
+    useFormAndValidation({ search: '' });
 
   const [errText, setErrText] = useState('');
+
+  const isSearchPage = useLocation().pathname === '/movies';
 
   async function handleSubmit(evt) {
     evt.preventDefault();
@@ -17,10 +20,17 @@ function SearchForm(props) {
     } else {
       setErrText('');
       props.onHandleSubmit(values);
-      resetForm();
       return;
     }
   }
+
+  useEffect(() => {
+    const lastSearch = localStorage.getItem('search-input-value');
+
+    if (isSearchPage && lastSearch) {
+      setValues({ ...values, search: lastSearch });
+    }
+  }, []);
 
   return (
     <section className="search-form">
@@ -30,6 +40,7 @@ function SearchForm(props) {
             type="text"
             name="search"
             className="search-form__input"
+            value={values.search}
             placeholder="Фильм"
             required
             onChange={handleChange}

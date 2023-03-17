@@ -10,6 +10,7 @@ import More from '../More/More';
 import getMoviesList from '../../utils/MoviesApi';
 
 function Movies() {
+  const { screenWidth, isScreenLaptop, isScreenMobile } = useResize();
   const [loggedIn, setLoggedIn] = useState(true);
   const [moviesList, setMoviesList] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -17,7 +18,6 @@ function Movies() {
   const [isServerError, setIsServerError] = useState(false);
   const [moviesAmount, setMoviesAmount] = useState(0);
   const [moviesAmountStep, setMoviesAmountStep] = useState(0);
-  const { screenWidth, isScreenLaptop, isScreenMobile } = useResize();
 
   useEffect(() => {
     if (isScreenLaptop) {
@@ -27,10 +27,18 @@ function Movies() {
       setMoviesAmount(5);
       setMoviesAmountStep(5);
     }
+
+    const currentList = JSON.parse(localStorage.getItem('movies-list'));
+    if (currentList) {
+      setMoviesList(currentList);
+    }
   }, []);
 
   async function handleSearchForm(values) {
     try {
+      localStorage.removeItem('movies-list');
+      localStorage.removeItem('search-input-value');
+
       setIsLoading(true);
       setIsNothingFound(false);
       setIsServerError(false);
@@ -44,8 +52,10 @@ function Movies() {
 
       setMoviesList(filteredMoviesList);
       setIsNothingFound(filteredMoviesList.length === 0);
-
       setIsLoading(false);
+
+      localStorage.setItem('movies-list', JSON.stringify(filteredMoviesList));
+      localStorage.setItem('search-input-value', values.search);
     } catch (err) {
       setIsServerError(true);
       console.error(`Что-то пошло не так: ${err}`);
@@ -73,7 +83,7 @@ function Movies() {
           />
         )}
         {moviesList.length >= moviesAmount ? (
-          <More moviesList={moviesList} onLoadMoreMovies={handleMoreButton} />
+          <More onLoadMoreMovies={handleMoreButton} />
         ) : null}
       </main>
       <Footer />

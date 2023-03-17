@@ -22,7 +22,7 @@ function SavedMovies() {
           moviesList={moviesList}
           moviesAmount={moviesAmount}
         />
-        <More moviesList={moviesList} />
+        {moviesList.length > 7 ? <More /> : null}
       </main>
       <Footer />
     </div>
