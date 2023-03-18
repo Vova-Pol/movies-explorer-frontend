@@ -73,7 +73,11 @@ function Register() {
           {isValid ? '' : errors.password}
         </span>
 
-        <button type="submit" className="register__submit-btn">
+        <button
+          type="submit"
+          className="register__submit-btn"
+          disabled={isValid ? false : true}
+        >
           Зарегистрироваться
         </button>
       </form>

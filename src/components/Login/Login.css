@@ -67,6 +67,12 @@
   margin-bottom: 16px;
 }
 
+.login__submit-btn:disabled {
+  background-color: #8b8b8b;
+  color: #f4f4f4;
+  cursor: default;
+}
+
 .login__submit-btn:hover {
   opacity: 0.8;
 }

@@ -3,7 +3,7 @@ import React from 'react';
 export function useFormAndValidation(initialInputValues) {
   const [values, setValues] = React.useState(initialInputValues);
   const [errors, setErrors] = React.useState(initialInputValues);
-  const [isValid, setIsValid] = React.useState(true);
+  const [isValid, setIsValid] = React.useState(false);
 
   const handleChange = (evt) => {
     const { name, value } = evt.target;
@@ -18,5 +18,12 @@ export function useFormAndValidation(initialInputValues) {
     setIsValid(true);
   };
 
-  return { values, handleChange, setValues, errors, isValid, resetForm };
+  return {
+    values,
+    handleChange,
+    setValues,
+    errors,
+    isValid,
+    resetForm,
+  };
 }

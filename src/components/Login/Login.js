@@ -45,13 +45,18 @@ function Login() {
           onChange={handleChange}
           value={values.password}
           required
+          minLength="8"
           pattern={passwordRegex.source}
         ></input>
         <span className="login__error-text">
           {isValid ? '' : errors.password}
         </span>
 
-        <button type="submit" className="login__submit-btn">
+        <button
+          type="submit"
+          className="login__submit-btn"
+          disabled={isValid ? false : true}
+        >
           Войти
         </button>
       </form>
