@@ -1,15 +1,12 @@
 const mainApiUrl = 'https://api.movie-vova-pol.nomoredomains.work';
 // const mainApiUrl = 'http://localhost:3001';
 
-// turn on cookies:
-// credentials: 'include'
-
 const init = {
-  method: 'GET',
   headers: {
     Accept: 'application/json',
     'Content-Type': 'application/json',
   },
+  credentials: 'include',
 };
 
 export function registerUser(data) {
@@ -26,6 +23,7 @@ export function registerUser(data) {
 }
 
 export function loginUser(data) {
+  console.log(data);
   init.method = 'POST';
   init.body = JSON.stringify(data);
 
@@ -38,7 +36,21 @@ export function loginUser(data) {
   });
 }
 
+export function saveMovie(data) {
+  init.method = 'POST';
+  init.body = JSON.stringify(data);
+
+  return fetch(`${mainApiUrl}/movies`, init).then((res) => {
+    if (res.ok) {
+      return res.json();
+    } else {
+      return Promise.reject('Сервер ответил ошибкой: ' + res.status);
+    }
+  });
+}
+
 export function getSavedMovies() {
+  init.method = 'GET';
   return fetch(`${mainApiUrl}/movies`, init).then((res) => {
     if (res.ok) {
       return res.json();
