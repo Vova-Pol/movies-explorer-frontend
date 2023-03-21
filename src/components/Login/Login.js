@@ -4,7 +4,7 @@ import AuthBottom from '../AuthBottom/AuthBottom';
 import { useFormAndValidation } from '../../hooks/useFormAndValidation';
 import { emailRegex, passwordRegex } from '../../utils/constants';
 
-function Login() {
+function Login(props) {
   const { values, handleChange, setValues, errors, isValid, resetForm } =
     useFormAndValidation({
       email: '',
@@ -16,11 +16,16 @@ function Login() {
   const linkPath = '/signup';
   const linkText = 'Регистрация';
 
+  function handleSubmit(evt) {
+    evt.preventDefault();
+    props.handleLogin(values);
+  }
+
   return (
     <div className="login">
       <AuthTop title={formGreeting} />
 
-      <form className="login__form" noValidate>
+      <form className="login__form" noValidate onSubmit={handleSubmit}>
         <label htmlFor="email" className="login__label">
           E-mail
         </label>

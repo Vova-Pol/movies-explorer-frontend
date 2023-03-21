@@ -18,6 +18,16 @@ function App() {
     email: '',
   });
 
+  function clearLocalStorageMoviesList() {
+    if (
+      localStorage.getItem('movies-list') ||
+      localStorage.getItem('search-input-value')
+    ) {
+      localStorage.removeItem('movies-list');
+      localStorage.removeItem('search-input-value');
+    }
+  }
+
   function handleRegister(body) {
     registerUser(body)
       .then((res) => {
@@ -29,22 +39,31 @@ function App() {
           };
 
           setCurrentUser(registeredUser);
+          clearLocalStorageMoviesList();
           navigateTo('/movies');
-
-          if (
-            localStorage.getItem('movies-list') ||
-            localStorage.getItem('search-input-value')
-          ) {
-            localStorage.removeItem('movies-list');
-            localStorage.removeItem('search-input-value');
-          }
         }
       })
       .catch((err) => {
         console.error(err);
       });
   }
+
+  function handleLogin(body) {
+    loginUser(body).then((res) => {
+      const loggedInUser = {
+        name: res.data.name,
+        email: res.data.email,
+        _id: res.data._id,
+      };
+
+      setCurrentUser(loggedInUser);
+      clearLocalStorageMoviesList();
+      navigateTo('/movies');
+    });
+  }
+
   console.log(currentUser);
+
   return (
     <div className="app">
       <Routes>
@@ -53,7 +72,7 @@ function App() {
           element={<Register handleRegister={handleRegister} />}
         />
 
-        <Route path="/signin" element={<Login />} />
+        <Route path="/signin" element={<Login handleLogin={handleLogin} />} />
 
         <Route exact path="/" element={<Main />} />
 
