@@ -9,7 +9,7 @@ import Register from '../Register/Register';
 import SavedMovies from '../SavedMovies/SavedMovies';
 import NotFound from '../NotFound/NotFound';
 import Profile from '../Profile/Profile';
-import { registerUser, loginUser, getSavedMovies } from '../../utils/MainApi';
+import { mainApi } from '../../utils/MainApi';
 
 function App() {
   const navigateTo = useNavigate();
@@ -29,7 +29,8 @@ function App() {
   }
 
   function handleRegister(body) {
-    registerUser(body)
+    mainApi
+      .registerUser(body)
       .then((res) => {
         if (res) {
           const registeredUser = {
@@ -49,7 +50,7 @@ function App() {
   }
 
   function handleLogin(body) {
-    loginUser(body).then((res) => {
+    mainApi.loginUser(body).then((res) => {
       const loggedInUser = {
         name: res.data.name,
         email: res.data.email,

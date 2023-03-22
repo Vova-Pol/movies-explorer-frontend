@@ -1,61 +1,59 @@
 const mainApiUrl = 'https://api.movie-vova-pol.nomoredomains.work';
 // const mainApiUrl = 'http://localhost:3001';
 
-const init = {
-  headers: {
-    Accept: 'application/json',
-    'Content-Type': 'application/json',
-  },
-  credentials: 'include',
-};
+class Api {
+  constructor(url) {
+    this._baseUrl = url;
+  }
 
-export function registerUser(data) {
-  init.method = 'POST';
-  init.body = JSON.stringify(data);
+  _sendRequest(urlEnding, method, data = null) {
+    const init = {
+      method: method,
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include',
+    };
 
-  return fetch(`${mainApiUrl}/signup`, init).then((res) => {
-    if (res.ok) {
-      return res.json();
-    } else {
-      return Promise.reject('Сервер ответил ошибкой: ' + res.status);
+    const url = this._baseUrl + urlEnding;
+
+    if (method !== 'GET' && method !== 'DELETE') {
+      init.body = JSON.stringify(data);
     }
-  });
+
+    return fetch(url, init).then((res) => {
+      if (res.ok) {
+        return res.json();
+      } else {
+        return Promise.reject('Сервер ответил ошибкой: ' + res.status);
+      }
+    });
+  }
+
+  // User Methods
+
+  registerUser(data) {
+    return this._sendRequest('/signup', 'POST', data);
+  }
+
+  loginUser(data) {
+    return this._sendRequest('/signin', 'POST', data);
+  }
+
+  // Movies Methods
+
+  saveMovie(data) {
+    return this._sendRequest('/movies', 'POST', data);
+  }
+
+  getSavedMovies() {
+    return this._sendRequest('/movies', 'GET');
+  }
+
+  deleteMovie(movieId) {
+    return this._sendRequest(`/movies/${movieId}`, 'DELETE');
+  }
 }
 
-export function loginUser(data) {
-  console.log(data);
-  init.method = 'POST';
-  init.body = JSON.stringify(data);
-
-  return fetch(`${mainApiUrl}/signin`, init).then((res) => {
-    if (res.ok) {
-      return res.json();
-    } else {
-      return Promise.reject('Сервер ответил ошибкой: ' + res.status);
-    }
-  });
-}
-
-export function saveMovie(data) {
-  init.method = 'POST';
-  init.body = JSON.stringify(data);
-
-  return fetch(`${mainApiUrl}/movies`, init).then((res) => {
-    if (res.ok) {
-      return res.json();
-    } else {
-      return Promise.reject('Сервер ответил ошибкой: ' + res.status);
-    }
-  });
-}
-
-export function getSavedMovies() {
-  init.method = 'GET';
-  return fetch(`${mainApiUrl}/movies`, init).then((res) => {
-    if (res.ok) {
-      return res.json();
-    } else {
-      return Promise.reject('Сервер ответил ошибкой: ' + res.status);
-    }
-  });
-}
+export const mainApi = new Api(mainApiUrl);

@@ -47,7 +47,7 @@
   background-color: #ffffff00;
 }
 
-.movies-card-list__icon_type_unliked {
+.movies-card-list__icon_type_disliked {
   background-image: url('../../images/icon-unliked.svg');
 }
 
@@ -55,7 +55,7 @@
   background-image: url('../../images/icon-liked.svg');
 }
 
-.movies-card-list__icon_type_saved {
+.movies-card-list__icon_type_cross {
   background-image: url('../../images/icon-saved.svg');
   background-position: center;
   background-repeat: no-repeat;

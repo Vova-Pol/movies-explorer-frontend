@@ -1,5 +1,6 @@
 import './Movies.css';
 import { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import useResize from '../../hooks/useResize';
 import Header from '../Header/Header';
 import SearchForm from '../SearchForm/SearchForm';
@@ -19,6 +20,8 @@ function Movies() {
   const [moviesAmount, setMoviesAmount] = useState(0);
   const [moviesAmountStep, setMoviesAmountStep] = useState(0);
 
+  // Вывод фильмов в зависимости от разрешения
+
   useEffect(() => {
     if (isScreenLaptop) {
       setMoviesAmount(7);
@@ -27,12 +30,18 @@ function Movies() {
       setMoviesAmount(5);
       setMoviesAmountStep(5);
     }
+  }, []);
 
+  // Вывод фильмов из Локального Хранилища
+
+  useEffect(() => {
     const currentList = JSON.parse(localStorage.getItem('movies-list'));
     if (currentList) {
       setMoviesList(currentList);
     }
   }, []);
+
+  // Поиск
 
   async function handleSearchForm(values) {
     try {
@@ -62,6 +71,8 @@ function Movies() {
     }
   }
 
+  // Кнопка "Ещё"
+
   function handleMoreButton() {
     setMoviesAmount(moviesAmount + moviesAmountStep);
   }
@@ -75,7 +86,6 @@ function Movies() {
           <Preloader />
         ) : (
           <MoviesCardList
-            isSaved={false}
             moviesList={moviesList}
             nothingFound={isNothingFound}
             serverError={isServerError}

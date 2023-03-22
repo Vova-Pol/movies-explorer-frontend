@@ -5,12 +5,34 @@ import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Footer from '../Footer/Footer';
 import More from '../More/More';
-import getMoviesList from '../../utils/MoviesApi';
+import { mainApi } from '../../utils/MainApi';
 
 function SavedMovies() {
   const [loggedIn, setLoggedIn] = useState(true);
   const [moviesList, setMoviesList] = useState([]);
   const moviesAmount = 7;
+  const isNothingFound = false;
+  const isServerError = false;
+
+  useEffect(() => {
+    mainApi
+      .getSavedMovies()
+      .then((res) => {
+        console.log(res);
+        console.log('SavedMovies is rendered');
+        setMoviesList(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
+  function handleDeleteMovie(_id) {
+    setMoviesList(moviesList.filter((movie) => movie._id !== _id));
+  }
+
+  // Не работает форма поиска
+  // Что делать с кнопкой Ещё?
 
   return (
     <div className="saved-movies">
@@ -18,9 +40,11 @@ function SavedMovies() {
       <main>
         <SearchForm />
         <MoviesCardList
-          isSaved={true}
           moviesList={moviesList}
           moviesAmount={moviesAmount}
+          nothingFound={isNothingFound}
+          serverError={isServerError}
+          onDeleteMovie={handleDeleteMovie}
         />
         {moviesList.length > 7 ? <More /> : null}
       </main>

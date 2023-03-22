@@ -1,10 +1,13 @@
 import './MoviesCardList.css';
+import { useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import MoviesCard from '../MoviesCard/MoviesCard';
 import { nothingFoundText, serverErrorText } from '../../utils/constants';
 
 function MoviesCardList(props) {
   const [resultText, setResultText] = useState('');
+  const isOnSearchPage = useLocation().pathname === '/movies';
+  const isOnSavedPage = useLocation().pathname === '/saved-movies';
 
   useEffect(() => {
     if (props.nothingFound) {
@@ -14,6 +17,10 @@ function MoviesCardList(props) {
       setResultText(serverErrorText);
     }
   }, []);
+
+  function handleDeleteMovie(_id) {
+    props.onDeleteMovie(_id);
+  }
 
   return (
     <section className="movies-card-list">
@@ -25,11 +32,9 @@ function MoviesCardList(props) {
             if (index <= props.moviesAmount - 1) {
               return (
                 <MoviesCard
-                  key={card.id}
-                  title={card.nameRU}
-                  duration={card.duration}
-                  imgLink={card.image.formats.thumbnail.url}
-                  isSaved={props.isSaved}
+                  key={isOnSearchPage ? card.id : card._id}
+                  cardData={card}
+                  handleDeleteMovie={handleDeleteMovie}
                 />
               );
             } else {
