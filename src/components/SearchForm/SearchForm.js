@@ -10,11 +10,22 @@ function SearchForm(props) {
 
   const [errText, setErrText] = useState('');
 
+  useEffect(() => {
+    const lastSearch = localStorage.getItem('search-input-value');
+
+    if (isSearchPage && lastSearch) {
+      setValues({ search: lastSearch });
+      console.log(values);
+    }
+  }, []);
+
   const isSearchPage = useLocation().pathname === '/movies';
 
   async function handleSubmit(evt) {
     evt.preventDefault();
-    if (!isValid || !values) {
+    console.log(values);
+    console.log(isValid);
+    if (!values) {
       setErrText('Нужно ввести ключевое слово');
       return;
     } else {
@@ -23,14 +34,6 @@ function SearchForm(props) {
       return;
     }
   }
-
-  useEffect(() => {
-    const lastSearch = localStorage.getItem('search-input-value');
-
-    if (isSearchPage && lastSearch) {
-      setValues({ ...values, search: lastSearch });
-    }
-  }, []);
 
   return (
     <section className="search-form">

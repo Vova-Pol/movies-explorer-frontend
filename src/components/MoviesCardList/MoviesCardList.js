@@ -22,7 +22,6 @@ function MoviesCardList(props) {
   function handleDeleteMovie(_id) {
     props.onDeleteMovie(_id);
   }
-  console.log(props.savedMoviesList);
 
   return (
     <section className="movies-card-list">

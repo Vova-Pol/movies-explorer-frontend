@@ -81,8 +81,6 @@ function Movies() {
     setMoviesAmount(moviesAmount + moviesAmountStep);
   }
 
-  console.log(moviesList);
-  console.log(savedMoviesList);
   return (
     <div className="movies">
       <Header loggedIn={loggedIn} />

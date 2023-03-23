@@ -55,17 +55,15 @@ function MoviesCard(props) {
         .then((res) => {
           if (res) {
             setIsLiked(true);
-            console.log({ liked: res });
           }
         })
         .catch((err) => {
-          console.log(err);
+          console.error(err);
         });
     } else {
       mainApi.deleteMovie(props.savedId).then((res) => {
         if (res) {
           setIsLiked(false);
-          console.log({ deleted: res });
         }
       });
     }
@@ -81,7 +79,7 @@ function MoviesCard(props) {
         }
       })
       .catch((err) => {
-        console.log(err);
+        console.error(err);
       });
   }
   return (

@@ -28,7 +28,7 @@ function SavedMovies() {
 
   // Не работает форма поиска
   // Что делать с кнопкой Ещё?
-  // console.log(moviesList);
+
   return (
     <div className="saved-movies">
       <Header loggedIn={loggedIn} />
