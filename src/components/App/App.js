@@ -71,6 +71,24 @@ function App() {
       });
   }
 
+  function handleLogout() {
+    mainApi
+      .logoutUser(currentUser)
+      .then((res) => {
+        if (res) {
+          console.log(res);
+          setCurrentUser({
+            name: '',
+            email: '',
+          });
+          navigateTo('/');
+        }
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }
+
   console.log(currentUser);
 
   return (
@@ -106,7 +124,7 @@ function App() {
           path="/profile"
           element={
             <CurrentUserContext.Provider value={currentUser}>
-              <Profile />
+              <Profile onLogout={handleLogout} />
             </CurrentUserContext.Provider>
           }
         />

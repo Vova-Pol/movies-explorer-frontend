@@ -35,6 +35,9 @@ function MoviesCard(props) {
     }
   }, []);
 
+  // Кнопка лайк/дизлайк так же должна менять 'saved-movies-list'
+  // в локальном хранилище
+
   function handleLikeButton() {
     const savedMovieData = {
       country,

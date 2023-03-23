@@ -3,9 +3,10 @@ import { useState, useContext } from 'react';
 import Header from '../Header/Header';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
-function Profile() {
+function Profile(props) {
   const [loggedIn, setLoggedIn] = useState(true);
   const currentUser = useContext(CurrentUserContext);
+
   return (
     <div className="profile">
       <Header loggedIn={loggedIn} />
@@ -24,7 +25,11 @@ function Profile() {
           <button type="button" className="profile__edit-button">
             Редактировать
           </button>
-          <button type="button" className="profile__exit-button">
+          <button
+            type="button"
+            className="profile__exit-button"
+            onClick={props.onLogout}
+          >
             Выйти из аккаунта
           </button>
         </div>

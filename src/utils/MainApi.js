@@ -41,6 +41,10 @@ class Api {
     return this._sendRequest('/signin', 'POST', data);
   }
 
+  logoutUser(data) {
+    return this._sendRequest('/signout', 'POST', data);
+  }
+
   // Movies Methods
 
   saveMovie(data) {
