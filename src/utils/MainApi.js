@@ -45,6 +45,10 @@ class Api {
     return this._sendRequest('/signout', 'POST', data);
   }
 
+  updateUserInfo(data) {
+    return this._sendRequest('/users/me', 'PATCH', data);
+  }
+
   // Movies Methods
 
   saveMovie(data) {

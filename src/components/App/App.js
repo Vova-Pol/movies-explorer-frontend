@@ -89,6 +89,20 @@ function App() {
       });
   }
 
+  function handleUpdateUserInfo(data) {
+    mainApi
+      .updateUserInfo(data)
+      .then((res) => {
+        if (res) {
+          console.log(res);
+          setCurrentUser(res.data);
+        }
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }
+
   console.log(currentUser);
 
   return (
@@ -124,7 +138,10 @@ function App() {
           path="/profile"
           element={
             <CurrentUserContext.Provider value={currentUser}>
-              <Profile onLogout={handleLogout} />
+              <Profile
+                onLogout={handleLogout}
+                onUpdateUserInfo={handleUpdateUserInfo}
+              />
             </CurrentUserContext.Provider>
           }
         />

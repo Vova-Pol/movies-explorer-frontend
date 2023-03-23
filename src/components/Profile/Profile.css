@@ -18,10 +18,17 @@
   margin: 0 0 123px 0;
 }
 
+.profile__form {
+  max-width: 410px;
+  width: 100%;
+  margin-bottom: 16px;
+  display: flex;
+  flex-direction: column;
+}
+
 .profile__info-container {
   display: flex;
   justify-content: space-between;
-  max-width: 410px;
   width: 100%;
   margin-bottom: 16px;
 }
@@ -35,6 +42,17 @@
   font-size: 11px;
   line-height: 13px;
   margin: 0;
+}
+
+.profile__input {
+  font-weight: 500;
+  font-size: 11px;
+  line-height: 13px;
+  background-color: inherit;
+  color: #fff;
+  text-align: right;
+  padding: 0;
+  border: none;
 }
 
 .profile__line {
@@ -57,7 +75,10 @@
 .profile__edit-button {
   color: #fff;
   font-weight: 400;
-  margin-bottom: 16px;
+}
+
+.profile__edit-button:disabled {
+  opacity: 0.3;
 }
 
 .profile__exit-button {
