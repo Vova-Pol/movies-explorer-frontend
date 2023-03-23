@@ -1,16 +1,14 @@
 import './SavedMovies.css';
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Header from '../Header/Header';
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Footer from '../Footer/Footer';
-import More from '../More/More';
 import { mainApi } from '../../utils/MainApi';
 
 function SavedMovies() {
   const [loggedIn, setLoggedIn] = useState(true);
   const [moviesList, setMoviesList] = useState([]);
-  const moviesAmount = 7;
   const isNothingFound = false;
   const isServerError = false;
 
@@ -27,7 +25,6 @@ function SavedMovies() {
   }
 
   // Не работает форма поиска
-  // Что делать с кнопкой Ещё?
 
   return (
     <div className="saved-movies">
@@ -36,12 +33,11 @@ function SavedMovies() {
         <SearchForm />
         <MoviesCardList
           moviesList={moviesList}
-          moviesAmount={moviesAmount}
+          moviesAmount={moviesList.length}
           nothingFound={isNothingFound}
           serverError={isServerError}
           onDeleteMovie={handleDeleteMovie}
         />
-        {moviesList.length > 7 ? <More /> : null}
       </main>
       <Footer />
     </div>
