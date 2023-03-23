@@ -56,6 +56,7 @@ function Login(props) {
         <span className="login__error-text">
           {isValid ? '' : errors.password}
         </span>
+        <p className="login__server-error-text">{props.serverErrorText}</p>
 
         <button
           type="submit"

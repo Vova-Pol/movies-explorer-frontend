@@ -17,6 +17,7 @@ function App() {
     name: '',
     email: '',
   });
+  const [serverErrorText, setServerErrorText] = useState('');
 
   function clearLocalStorageMoviesList() {
     if (
@@ -46,21 +47,28 @@ function App() {
       })
       .catch((err) => {
         console.error(err);
+        setServerErrorText(err);
       });
   }
 
   function handleLogin(body) {
-    mainApi.loginUser(body).then((res) => {
-      const loggedInUser = {
-        name: res.data.name,
-        email: res.data.email,
-        _id: res.data._id,
-      };
+    mainApi
+      .loginUser(body)
+      .then((res) => {
+        const loggedInUser = {
+          name: res.data.name,
+          email: res.data.email,
+          _id: res.data._id,
+        };
 
-      setCurrentUser(loggedInUser);
-      clearLocalStorageMoviesList();
-      navigateTo('/movies');
-    });
+        setCurrentUser(loggedInUser);
+        clearLocalStorageMoviesList();
+        navigateTo('/movies');
+      })
+      .catch((err) => {
+        console.error(err);
+        setServerErrorText(err);
+      });
   }
 
   console.log(currentUser);
@@ -70,10 +78,23 @@ function App() {
       <Routes>
         <Route
           path="/signup"
-          element={<Register handleRegister={handleRegister} />}
+          element={
+            <Register
+              handleRegister={handleRegister}
+              serverErrorText={serverErrorText}
+            />
+          }
         />
 
-        <Route path="/signin" element={<Login handleLogin={handleLogin} />} />
+        <Route
+          path="/signin"
+          element={
+            <Login
+              handleLogin={handleLogin}
+              serverErrorText={serverErrorText}
+            />
+          }
+        />
 
         <Route exact path="/" element={<Main />} />
 

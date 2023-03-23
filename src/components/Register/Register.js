@@ -78,6 +78,8 @@ function Register(props) {
           {isValid ? '' : errors.password}
         </span>
 
+        <p className="register__server-error-text">{props.serverErrorText}</p>
+
         <button
           type="submit"
           className="register__submit-btn"
