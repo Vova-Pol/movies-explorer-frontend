@@ -1,5 +1,5 @@
 import './SavedMovies.css';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import Header from '../Header/Header';
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
@@ -15,16 +15,11 @@ function SavedMovies() {
   const isServerError = false;
 
   useEffect(() => {
-    mainApi
-      .getSavedMovies()
-      .then((res) => {
-        console.log(res);
-        console.log('SavedMovies is rendered');
+    mainApi.getSavedMovies().then((res) => {
+      if (res) {
         setMoviesList(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+      }
+    });
   }, []);
 
   function handleDeleteMovie(_id) {
@@ -33,7 +28,7 @@ function SavedMovies() {
 
   // Не работает форма поиска
   // Что делать с кнопкой Ещё?
-
+  // console.log(moviesList);
   return (
     <div className="saved-movies">
       <Header loggedIn={loggedIn} />

@@ -1,6 +1,5 @@
 import './Movies.css';
-import { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useContext, useEffect, useState } from 'react';
 import useResize from '../../hooks/useResize';
 import Header from '../Header/Header';
 import SearchForm from '../SearchForm/SearchForm';
@@ -9,11 +8,13 @@ import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Footer from '../Footer/Footer';
 import More from '../More/More';
 import getMoviesList from '../../utils/MoviesApi';
+import { mainApi } from '../../utils/MainApi';
 
 function Movies() {
   const { screenWidth, isScreenLaptop, isScreenMobile } = useResize();
   const [loggedIn, setLoggedIn] = useState(true);
   const [moviesList, setMoviesList] = useState([]);
+  const [savedMoviesList, setSavedMoviesList] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isNothingFound, setIsNothingFound] = useState(false);
   const [isServerError, setIsServerError] = useState(false);
@@ -41,7 +42,7 @@ function Movies() {
     }
   }, []);
 
-  // Поиск
+  // Кнопка "Найти"
 
   async function handleSearchForm(values) {
     try {
@@ -52,11 +53,14 @@ function Movies() {
       setIsNothingFound(false);
       setIsServerError(false);
 
+      const savedMoviesList = await mainApi.getSavedMovies();
+      setSavedMoviesList(savedMoviesList.data);
+
       const moviesList = await getMoviesList();
       const filteredMoviesList = moviesList.filter(
         (movie) =>
-          movie.nameEN.toLowerCase().includes(values.search) ||
-          movie.nameRU.toLowerCase().includes(values.search),
+          movie.nameEN.toLowerCase().includes(values.search.toLowerCase()) ||
+          movie.nameRU.toLowerCase().includes(values.search.toLowerCase()),
       );
 
       setMoviesList(filteredMoviesList);
@@ -77,6 +81,8 @@ function Movies() {
     setMoviesAmount(moviesAmount + moviesAmountStep);
   }
 
+  console.log(moviesList);
+  console.log(savedMoviesList);
   return (
     <div className="movies">
       <Header loggedIn={loggedIn} />
@@ -90,6 +96,7 @@ function Movies() {
             nothingFound={isNothingFound}
             serverError={isServerError}
             moviesAmount={moviesAmount}
+            savedMoviesList={savedMoviesList}
           />
         )}
         {moviesList.length >= moviesAmount ? (

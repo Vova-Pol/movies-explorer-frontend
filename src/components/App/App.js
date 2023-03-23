@@ -1,6 +1,6 @@
 import '../../index.css';
 import { Route, Routes, useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import Login from '../Login/Login';
 import Main from '../Main/Main';
@@ -77,23 +77,9 @@ function App() {
 
         <Route exact path="/" element={<Main />} />
 
-        <Route
-          path="/movies"
-          element={
-            <CurrentUserContext.Provider value={currentUser}>
-              <Movies />
-            </CurrentUserContext.Provider>
-          }
-        />
+        <Route path="/movies" element={<Movies />} />
 
-        <Route
-          path="/saved-movies"
-          element={
-            <CurrentUserContext.Provider value={currentUser}>
-              <SavedMovies />
-            </CurrentUserContext.Provider>
-          }
-        />
+        <Route path="/saved-movies" element={<SavedMovies />} />
 
         <Route
           path="/profile"

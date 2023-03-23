@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import MoviesCard from '../MoviesCard/MoviesCard';
 import { nothingFoundText, serverErrorText } from '../../utils/constants';
+import { mainApi } from '../../utils/MainApi';
 
 function MoviesCardList(props) {
   const [resultText, setResultText] = useState('');
@@ -21,6 +22,7 @@ function MoviesCardList(props) {
   function handleDeleteMovie(_id) {
     props.onDeleteMovie(_id);
   }
+  console.log(props.savedMoviesList);
 
   return (
     <section className="movies-card-list">
@@ -30,11 +32,29 @@ function MoviesCardList(props) {
         <ul className="movies-card-list__list">
           {props.moviesList.map((card, index) => {
             if (index <= props.moviesAmount - 1) {
+              let isLiked;
+              let savedId;
+
+              if (isOnSearchPage) {
+                for (let savedMovie of props.savedMoviesList) {
+                  if (savedMovie.movieId === card.id) {
+                    isLiked = true;
+                    savedId = savedMovie._id;
+                    break;
+                  } else {
+                    isLiked = false;
+                    savedId = null;
+                  }
+                }
+              }
+
               return (
                 <MoviesCard
                   key={isOnSearchPage ? card.id : card._id}
                   cardData={card}
                   handleDeleteMovie={handleDeleteMovie}
+                  isLiked={isLiked}
+                  savedId={savedId}
                 />
               );
             } else {

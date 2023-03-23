@@ -1,5 +1,5 @@
 import './MoviesCard.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import countDuration from '../../utils/utils';
 import { imagesUrl } from '../../utils/constants';
@@ -19,16 +19,21 @@ function MoviesCard(props) {
     duration,
     year,
     description,
-    image,
     trailerLink,
     nameRU,
     nameEN,
-    id,
-  } = props.cardData; // Общие + movieApi
+  } = props.cardData; // Общие пропсы
 
-  const { _id, thumbnail } = props.cardData; // Только + mainApi
+  const { id, image } = props.cardData; // Поиск
+  const { _id, thumbnail } = props.cardData; // Сохраненные
 
   const [isLiked, setIsLiked] = useState(false);
+
+  useEffect(() => {
+    if (props.isLiked) {
+      setIsLiked(true);
+    }
+  }, []);
 
   function handleLikeButton() {
     const savedMovieData = {
@@ -44,16 +49,26 @@ function MoviesCard(props) {
       thumbnail: `${imagesUrl}${image.formats.thumbnail.url}`,
       movieId: id,
     };
-    mainApi
-      .saveMovie(savedMovieData)
-      .then((res) => {
+    if (!isLiked) {
+      mainApi
+        .saveMovie(savedMovieData)
+        .then((res) => {
+          if (res) {
+            setIsLiked(true);
+            console.log({ liked: res });
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      mainApi.deleteMovie(props.savedId).then((res) => {
         if (res) {
-          setIsLiked(true);
+          setIsLiked(false);
+          console.log({ deleted: res });
         }
-      })
-      .catch((err) => {
-        console.log(err);
       });
+    }
   }
 
   function handleCrossButton() {
@@ -62,7 +77,6 @@ function MoviesCard(props) {
       .then((res) => {
         if (res) {
           setIsLiked(false);
-          console.log(res);
           props.handleDeleteMovie(res.data._id);
         }
       })
@@ -70,7 +84,6 @@ function MoviesCard(props) {
         console.log(err);
       });
   }
-
   return (
     <li className="movies-card-list__item">
       <div className="movies-card-list__container">
