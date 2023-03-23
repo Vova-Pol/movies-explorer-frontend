@@ -36,9 +36,13 @@ function Movies() {
   // Вывод фильмов из Локального Хранилища
 
   useEffect(() => {
-    const currentList = JSON.parse(localStorage.getItem('movies-list'));
-    if (currentList) {
-      setMoviesList(currentList);
+    if (
+      localStorage.getItem('movies-list') &&
+      localStorage.getItem('saved-movies-list')
+    ) {
+      setMoviesList(JSON.parse(localStorage.getItem('movies-list')));
+      setSavedMoviesList(JSON.parse(localStorage.getItem('saved-movies-list')));
+      console.log(JSON.parse(localStorage.getItem('saved-movies-list')));
     }
   }, []);
 
@@ -48,6 +52,7 @@ function Movies() {
     try {
       localStorage.removeItem('movies-list');
       localStorage.removeItem('search-input-value');
+      localStorage.removeItem('saved-movies-list');
 
       setIsLoading(true);
       setIsNothingFound(false);
@@ -67,6 +72,10 @@ function Movies() {
       setIsNothingFound(filteredMoviesList.length === 0);
       setIsLoading(false);
 
+      localStorage.setItem(
+        'saved-movies-list',
+        JSON.stringify(savedMoviesList.data),
+      );
       localStorage.setItem('movies-list', JSON.stringify(filteredMoviesList));
       localStorage.setItem('search-input-value', values.search);
     } catch (err) {
