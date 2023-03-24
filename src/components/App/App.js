@@ -1,5 +1,6 @@
 import '../../index.css';
 import { Route, Routes, useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import Login from '../Login/Login';
@@ -10,7 +11,7 @@ import SavedMovies from '../SavedMovies/SavedMovies';
 import NotFound from '../NotFound/NotFound';
 import Profile from '../Profile/Profile';
 import { mainApi } from '../../utils/MainApi';
-import { useLocation } from 'react-router-dom';
+import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 
 function App() {
   const navigateTo = useNavigate();
@@ -71,7 +72,6 @@ function App() {
         const loggedInUser = {
           name: res.data.name,
           email: res.data.email,
-          _id: res.data._id,
         };
 
         setCurrentUser(loggedInUser);
@@ -119,6 +119,7 @@ function App() {
   }
 
   console.log(currentUser);
+  console.log(isLoggedIn);
 
   return (
     <div className="app">
@@ -145,23 +146,36 @@ function App() {
 
         <Route exact path="/" element={<Main loggedIn={isLoggedIn} />} />
 
-        <Route path="/movies" element={<Movies loggedIn={isLoggedIn} />} />
+        <Route
+          path="/movies"
+          element={
+            <ProtectedRoute loggedIn={isLoggedIn}>
+              <Movies loggedIn={isLoggedIn} />
+            </ProtectedRoute>
+          }
+        />
 
         <Route
           path="/saved-movies"
-          element={<SavedMovies loggedIn={isLoggedIn} />}
+          element={
+            <ProtectedRoute loggedIn={isLoggedIn}>
+              <SavedMovies loggedIn={isLoggedIn} />
+            </ProtectedRoute>
+          }
         />
 
         <Route
           path="/profile"
           element={
             <CurrentUserContext.Provider value={currentUser}>
-              <Profile
-                onLogout={handleLogout}
-                onUpdateUserInfo={handleUpdateUserInfo}
-                isUpdateSuccess={updateUserInfoSuccess}
-                loggedIn={isLoggedIn}
-              />
+              <ProtectedRoute loggedIn={isLoggedIn}>
+                <Profile
+                  loggedIn={isLoggedIn}
+                  onLogout={handleLogout}
+                  onUpdateUserInfo={handleUpdateUserInfo}
+                  isUpdateSuccess={updateUserInfoSuccess}
+                />
+              </ProtectedRoute>
             </CurrentUserContext.Provider>
           }
         />
