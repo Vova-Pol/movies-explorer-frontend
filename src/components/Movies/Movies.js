@@ -10,9 +10,8 @@ import More from '../More/More';
 import getMoviesList from '../../utils/MoviesApi';
 import { mainApi } from '../../utils/MainApi';
 
-function Movies() {
+function Movies(props) {
   const { screenWidth, isScreenLaptop, isScreenMobile } = useResize();
-  const [loggedIn, setLoggedIn] = useState(true);
   const [moviesList, setMoviesList] = useState([]);
   const [savedMoviesList, setSavedMoviesList] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -95,7 +94,7 @@ function Movies() {
 
   return (
     <div className="movies">
-      <Header loggedIn={loggedIn} />
+      <Header loggedIn={props.loggedIn} />
       <main>
         <SearchForm onHandleSubmit={handleSearchForm} />
         {isLoading ? (

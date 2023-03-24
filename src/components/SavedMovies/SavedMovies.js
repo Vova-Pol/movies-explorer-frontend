@@ -6,8 +6,7 @@ import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Footer from '../Footer/Footer';
 import { mainApi } from '../../utils/MainApi';
 
-function SavedMovies() {
-  const [loggedIn, setLoggedIn] = useState(true);
+function SavedMovies(props) {
   const [moviesList, setMoviesList] = useState([]);
   const isNothingFound = false;
   const isServerError = false;
@@ -28,7 +27,7 @@ function SavedMovies() {
 
   return (
     <div className="saved-movies">
-      <Header loggedIn={loggedIn} />
+      <Header loggedIn={props.loggedIn} />
       <main>
         <SearchForm />
         <MoviesCardList

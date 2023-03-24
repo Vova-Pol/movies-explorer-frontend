@@ -5,7 +5,6 @@ import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import { useFormAndValidation } from '../../hooks/useFormAndValidation';
 
 function Profile(props) {
-  const [loggedIn, setLoggedIn] = useState(true);
   const currentUser = useContext(CurrentUserContext);
 
   const { values, handleChange, setValues, errors, isValid, resetForm } =
@@ -21,7 +20,7 @@ function Profile(props) {
 
   return (
     <div className="profile">
-      <Header loggedIn={loggedIn} />
+      <Header loggedIn={props.loggedIn} />
       <main>
         <div className="profile__container">
           <h1 className="profile__title">{`Привет, ${currentUser.name}!`}</h1>

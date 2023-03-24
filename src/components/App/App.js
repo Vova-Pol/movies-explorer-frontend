@@ -18,6 +18,7 @@ function App() {
     name: '',
     email: '',
   });
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [serverErrorText, setServerErrorText] = useState('');
   const [updateUserInfoSuccess, setUpdateUserInfoSuccess] = useState(false);
 
@@ -27,9 +28,9 @@ function App() {
 
   useEffect(() => {
     setUpdateUserInfoSuccess(false);
-    console.log('Hi');
   }, [isOnProfilePage]);
 
+  // Очистить список фильмов и поисковую строку
   function clearLocalStorageMoviesList() {
     if (
       localStorage.getItem('movies-list') ||
@@ -52,6 +53,7 @@ function App() {
           };
 
           setCurrentUser(registeredUser);
+          setIsLoggedIn(true);
           clearLocalStorageMoviesList();
           navigateTo('/movies');
         }
@@ -73,6 +75,7 @@ function App() {
         };
 
         setCurrentUser(loggedInUser);
+        setIsLoggedIn(true);
         clearLocalStorageMoviesList();
         navigateTo('/movies');
       })
@@ -87,11 +90,11 @@ function App() {
       .logoutUser(currentUser)
       .then((res) => {
         if (res) {
-          console.log(res);
           setCurrentUser({
             name: '',
             email: '',
           });
+          setIsLoggedIn(false);
           navigateTo('/');
         }
       })
@@ -140,11 +143,14 @@ function App() {
           }
         />
 
-        <Route exact path="/" element={<Main />} />
+        <Route exact path="/" element={<Main loggedIn={isLoggedIn} />} />
 
-        <Route path="/movies" element={<Movies />} />
+        <Route path="/movies" element={<Movies loggedIn={isLoggedIn} />} />
 
-        <Route path="/saved-movies" element={<SavedMovies />} />
+        <Route
+          path="/saved-movies"
+          element={<SavedMovies loggedIn={isLoggedIn} />}
+        />
 
         <Route
           path="/profile"
@@ -154,6 +160,7 @@ function App() {
                 onLogout={handleLogout}
                 onUpdateUserInfo={handleUpdateUserInfo}
                 isUpdateSuccess={updateUserInfoSuccess}
+                loggedIn={isLoggedIn}
               />
             </CurrentUserContext.Provider>
           }

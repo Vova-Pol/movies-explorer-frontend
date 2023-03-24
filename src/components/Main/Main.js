@@ -8,12 +8,11 @@ import Techs from '../Techs/Techs';
 import AboutMe from '../AboutMe/AboutMe';
 import Footer from '../Footer/Footer';
 
-function Main() {
-  const [loggedIn, setLoggedIn] = useState(false);
+function Main(props) {
   // --- Компоненту NavTab/AboutMe прописать ссылки
   return (
     <div className="main">
-      <Header loggedIn={loggedIn} />
+      <Header loggedIn={props.loggedIn} />
       <main>
         <Promo />
         <NavTab />
