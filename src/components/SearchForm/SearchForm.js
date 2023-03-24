@@ -9,6 +9,7 @@ function SearchForm(props) {
     useFormAndValidation({ search: '' });
 
   const [errText, setErrText] = useState('');
+  const isSearchPage = useLocation().pathname === '/movies';
 
   useEffect(() => {
     const lastSearch = localStorage.getItem('search-input-value');
@@ -17,8 +18,6 @@ function SearchForm(props) {
       setValues({ search: lastSearch });
     }
   }, []);
-
-  const isSearchPage = useLocation().pathname === '/movies';
 
   async function handleSubmit(evt) {
     evt.preventDefault();

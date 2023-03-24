@@ -36,8 +36,6 @@ function SavedMovies(props) {
     }
   }
 
-  console.log(isNothingFound);
-
   return (
     <div className="saved-movies">
       <Header loggedIn={props.loggedIn} />
