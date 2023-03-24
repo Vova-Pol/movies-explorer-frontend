@@ -23,8 +23,15 @@ function App() {
   const [serverErrorText, setServerErrorText] = useState('');
   const [updateUserInfoSuccess, setUpdateUserInfoSuccess] = useState(false);
 
-  // Очистить сообщение об успешном обновлении инф-ции профайла
-  // при переходе на страницу "Профайл"
+  // Очистить сообщение об ошибке при регистрации/логине
+  const isOnLoginPage = useLocation().pathname === '/signin';
+  const isOnRegisterPage = useLocation().pathname === '/signup';
+
+  useEffect(() => {
+    setServerErrorText('');
+  }, [isOnLoginPage, isOnRegisterPage]);
+
+  // Очистить сообщение об успешном обновлении инф. профайла
   const isOnProfilePage = useLocation().pathname === '/profile';
 
   useEffect(() => {
@@ -59,9 +66,12 @@ function App() {
           navigateTo('/movies');
         }
       })
-      .catch((err) => {
-        console.error(err);
-        setServerErrorText(err);
+      .catch((errStatus) => {
+        if (String(errStatus) === '409') {
+          setServerErrorText('Пользователь с таким email уже существует');
+        } else {
+          setServerErrorText('Ошибка на сервере: ' + errStatus);
+        }
       });
   }
 
@@ -78,10 +88,14 @@ function App() {
         setIsLoggedIn(true);
         clearLocalStorageMoviesList();
         navigateTo('/movies');
+        console.log(res);
       })
-      .catch((err) => {
-        console.error(err);
-        setServerErrorText(err);
+      .catch((errStatus) => {
+        if (String(errStatus) === '401') {
+          setServerErrorText('Неправильные почта или пароль');
+        } else {
+          setServerErrorText('Ошибка на сервере: ' + errStatus);
+        }
       });
   }
 
@@ -98,8 +112,8 @@ function App() {
           navigateTo('/');
         }
       })
-      .catch((err) => {
-        console.error(err);
+      .catch((errStatus) => {
+        console.error(errStatus);
       });
   }
 
@@ -113,13 +127,10 @@ function App() {
           setUpdateUserInfoSuccess(true);
         }
       })
-      .catch((err) => {
-        console.error(err);
+      .catch((errStatus) => {
+        console.error(errStatus);
       });
   }
-
-  console.log(currentUser);
-  console.log(isLoggedIn);
 
   return (
     <div className="app">

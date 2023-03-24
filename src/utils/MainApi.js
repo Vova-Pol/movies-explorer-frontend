@@ -26,7 +26,7 @@ class Api {
       if (res.ok) {
         return res.json();
       } else {
-        return Promise.reject('Сервер ответил ошибкой: ' + res.status);
+        return Promise.reject(res.status);
       }
     });
   }
