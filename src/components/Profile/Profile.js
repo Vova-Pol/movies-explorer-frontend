@@ -1,5 +1,5 @@
 import './Profile.css';
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import Header from '../Header/Header';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import { useFormAndValidation } from '../../hooks/useFormAndValidation';
@@ -52,6 +52,15 @@ function Profile(props) {
                 onChange={handleChange}
               ></input>
             </div>
+            <span
+              className={
+                props.isUpdateSuccess
+                  ? 'profile__success-text profile__success-text_type_active'
+                  : 'profile__success-text'
+              }
+            >
+              Изменения внесены &#10003;
+            </span>
             <button
               type="submit"
               className="profile__edit-button"

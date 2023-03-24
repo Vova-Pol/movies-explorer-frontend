@@ -10,6 +10,7 @@ import SavedMovies from '../SavedMovies/SavedMovies';
 import NotFound from '../NotFound/NotFound';
 import Profile from '../Profile/Profile';
 import { mainApi } from '../../utils/MainApi';
+import { useLocation } from 'react-router-dom';
 
 function App() {
   const navigateTo = useNavigate();
@@ -18,6 +19,16 @@ function App() {
     email: '',
   });
   const [serverErrorText, setServerErrorText] = useState('');
+  const [updateUserInfoSuccess, setUpdateUserInfoSuccess] = useState(false);
+
+  // Очистить сообщение об успешном обновлении инф-ции профайла
+  // при переходе на страницу "Профайл"
+  const isOnProfilePage = useLocation().pathname === '/profile';
+
+  useEffect(() => {
+    setUpdateUserInfoSuccess(false);
+    console.log('Hi');
+  }, [isOnProfilePage]);
 
   function clearLocalStorageMoviesList() {
     if (
@@ -90,12 +101,13 @@ function App() {
   }
 
   function handleUpdateUserInfo(data) {
+    setUpdateUserInfoSuccess(false);
     mainApi
       .updateUserInfo(data)
       .then((res) => {
         if (res) {
-          console.log(res);
           setCurrentUser(res.data);
+          setUpdateUserInfoSuccess(true);
         }
       })
       .catch((err) => {
@@ -141,6 +153,7 @@ function App() {
               <Profile
                 onLogout={handleLogout}
                 onUpdateUserInfo={handleUpdateUserInfo}
+                isUpdateSuccess={updateUserInfoSuccess}
               />
             </CurrentUserContext.Provider>
           }
