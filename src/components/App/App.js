@@ -179,9 +179,9 @@ function App() {
             </CurrentUserContext.Provider>
           }
         />
-      </Routes>
 
-      {/* <NotFound /> */}
+        <Route path="*" element={<NotFound />} />
+      </Routes>
     </div>
   );
 }
