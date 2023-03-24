@@ -9,7 +9,6 @@ import AboutMe from '../AboutMe/AboutMe';
 import Footer from '../Footer/Footer';
 
 function Main(props) {
-  // --- Компоненту NavTab/AboutMe прописать ссылки
   return (
     <div className="main">
       <Header loggedIn={props.loggedIn} />
