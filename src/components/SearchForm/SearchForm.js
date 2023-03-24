@@ -15,7 +15,6 @@ function SearchForm(props) {
 
     if (isSearchPage && lastSearch) {
       setValues({ search: lastSearch });
-      console.log(values);
     }
   }, []);
 
@@ -23,8 +22,6 @@ function SearchForm(props) {
 
   async function handleSubmit(evt) {
     evt.preventDefault();
-    console.log(values);
-    console.log(isValid);
     if (!values) {
       setErrText('Нужно ввести ключевое слово');
       return;

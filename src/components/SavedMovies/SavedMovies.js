@@ -5,10 +5,11 @@ import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Footer from '../Footer/Footer';
 import { mainApi } from '../../utils/MainApi';
+import { useFormAndValidation } from '../../hooks/useFormAndValidation';
 
 function SavedMovies(props) {
   const [moviesList, setMoviesList] = useState([]);
-  const isNothingFound = false;
+  const [isNothingFound, setIsNothingFound] = useState(false);
   const isServerError = false;
 
   useEffect(() => {
@@ -23,13 +24,25 @@ function SavedMovies(props) {
     setMoviesList(moviesList.filter((movie) => movie._id !== _id));
   }
 
-  // Не работает форма поиска
+  function handleSearchForm(values) {
+    const foundMoviesList = moviesList.filter(
+      (movie) =>
+        movie.nameEN.toLowerCase().includes(values.search.toLowerCase()) ||
+        movie.nameRU.toLowerCase().includes(values.search.toLowerCase()),
+    );
+    setMoviesList(foundMoviesList);
+    if (foundMoviesList.length === 0) {
+      setIsNothingFound(true);
+    }
+  }
+
+  console.log(isNothingFound);
 
   return (
     <div className="saved-movies">
       <Header loggedIn={props.loggedIn} />
       <main>
-        <SearchForm />
+        <SearchForm onHandleSubmit={handleSearchForm} />
         <MoviesCardList
           moviesList={moviesList}
           moviesAmount={moviesList.length}

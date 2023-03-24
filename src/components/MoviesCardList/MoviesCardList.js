@@ -25,7 +25,7 @@ function MoviesCardList(props) {
 
   return (
     <section className="movies-card-list">
-      {resultText !== '' ? (
+      {props.nothingFound || props.serverError ? (
         <span className="movies-card-list__result-text">{resultText}</span>
       ) : (
         <ul className="movies-card-list__list">
