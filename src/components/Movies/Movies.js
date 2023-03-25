@@ -109,9 +109,6 @@ function Movies(props) {
     setMoviesAmount(moviesAmount + moviesAmountStep);
   }
 
-  // Кнопка лайк/дизлайк так же должна менять 'saved-movies-list'
-  // в локальном хранилище
-
   return (
     <div className="movies">
       <Header loggedIn={props.loggedIn} />

@@ -3,12 +3,10 @@ import { useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import MoviesCard from '../MoviesCard/MoviesCard';
 import { nothingFoundText, serverErrorText } from '../../utils/constants';
-import { mainApi } from '../../utils/MainApi';
 
 function MoviesCardList(props) {
   const [resultText, setResultText] = useState('');
   const isOnSearchPage = useLocation().pathname === '/movies';
-  const isOnSavedPage = useLocation().pathname === '/saved-movies';
 
   useEffect(() => {
     if (props.nothingFound) {
@@ -45,7 +43,6 @@ function MoviesCardList(props) {
                   }
                 }
               }
-
               return (
                 <MoviesCard
                   key={isOnSearchPage ? card.id : card._id}

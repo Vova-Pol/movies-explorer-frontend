@@ -9,10 +9,9 @@ function MoviesCard(props) {
   const isOnSearchPage = useLocation().pathname === '/movies';
   const isOnSavedPage = useLocation().pathname === '/saved-movies';
 
-  // Общие пропсы для фильмов со moviesApi и mainApi.
-  // В moviesApi айди обозначается как id, и thumbnail содержится в image,
-  // а в mainApi айди обозначается _id, а thumbnail уже преобразован
-  // в ссылку и сохранен в thumbnail
+  // Имеются как общие, так и различные пропсы для
+  // карточек пришедших с разных api (moviesApi и mainApi)
+
   const {
     country,
     director,
@@ -35,9 +34,6 @@ function MoviesCard(props) {
     }
   }, []);
 
-  // Кнопка лайк/дизлайк так же должна менять 'saved-movies-list'
-  // в локальном хранилище
-
   function handleLikeButton() {
     const savedMovieData = {
       country,
@@ -58,17 +54,24 @@ function MoviesCard(props) {
         .then((res) => {
           if (res) {
             setIsLiked(true);
+            localStorage.removeItem('saved-movies-list');
           }
         })
-        .catch((err) => {
-          console.error(err);
+        .catch((errStatus) => {
+          console.error(errStatus);
         });
     } else {
-      mainApi.deleteMovie(props.savedId).then((res) => {
-        if (res) {
-          setIsLiked(false);
-        }
-      });
+      mainApi
+        .deleteMovie(props.savedId)
+        .then((res) => {
+          if (res) {
+            setIsLiked(false);
+            localStorage.removeItem('saved-movies-list');
+          }
+        })
+        .catch((errStatus) => {
+          console.error(errStatus);
+        });
     }
   }
 
@@ -81,8 +84,8 @@ function MoviesCard(props) {
           props.handleDeleteMovie(res.data._id);
         }
       })
-      .catch((err) => {
-        console.error(err);
+      .catch((errStatus) => {
+        console.error(errStatus);
       });
   }
   return (

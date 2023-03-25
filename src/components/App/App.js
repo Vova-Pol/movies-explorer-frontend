@@ -49,6 +49,7 @@ function App() {
     }
   }
 
+  // Регистрация
   function handleRegister(body) {
     mainApi
       .registerUser(body)
@@ -75,6 +76,7 @@ function App() {
       });
   }
 
+  // Логин
   function handleLogin(body) {
     mainApi
       .loginUser(body)
@@ -98,6 +100,7 @@ function App() {
       });
   }
 
+  // Выход
   function handleLogout() {
     mainApi
       .logoutUser(currentUser)
@@ -116,6 +119,7 @@ function App() {
       });
   }
 
+  // Редактировать профиль
   function handleUpdateUserInfo(data) {
     setUpdateUserInfoSuccess(false);
     mainApi

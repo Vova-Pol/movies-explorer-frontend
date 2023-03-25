@@ -12,10 +12,8 @@ function SearchForm(props) {
   const isSearchPage = useLocation().pathname === '/movies';
 
   useEffect(() => {
-    const lastSearch = localStorage.getItem('search-input-value');
-
-    if (isSearchPage && lastSearch) {
-      setValues({ search: lastSearch });
+    if (isSearchPage && localStorage.getItem('search-input-value')) {
+      setValues({ search: localStorage.getItem('search-input-value') });
     }
   }, []);
 

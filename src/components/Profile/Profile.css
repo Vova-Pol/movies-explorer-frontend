@@ -51,6 +51,10 @@
   border: none;
 }
 
+.profile__input:focus-visible {
+  border: none;
+}
+
 .profile__line {
   border-bottom: 1px solid #424242;
   max-width: 410px;

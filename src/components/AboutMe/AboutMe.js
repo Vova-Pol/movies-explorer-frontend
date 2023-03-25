@@ -1,7 +1,6 @@
 import './AboutMe.css';
 import { Link } from 'react-router-dom';
 import studentImg from '../../images/student.png';
-import { ReactComponent as ArrowIcon } from '../../images/icon-arrow.svg';
 
 function AboutMe() {
   return (
