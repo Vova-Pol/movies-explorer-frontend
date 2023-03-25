@@ -5,7 +5,6 @@ import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Footer from '../Footer/Footer';
 import { mainApi } from '../../utils/MainApi';
-import { useLocation } from 'react-router-dom';
 
 function SavedMovies(props) {
   const [moviesList, setMoviesList] = useState([]);
@@ -37,7 +36,7 @@ function SavedMovies(props) {
   useEffect(() => {
     if (showShortMovies) {
       setMoviesList(moviesList.filter((movie) => movie.duration <= 40));
-    } else {
+    } else if (localStorage.getItem('saved-movies-list')) {
       setMoviesList(JSON.parse(localStorage.getItem('saved-movies-list')));
     }
   }, [showShortMovies]);
