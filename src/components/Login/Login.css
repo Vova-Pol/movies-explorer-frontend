@@ -49,7 +49,7 @@
 }
 
 .login__error-text:last-of-type {
-  margin-bottom: 119px;
+  margin-bottom: 131px;
 }
 
 .login__server-error-text {
@@ -107,6 +107,6 @@
   }
 
   .login__error-text:last-of-type {
-    margin-bottom: 207px;
+    margin-bottom: 219px;
   }
 }
