@@ -33,7 +33,6 @@ function MoviesCardList(props) {
             if (index <= props.moviesAmount - 1) {
               let isLiked;
               let savedId;
-
               if (isOnSearchPage) {
                 for (let savedMovie of props.savedMoviesList) {
                   if (savedMovie.movieId === card.id) {

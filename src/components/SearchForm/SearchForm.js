@@ -49,7 +49,10 @@ function SearchForm(props) {
           </button>
         </div>
         <span className="search-form__input-error">{errText}</span>
-        <FilterCheckbox />
+        <FilterCheckbox
+          onChange={props.onHandleCheckbox}
+          checked={props.isChecked}
+        />
       </form>
       <div className="search-form__line"></div>
     </section>

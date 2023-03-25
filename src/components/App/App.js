@@ -88,7 +88,6 @@ function App() {
         setIsLoggedIn(true);
         clearLocalStorageMoviesList();
         navigateTo('/movies');
-        console.log(res);
       })
       .catch((errStatus) => {
         if (String(errStatus) === '401') {

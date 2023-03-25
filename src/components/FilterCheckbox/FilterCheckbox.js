@@ -1,20 +1,14 @@
 import './FilterCheckbox.css';
-import { useState } from 'react';
 
-function FilterCheckbox() {
-  const [showShortMovies, setShowShortMovies] = useState(true);
-
-  function handleCheckbox() {
-    setShowShortMovies(!showShortMovies);
-  }
+function FilterCheckbox(props) {
   return (
     <div className="search-form__checkbox-container">
       <label className="search-form__filter-checkbox">
         <input
           className="search-form__switch-input"
           type="checkbox"
-          checked={showShortMovies}
-          onChange={handleCheckbox}
+          checked={props.checked}
+          onChange={props.onChange}
         ></input>
         <span className="search-form__slider"></span>
       </label>

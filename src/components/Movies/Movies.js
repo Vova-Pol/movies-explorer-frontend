@@ -20,6 +20,23 @@ function Movies(props) {
   const [moviesAmount, setMoviesAmount] = useState(0);
   const [moviesAmountStep, setMoviesAmountStep] = useState(0);
 
+  // Стейт и контроллер для переключателя "короткометражки"
+  const [showShortMovies, setShowShortMovies] = useState(false);
+
+  function handleShortMoviesCheckbox() {
+    setShowShortMovies(!showShortMovies);
+  }
+
+  useEffect(() => {
+    if (showShortMovies) {
+      setMoviesList(moviesList.filter((movie) => movie.duration <= 40));
+    } else if (localStorage.getItem('movies-list')) {
+      setMoviesList(JSON.parse(localStorage.getItem('movies-list')));
+    } else {
+      setMoviesList([]);
+    }
+  }, [showShortMovies]);
+
   // Вывод фильмов в зависимости от разрешения
 
   useEffect(() => {
@@ -35,13 +52,11 @@ function Movies(props) {
   // Вывод фильмов из Локального Хранилища
 
   useEffect(() => {
-    if (
-      localStorage.getItem('movies-list') &&
-      localStorage.getItem('saved-movies-list')
-    ) {
+    if (localStorage.getItem('movies-list')) {
       setMoviesList(JSON.parse(localStorage.getItem('movies-list')));
+    }
+    if (localStorage.getItem('saved-movies-list')) {
       setSavedMoviesList(JSON.parse(localStorage.getItem('saved-movies-list')));
-      console.log(JSON.parse(localStorage.getItem('saved-movies-list')));
     }
   }, []);
 
@@ -51,14 +66,23 @@ function Movies(props) {
     try {
       localStorage.removeItem('movies-list');
       localStorage.removeItem('search-input-value');
-      localStorage.removeItem('saved-movies-list');
 
       setIsLoading(true);
       setIsNothingFound(false);
       setIsServerError(false);
 
-      const savedMoviesList = await mainApi.getSavedMovies();
-      setSavedMoviesList(savedMoviesList.data);
+      if (localStorage.removeItem('saved-movies-list')) {
+        setSavedMoviesList(
+          JSON.parse(localStorage.removeItem('saved-movies-list')),
+        );
+      } else {
+        const savedMoviesList = await mainApi.getSavedMovies();
+        setSavedMoviesList(savedMoviesList.data);
+        localStorage.setItem(
+          'saved-movies-list',
+          JSON.stringify(savedMoviesList.data),
+        );
+      }
 
       const moviesList = await getMoviesList();
       const filteredMoviesList = moviesList.filter(
@@ -71,10 +95,6 @@ function Movies(props) {
       setIsNothingFound(filteredMoviesList.length === 0);
       setIsLoading(false);
 
-      localStorage.setItem(
-        'saved-movies-list',
-        JSON.stringify(savedMoviesList.data),
-      );
       localStorage.setItem('movies-list', JSON.stringify(filteredMoviesList));
       localStorage.setItem('search-input-value', values.search);
     } catch (err) {
@@ -96,7 +116,11 @@ function Movies(props) {
     <div className="movies">
       <Header loggedIn={props.loggedIn} />
       <main>
-        <SearchForm onHandleSubmit={handleSearchForm} />
+        <SearchForm
+          onHandleSubmit={handleSearchForm}
+          isChecked={showShortMovies}
+          onHandleCheckbox={handleShortMoviesCheckbox}
+        />
         {isLoading ? (
           <Preloader />
         ) : (
@@ -106,6 +130,7 @@ function Movies(props) {
             serverError={isServerError}
             moviesAmount={moviesAmount}
             savedMoviesList={savedMoviesList}
+            isShortMovies={showShortMovies}
           />
         )}
         {moviesList.length >= moviesAmount ? (
