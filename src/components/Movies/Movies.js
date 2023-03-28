@@ -84,30 +84,37 @@ function Movies(props) {
       }
 
       const fetchedMoviesList = await getMoviesList();
-      let searchResultMoviesList = fetchedMoviesList.filter(
+      // Все фильмы по запросу
+      const filteredMoviesList = fetchedMoviesList.filter(
         (movie) =>
           movie.nameEN.toLowerCase().includes(values.search.toLowerCase()) ||
           movie.nameRU.toLowerCase().includes(values.search.toLowerCase()),
       );
+      // Только короткометражки
+      const shortsMoviesList = filteredMoviesList.filter(
+        (movie) => movie.duration <= 40,
+      );
 
       if (showShortMovies) {
-        searchResultMoviesList = searchResultMoviesList.filter(
-          (movie) => movie.duration <= 40,
-        );
+        setMoviesList(shortsMoviesList);
+        setIsNothingFound(shortsMoviesList.length === 0);
+      } else {
+        setMoviesList(filteredMoviesList);
+        setIsNothingFound(filteredMoviesList.length === 0);
       }
 
-      setMoviesList(searchResultMoviesList);
-      setIsNothingFound(searchResultMoviesList.length === 0);
       setIsLoading(false);
 
       const lastSearchData = {
         showShortMovies: showShortMovies,
-        moviesList: searchResultMoviesList,
+        fullMoviesList: filteredMoviesList,
+        shortsMoviesList: shortsMoviesList,
         searchInput: values.search,
       };
 
       localStorage.setItem('last-search-data', JSON.stringify(lastSearchData));
     } catch (err) {
+      setIsLoading(false);
       setIsServerError(true);
       console.error(`Что-то пошло не так: ${err}`);
     }
