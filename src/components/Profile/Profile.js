@@ -13,6 +13,9 @@ function Profile(props) {
       email: currentUser.email,
     });
 
+  const valuesChanged =
+    values.name !== currentUser.name || values.email !== currentUser.email;
+
   function handleSubmit(evt) {
     evt.preventDefault();
     props.onUpdateUserInfo(values);
@@ -63,7 +66,7 @@ function Profile(props) {
             <button
               type="submit"
               className="profile__edit-button"
-              disabled={isValid ? false : true}
+              disabled={isValid && valuesChanged ? false : true}
             >
               Редактировать
             </button>
