@@ -42,17 +42,6 @@ function App() {
     setUpdateUserInfoSuccess(false);
   }, [isOnProfilePage]);
 
-  // Очистить список фильмов и поисковую строку
-  function clearLocalStorageMoviesList() {
-    if (
-      localStorage.getItem('movies-list') ||
-      localStorage.getItem('search-input-value')
-    ) {
-      localStorage.removeItem('movies-list');
-      localStorage.removeItem('search-input-value');
-    }
-  }
-
   // Регистрация
   function handleRegister(body) {
     mainApi
@@ -67,7 +56,6 @@ function App() {
           setCurrentUser(registeredUser);
           localStorage.setItem('current-user', JSON.stringify(registeredUser));
           setIsLoggedIn(true);
-          clearLocalStorageMoviesList();
           navigateTo('/movies');
         }
       })
@@ -93,7 +81,6 @@ function App() {
         setCurrentUser(loggedInUser);
         localStorage.setItem('current-user', JSON.stringify(loggedInUser));
         setIsLoggedIn(true);
-        clearLocalStorageMoviesList();
         navigateTo('/movies');
       })
       .catch((errStatus) => {
@@ -143,11 +130,7 @@ function App() {
         console.error(errStatus);
       });
   }
-  console.log({ state: currentUser });
-  console.log({
-    localStorage: JSON.parse(localStorage.getItem('current-user')),
-  });
-  console.log(isLoggedIn);
+
   return (
     <div className="app">
       <Routes>
