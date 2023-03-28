@@ -21,21 +21,17 @@ function Movies(props) {
   const [moviesAmountStep, setMoviesAmountStep] = useState(0);
 
   // Стейт и контроллер для переключателя "короткометражки"
-  const [showShortMovies, setShowShortMovies] = useState(false);
+  const showShortMoviesInitial = localStorage.getItem('last-search-data')
+    ? JSON.parse(localStorage.getItem('last-search-data')).showShortMovies
+    : false;
+
+  const [showShortMovies, setShowShortMovies] = useState(
+    showShortMoviesInitial,
+  );
 
   function handleShortMoviesCheckbox() {
     setShowShortMovies(!showShortMovies);
   }
-
-  useEffect(() => {
-    if (showShortMovies) {
-      setMoviesList(moviesList.filter((movie) => movie.duration <= 40));
-    } else if (localStorage.getItem('movies-list')) {
-      setMoviesList(JSON.parse(localStorage.getItem('movies-list')));
-    } else {
-      setMoviesList([]);
-    }
-  }, [showShortMovies]);
 
   // Вывод фильмов в зависимости от разрешения
 
@@ -49,11 +45,15 @@ function Movies(props) {
     }
   }, []);
 
-  // Вывод фильмов из Локального Хранилища
+  // Вывод данных последнего поиска из Локального Хранилища
 
   useEffect(() => {
-    if (localStorage.getItem('movies-list')) {
-      setMoviesList(JSON.parse(localStorage.getItem('movies-list')));
+    if (localStorage.getItem('last-search-data')) {
+      const lastSearchData = JSON.parse(
+        localStorage.getItem('last-search-data'),
+      );
+      setShowShortMovies(lastSearchData.showShortMovies);
+      setMoviesList(lastSearchData.moviesList);
     }
     if (localStorage.getItem('saved-movies-list')) {
       setSavedMoviesList(JSON.parse(localStorage.getItem('saved-movies-list')));
@@ -64,16 +64,15 @@ function Movies(props) {
 
   async function handleSearchForm(values) {
     try {
-      localStorage.removeItem('movies-list');
-      localStorage.removeItem('search-input-value');
+      localStorage.removeItem('last-search-data');
 
       setIsLoading(true);
       setIsNothingFound(false);
       setIsServerError(false);
 
-      if (localStorage.removeItem('saved-movies-list')) {
+      if (localStorage.getItem('saved-movies-list')) {
         setSavedMoviesList(
-          JSON.parse(localStorage.removeItem('saved-movies-list')),
+          JSON.parse(localStorage.getItem('saved-movies-list')),
         );
       } else {
         const savedMoviesList = await mainApi.getSavedMovies();
@@ -84,19 +83,30 @@ function Movies(props) {
         );
       }
 
-      const moviesList = await getMoviesList();
-      const filteredMoviesList = moviesList.filter(
+      const fetchedMoviesList = await getMoviesList();
+      let searchResultMoviesList = fetchedMoviesList.filter(
         (movie) =>
           movie.nameEN.toLowerCase().includes(values.search.toLowerCase()) ||
           movie.nameRU.toLowerCase().includes(values.search.toLowerCase()),
       );
 
-      setMoviesList(filteredMoviesList);
-      setIsNothingFound(filteredMoviesList.length === 0);
+      if (showShortMovies) {
+        searchResultMoviesList = searchResultMoviesList.filter(
+          (movie) => movie.duration <= 40,
+        );
+      }
+
+      setMoviesList(searchResultMoviesList);
+      setIsNothingFound(searchResultMoviesList.length === 0);
       setIsLoading(false);
 
-      localStorage.setItem('movies-list', JSON.stringify(filteredMoviesList));
-      localStorage.setItem('search-input-value', values.search);
+      const lastSearchData = {
+        showShortMovies: showShortMovies,
+        moviesList: searchResultMoviesList,
+        searchInput: values.search,
+      };
+
+      localStorage.setItem('last-search-data', JSON.stringify(lastSearchData));
     } catch (err) {
       setIsServerError(true);
       console.error(`Что-то пошло не так: ${err}`);
@@ -127,7 +137,6 @@ function Movies(props) {
             serverError={isServerError}
             moviesAmount={moviesAmount}
             savedMoviesList={savedMoviesList}
-            isShortMovies={showShortMovies}
           />
         )}
         {moviesList.length >= moviesAmount ? (
