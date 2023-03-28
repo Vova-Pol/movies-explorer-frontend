@@ -22,7 +22,7 @@ function SearchForm(props) {
 
   async function handleSubmit(evt) {
     evt.preventDefault();
-    if (!values) {
+    if (values.search === '') {
       setErrText('Нужно ввести ключевое слово');
       return;
     } else {
