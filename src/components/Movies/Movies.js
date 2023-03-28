@@ -30,6 +30,23 @@ function Movies(props) {
   );
 
   function handleShortMoviesCheckbox() {
+    const lastSearchData = localStorage.getItem('last-search-data')
+      ? JSON.parse(localStorage.getItem('last-search-data'))
+      : null;
+
+    if (lastSearchData && !showShortMovies) {
+      setMoviesList(lastSearchData.shortsMoviesList);
+      setIsNothingFound(lastSearchData.shortsMoviesList.length === 0);
+    } else if (lastSearchData && showShortMovies) {
+      setMoviesList(lastSearchData.fullMoviesList);
+      setIsNothingFound(lastSearchData.fullMoviesList.length === 0);
+    }
+
+    if (lastSearchData) {
+      lastSearchData.showShortMovies = !lastSearchData.showShortMovies;
+      localStorage.setItem('last-search-data', JSON.stringify(lastSearchData));
+    }
+
     setShowShortMovies(!showShortMovies);
   }
 
@@ -49,11 +66,11 @@ function Movies(props) {
 
   useEffect(() => {
     if (localStorage.getItem('last-search-data')) {
-      const lastSearchData = JSON.parse(
+      const { showShortMovies, fullMoviesList, shortsMoviesList } = JSON.parse(
         localStorage.getItem('last-search-data'),
       );
-      setShowShortMovies(lastSearchData.showShortMovies);
-      setMoviesList(lastSearchData.moviesList);
+      setShowShortMovies(showShortMovies);
+      setMoviesList(showShortMovies ? shortsMoviesList : fullMoviesList);
     }
     if (localStorage.getItem('saved-movies-list')) {
       setSavedMoviesList(JSON.parse(localStorage.getItem('saved-movies-list')));
