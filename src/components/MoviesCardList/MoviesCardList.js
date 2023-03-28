@@ -15,7 +15,7 @@ function MoviesCardList(props) {
     if (props.serverError) {
       setResultText(serverErrorText);
     }
-  }, []);
+  }, [props]);
 
   function handleDeleteMovie(_id) {
     props.onDeleteMovie(_id);
