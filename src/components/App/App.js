@@ -15,11 +15,15 @@ import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 
 function App() {
   const navigateTo = useNavigate();
-  const [currentUser, setCurrentUser] = useState({
-    name: '',
-    email: '',
-  });
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  const initialUserState = localStorage.getItem('current-user')
+    ? JSON.parse(localStorage.getItem('current-user'))
+    : {};
+
+  const [currentUser, setCurrentUser] = useState(initialUserState);
+  const [isLoggedIn, setIsLoggedIn] = useState(
+    Boolean(localStorage.getItem('current-user')),
+  );
   const [serverErrorText, setServerErrorText] = useState('');
   const [updateUserInfoSuccess, setUpdateUserInfoSuccess] = useState(false);
 
@@ -58,10 +62,10 @@ function App() {
           const registeredUser = {
             name: res.data.name,
             email: res.data.email,
-            _id: res.data._id,
           };
 
           setCurrentUser(registeredUser);
+          localStorage.setItem('current-user', JSON.stringify(registeredUser));
           setIsLoggedIn(true);
           clearLocalStorageMoviesList();
           navigateTo('/movies');
@@ -87,6 +91,7 @@ function App() {
         };
 
         setCurrentUser(loggedInUser);
+        localStorage.setItem('current-user', JSON.stringify(loggedInUser));
         setIsLoggedIn(true);
         clearLocalStorageMoviesList();
         navigateTo('/movies');
@@ -106,10 +111,8 @@ function App() {
       .logoutUser(currentUser)
       .then((res) => {
         if (res) {
-          setCurrentUser({
-            name: '',
-            email: '',
-          });
+          setCurrentUser({});
+          localStorage.clear();
           setIsLoggedIn(false);
           navigateTo('/');
         }
@@ -126,7 +129,13 @@ function App() {
       .updateUserInfo(data)
       .then((res) => {
         if (res) {
-          setCurrentUser(res.data);
+          const updatedUser = {
+            name: res.data.name,
+            email: res.data.email,
+          };
+
+          setCurrentUser(updatedUser);
+          localStorage.setItem('current-user', JSON.stringify(updatedUser));
           setUpdateUserInfoSuccess(true);
         }
       })
@@ -134,7 +143,11 @@ function App() {
         console.error(errStatus);
       });
   }
-
+  console.log({ state: currentUser });
+  console.log({
+    localStorage: JSON.parse(localStorage.getItem('current-user')),
+  });
+  console.log(isLoggedIn);
   return (
     <div className="app">
       <Routes>
