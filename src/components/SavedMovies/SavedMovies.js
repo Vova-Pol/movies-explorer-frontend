@@ -9,7 +9,7 @@ import { mainApi } from '../../utils/MainApi';
 function SavedMovies(props) {
   const [moviesList, setMoviesList] = useState([]);
   const [isNothingFound, setIsNothingFound] = useState(false);
-  const isServerError = false;
+  const [isServerError, setIsServerError] = useState(false);
 
   // Запрос к сохраннемнным фильмам
   useEffect(() => {
@@ -21,8 +21,9 @@ function SavedMovies(props) {
           localStorage.setItem('saved-movies-list', JSON.stringify(res.data));
         }
       })
-      .catch((errStatus) => {
-        console.error(errStatus);
+      .catch((err) => {
+        setIsServerError(true);
+        console.error(`Ошибка на сервере: ${err}`);
       });
   }, []);
 

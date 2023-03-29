@@ -12,6 +12,7 @@ import NotFound from '../NotFound/NotFound';
 import Profile from '../Profile/Profile';
 import { mainApi } from '../../utils/MainApi';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
+import ErrorPopup from '../ErrorPopup/ErrorPopup';
 
 function App() {
   const navigateTo = useNavigate();
@@ -25,6 +26,7 @@ function App() {
     Boolean(localStorage.getItem('current-user')),
   );
   const [serverErrorText, setServerErrorText] = useState('');
+  const [isErrorPopup, setIsErrorPopup] = useState(false);
   const [updateUserInfoSuccess, setUpdateUserInfoSuccess] = useState(false);
 
   // Очистить сообщение об ошибке при регистрации/логине
@@ -59,11 +61,12 @@ function App() {
           navigateTo('/movies');
         }
       })
-      .catch((errStatus) => {
-        if (String(errStatus) === '409') {
+      .catch((err) => {
+        if (err.status === 409) {
           setServerErrorText('Пользователь с таким email уже существует');
         } else {
-          setServerErrorText('Ошибка на сервере: ' + errStatus);
+          setIsErrorPopup(true);
+          console.error(err);
         }
       });
   }
@@ -83,11 +86,12 @@ function App() {
         setIsLoggedIn(true);
         navigateTo('/movies');
       })
-      .catch((errStatus) => {
-        if (String(errStatus) === '401') {
+      .catch((err) => {
+        if (err.status === 401) {
           setServerErrorText('Неправильные почта или пароль');
         } else {
-          setServerErrorText('Ошибка на сервере: ' + errStatus);
+          setIsErrorPopup(true);
+          console.error(err);
         }
       });
   }
@@ -104,8 +108,9 @@ function App() {
           navigateTo('/');
         }
       })
-      .catch((errStatus) => {
-        console.error(errStatus);
+      .catch((err) => {
+        setIsErrorPopup(true);
+        console.error(err);
       });
   }
 
@@ -126,9 +131,15 @@ function App() {
           setUpdateUserInfoSuccess(true);
         }
       })
-      .catch((errStatus) => {
-        console.error(errStatus);
+      .catch((err) => {
+        setIsErrorPopup(true);
+        console.error(err);
       });
+  }
+
+  // Закрыть попап с ошибкой
+  function handleCloseErrorPopup() {
+    setIsErrorPopup(false);
   }
 
   return (
@@ -192,6 +203,9 @@ function App() {
 
         <Route path="*" element={<NotFound />} />
       </Routes>
+      {isErrorPopup ? (
+        <ErrorPopup onCloseErrorPopup={handleCloseErrorPopup} />
+      ) : null}
     </div>
   );
 }

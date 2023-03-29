@@ -133,7 +133,7 @@ function Movies(props) {
     } catch (err) {
       setIsLoading(false);
       setIsServerError(true);
-      console.error(`Что-то пошло не так: ${err}`);
+      console.error(`Ошибка на сервере: ${err}`);
     }
   }
 
