@@ -20,7 +20,16 @@
 }
 
 .movies-card-list__text-container {
-  margin-bottom: 30px;
+  margin-bottom: 5px;
+}
+
+.movies-card-list__error-text {
+  min-height: 20px;
+  font-size: 10px;
+  line-height: 10px;
+  font-weight: 400;
+  color: #ee3465;
+  margin-bottom: 5px;
 }
 
 .movies-card-list__title {
@@ -100,5 +109,9 @@
     font-size: 12px;
     line-height: 15px;
     margin-bottom: 8px;
+  }
+
+  .movies-card-list__error-text {
+    max-width: 30%;
   }
 }

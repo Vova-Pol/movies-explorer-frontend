@@ -148,9 +148,13 @@ function App() {
       });
   }
 
-  // Закрыть попап с ошибкой
+  // Попап с ошибкой
   function handleCloseErrorPopup() {
     setIsErrorPopup(false);
+  }
+
+  function showErrorPopup() {
+    setIsErrorPopup(true);
   }
 
   return (

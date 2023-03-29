@@ -6,7 +6,7 @@ export const IMAGES_URL = 'https://api.nomoreparties.co';
 // Тексты ошибок
 export const NOTHING_FOUND_ERROR_TEXT = 'Ничего не найдено';
 export const SERVER_ERROR_TEXT =
-  'Во время запроса произошла ошибка. Перезагрузите страницу и попробуйте ещё раз.';
+  'Произошла ошибка на сервере. Перезагрузите страницу и попробуйте ещё раз.';
 export const REGISTER_CONFLICT_ERROR_TEXT =
   'Пользователь с таким email уже существует';
 export const LOGIN_UNAUTHORIZED_ERROR_TEXT = 'Неправильные почта или пароль';

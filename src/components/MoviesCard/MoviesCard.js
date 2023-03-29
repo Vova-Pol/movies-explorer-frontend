@@ -6,10 +6,13 @@ import {
   IMAGES_URL,
   MOVIES_PAGE_URL,
   SAVED_MOVIES_PAGE_URL,
+  SERVER_ERROR_TEXT,
 } from '../../utils/constants';
 import { mainApi } from '../../utils/MainApi';
 
 function MoviesCard(props) {
+  const [isServerError, setIsServerError] = useState(false);
+
   const isOnSearchPage = useLocation().pathname === MOVIES_PAGE_URL;
   const isOnSavedPage = useLocation().pathname === SAVED_MOVIES_PAGE_URL;
 
@@ -61,8 +64,9 @@ function MoviesCard(props) {
             localStorage.removeItem('saved-movies-list');
           }
         })
-        .catch((errStatus) => {
-          console.error(errStatus);
+        .catch((err) => {
+          setIsServerError(true);
+          console.error(err);
         });
     } else {
       mainApi
@@ -73,8 +77,9 @@ function MoviesCard(props) {
             localStorage.removeItem('saved-movies-list');
           }
         })
-        .catch((errStatus) => {
-          console.error(errStatus);
+        .catch((err) => {
+          setIsServerError(true);
+          console.error(err);
         });
     }
   }
@@ -88,8 +93,9 @@ function MoviesCard(props) {
           props.handleDeleteMovie(res.data._id);
         }
       })
-      .catch((errStatus) => {
-        console.error(errStatus);
+      .catch((err) => {
+        setIsServerError(true);
+        console.error(err);
       });
   }
   return (
@@ -102,6 +108,9 @@ function MoviesCard(props) {
               {countDuration(duration)}
             </p>
           </div>
+          <span className="movies-card-list__error-text">
+            {isServerError ? SERVER_ERROR_TEXT : ''}
+          </span>
           {isOnSavedPage ? (
             <button
               onClick={handleCrossButton}
