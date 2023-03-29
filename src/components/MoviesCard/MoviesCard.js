@@ -91,6 +91,7 @@ function MoviesCard(props) {
         if (res) {
           setIsLiked(false);
           props.handleDeleteMovie(res.data._id);
+          localStorage.removeItem('saved-movies-list');
         }
       })
       .catch((err) => {
