@@ -1,6 +1,6 @@
 import './MoviesCard.css';
 import { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import countDuration from '../../utils/utils';
 import {
   IMAGES_URL,
@@ -98,6 +98,7 @@ function MoviesCard(props) {
         console.error(err);
       });
   }
+
   return (
     <li className="movies-card-list__item">
       <div className="movies-card-list__container">
@@ -127,15 +128,21 @@ function MoviesCard(props) {
             ></button>
           ) : null}
         </div>
-        <img
-          className="movies-card-list__image"
-          alt={nameRU}
-          src={
-            isOnSearchPage
-              ? `${IMAGES_URL}${image.formats.thumbnail.url}`
-              : thumbnail
-          }
-        ></img>
+        <Link
+          to={trailerLink}
+          target="_blank"
+          className="movies-card-list__image-container"
+        >
+          <img
+            className="movies-card-list__image"
+            alt={nameRU}
+            src={
+              isOnSearchPage
+                ? `${IMAGES_URL}${image.formats.thumbnail.url}`
+                : thumbnail
+            }
+          ></img>
+        </Link>
       </div>
     </li>
   );
