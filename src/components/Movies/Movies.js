@@ -9,6 +9,13 @@ import Footer from '../Footer/Footer';
 import More from '../More/More';
 import getMoviesList from '../../utils/MoviesApi';
 import { mainApi } from '../../utils/MainApi';
+import {
+  MOVIES_AMOUNT_SHOWN_LAPTOP,
+  MOVIES_AMOUNT_SHOWN_MOBILE,
+  MOVIES_AMOUNT_STEP_LAPTOP,
+  MOVIES_AMOUNT_STEP_MOBILE,
+  SHORT_MOVIE_DURATION,
+} from '../../utils/constants';
 
 function Movies(props) {
   const { screenWidth, isScreenLaptop, isScreenMobile } = useResize();
@@ -54,11 +61,11 @@ function Movies(props) {
 
   useEffect(() => {
     if (isScreenLaptop) {
-      setMoviesAmount(7);
-      setMoviesAmountStep(7);
+      setMoviesAmount(MOVIES_AMOUNT_SHOWN_LAPTOP);
+      setMoviesAmountStep(MOVIES_AMOUNT_STEP_LAPTOP);
     } else if (isScreenMobile) {
-      setMoviesAmount(5);
-      setMoviesAmountStep(5);
+      setMoviesAmount(MOVIES_AMOUNT_SHOWN_MOBILE);
+      setMoviesAmountStep(MOVIES_AMOUNT_STEP_MOBILE);
     }
   }, []);
 
@@ -109,7 +116,7 @@ function Movies(props) {
       );
       // Только короткометражки
       const shortsMoviesList = filteredMoviesList.filter(
-        (movie) => movie.duration <= 40,
+        (movie) => movie.duration <= SHORT_MOVIE_DURATION,
       );
 
       if (showShortMovies) {
@@ -133,7 +140,7 @@ function Movies(props) {
     } catch (err) {
       setIsLoading(false);
       setIsServerError(true);
-      console.error(`Ошибка на сервере: ${err}`);
+      console.error(err);
     }
   }
 

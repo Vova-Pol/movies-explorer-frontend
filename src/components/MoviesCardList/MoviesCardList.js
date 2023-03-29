@@ -2,18 +2,22 @@ import './MoviesCardList.css';
 import { useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import MoviesCard from '../MoviesCard/MoviesCard';
-import { nothingFoundText, serverErrorText } from '../../utils/constants';
+import {
+  NOTHING_FOUND_ERROR_TEXT,
+  SERVER_ERROR_TEXT,
+  MOVIES_PAGE_URL,
+} from '../../utils/constants';
 
 function MoviesCardList(props) {
   const [resultText, setResultText] = useState('');
-  const isOnSearchPage = useLocation().pathname === '/movies';
+  const isOnSearchPage = useLocation().pathname === MOVIES_PAGE_URL;
 
   useEffect(() => {
     if (props.nothingFound) {
-      setResultText(nothingFoundText);
+      setResultText(NOTHING_FOUND_ERROR_TEXT);
     }
     if (props.serverError) {
-      setResultText(serverErrorText);
+      setResultText(SERVER_ERROR_TEXT);
     }
   }, [props]);
 

@@ -2,7 +2,11 @@ import './Login.css';
 import AuthTop from '../AuthTop/AuthTop';
 import AuthBottom from '../AuthBottom/AuthBottom';
 import { useFormAndValidation } from '../../hooks/useFormAndValidation';
-import { emailRegex, passwordRegex } from '../../utils/constants';
+import {
+  REGISTER_PAGE_URL,
+  REGEX_EMAIL,
+  REGEX_PASSWORD,
+} from '../../utils/constants';
 
 function Login(props) {
   const { values, handleChange, setValues, errors, isValid, resetForm } =
@@ -13,7 +17,7 @@ function Login(props) {
 
   const formGreeting = 'Рады видеть!';
   const suggestText = 'Ещё не зарегистрированы?';
-  const linkPath = '/signup';
+  const linkPath = REGISTER_PAGE_URL;
   const linkText = 'Регистрация';
 
   function handleSubmit(evt) {
@@ -36,7 +40,7 @@ function Login(props) {
           onChange={handleChange}
           value={values.email}
           required
-          pattern={emailRegex.source}
+          pattern={REGEX_EMAIL.source}
         ></input>
         <span className="login__error-text">{isValid ? '' : errors.email}</span>
 
@@ -51,7 +55,7 @@ function Login(props) {
           value={values.password}
           required
           minLength="8"
-          pattern={passwordRegex.source}
+          pattern={REGEX_PASSWORD.source}
         ></input>
         <span className="login__error-text">
           {isValid ? '' : errors.password}

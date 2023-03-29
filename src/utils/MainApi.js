@@ -1,5 +1,4 @@
-const mainApiUrl = 'https://api.movie-vova-pol.nomoredomains.work';
-// const mainApiUrl = 'http://localhost:3001';
+import { MAIN_API_URL } from './constants';
 
 class Api {
   constructor(url) {
@@ -64,4 +63,4 @@ class Api {
   }
 }
 
-export const mainApi = new Api(mainApiUrl);
+export const mainApi = new Api(MAIN_API_URL);

@@ -13,6 +13,17 @@ import Profile from '../Profile/Profile';
 import { mainApi } from '../../utils/MainApi';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import ErrorPopup from '../ErrorPopup/ErrorPopup';
+import {
+  REGISTER_PAGE_URL,
+  LOGIN_PAGE_URL,
+  MAIN_PAGE_URL,
+  PROFILE_PAGE_URL,
+  MOVIES_PAGE_URL,
+  SAVED_MOVIES_PAGE_URL,
+  NOT_FOUND_PAGE_URL,
+  REGISTER_CONFLICT_ERROR_TEXT,
+  LOGIN_UNAUTHORIZED_ERROR_TEXT,
+} from '../../utils/constants';
 
 function App() {
   const navigateTo = useNavigate();
@@ -30,15 +41,15 @@ function App() {
   const [updateUserInfoSuccess, setUpdateUserInfoSuccess] = useState(false);
 
   // Очистить сообщение об ошибке при регистрации/логине
-  const isOnLoginPage = useLocation().pathname === '/signin';
-  const isOnRegisterPage = useLocation().pathname === '/signup';
+  const isOnLoginPage = useLocation().pathname === LOGIN_PAGE_URL;
+  const isOnRegisterPage = useLocation().pathname === REGISTER_PAGE_URL;
 
   useEffect(() => {
     setServerErrorText('');
   }, [isOnLoginPage, isOnRegisterPage]);
 
   // Очистить сообщение об успешном обновлении инф. профайла
-  const isOnProfilePage = useLocation().pathname === '/profile';
+  const isOnProfilePage = useLocation().pathname === PROFILE_PAGE_URL;
 
   useEffect(() => {
     setUpdateUserInfoSuccess(false);
@@ -58,12 +69,12 @@ function App() {
           setCurrentUser(registeredUser);
           localStorage.setItem('current-user', JSON.stringify(registeredUser));
           setIsLoggedIn(true);
-          navigateTo('/movies');
+          navigateTo(MOVIES_PAGE_URL);
         }
       })
       .catch((err) => {
         if (err.status === 409) {
-          setServerErrorText('Пользователь с таким email уже существует');
+          setServerErrorText(REGISTER_CONFLICT_ERROR_TEXT);
         } else {
           setIsErrorPopup(true);
           console.error(err);
@@ -84,11 +95,11 @@ function App() {
         setCurrentUser(loggedInUser);
         localStorage.setItem('current-user', JSON.stringify(loggedInUser));
         setIsLoggedIn(true);
-        navigateTo('/movies');
+        navigateTo(MOVIES_PAGE_URL);
       })
       .catch((err) => {
         if (err.status === 401) {
-          setServerErrorText('Неправильные почта или пароль');
+          setServerErrorText(LOGIN_UNAUTHORIZED_ERROR_TEXT);
         } else {
           setIsErrorPopup(true);
           console.error(err);
@@ -105,7 +116,7 @@ function App() {
           setCurrentUser({});
           localStorage.clear();
           setIsLoggedIn(false);
-          navigateTo('/');
+          navigateTo(MAIN_PAGE_URL);
         }
       })
       .catch((err) => {
@@ -146,7 +157,7 @@ function App() {
     <div className="app">
       <Routes>
         <Route
-          path="/signup"
+          path={REGISTER_PAGE_URL}
           element={
             <Register
               handleRegister={handleRegister}
@@ -156,7 +167,7 @@ function App() {
         />
 
         <Route
-          path="/signin"
+          path={LOGIN_PAGE_URL}
           element={
             <Login
               handleLogin={handleLogin}
@@ -165,10 +176,14 @@ function App() {
           }
         />
 
-        <Route exact path="/" element={<Main loggedIn={isLoggedIn} />} />
+        <Route
+          exact
+          path={MAIN_PAGE_URL}
+          element={<Main loggedIn={isLoggedIn} />}
+        />
 
         <Route
-          path="/movies"
+          path={MOVIES_PAGE_URL}
           element={
             <ProtectedRoute loggedIn={isLoggedIn}>
               <Movies loggedIn={isLoggedIn} />
@@ -177,7 +192,7 @@ function App() {
         />
 
         <Route
-          path="/saved-movies"
+          path={SAVED_MOVIES_PAGE_URL}
           element={
             <ProtectedRoute loggedIn={isLoggedIn}>
               <SavedMovies loggedIn={isLoggedIn} />
@@ -186,7 +201,7 @@ function App() {
         />
 
         <Route
-          path="/profile"
+          path={PROFILE_PAGE_URL}
           element={
             <CurrentUserContext.Provider value={currentUser}>
               <ProtectedRoute loggedIn={isLoggedIn}>
@@ -201,7 +216,7 @@ function App() {
           }
         />
 
-        <Route path="*" element={<NotFound />} />
+        <Route path={NOT_FOUND_PAGE_URL} element={<NotFound />} />
       </Routes>
       {isErrorPopup ? (
         <ErrorPopup onCloseErrorPopup={handleCloseErrorPopup} />

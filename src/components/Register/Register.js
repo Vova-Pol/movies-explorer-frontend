@@ -2,7 +2,12 @@ import './Register.css';
 import AuthTop from '../AuthTop/AuthTop';
 import AuthBottom from '../AuthBottom/AuthBottom';
 import { useFormAndValidation } from '../../hooks/useFormAndValidation';
-import { nameRegex, emailRegex, passwordRegex } from '../../utils/constants';
+import {
+  LOGIN_PAGE_URL,
+  REGEX_EMAIL,
+  REGEX_NAME,
+  REGEX_PASSWORD,
+} from '../../utils/constants';
 
 function Register(props) {
   const { values, handleChange, setValues, errors, isValid, resetForm } =
@@ -14,7 +19,7 @@ function Register(props) {
 
   const formGreeting = 'Добро пожаловать!';
   const suggestText = 'Уже зарегистрированы?';
-  const linkPath = '/signin';
+  const linkPath = LOGIN_PAGE_URL;
   const linkText = 'Войти';
 
   function handleSubmit(evt) {
@@ -39,7 +44,7 @@ function Register(props) {
           required
           minLength="2"
           maxLength="30"
-          pattern={nameRegex.source}
+          pattern={REGEX_NAME.source}
         ></input>
         <span className="register__error-text">
           {isValid ? '' : errors.name}
@@ -55,7 +60,7 @@ function Register(props) {
           onChange={handleChange}
           value={values.email}
           required
-          pattern={emailRegex.source}
+          pattern={REGEX_EMAIL.source}
         ></input>
         <span className="register__error-text">
           {isValid ? '' : errors.email}
@@ -72,7 +77,7 @@ function Register(props) {
           value={values.password}
           required
           minLength="8"
-          pattern={passwordRegex.source}
+          pattern={REGEX_PASSWORD.source}
         ></input>
         <span className="register__error-text">
           {isValid ? '' : errors.password}

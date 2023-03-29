@@ -3,13 +3,17 @@ import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useFormAndValidation } from '../../hooks/useFormAndValidation';
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
+import {
+  MOVIES_PAGE_URL,
+  EMPTY_SEARCH_INPUT_ERROR_TEXT,
+} from '../../utils/constants';
 
 function SearchForm(props) {
   const { values, handleChange, setValues, errors, isValid, resetForm } =
     useFormAndValidation({ search: '' });
 
   const [errText, setErrText] = useState('');
-  const isSearchPage = useLocation().pathname === '/movies';
+  const isSearchPage = useLocation().pathname === MOVIES_PAGE_URL;
 
   useEffect(() => {
     if (isSearchPage && localStorage.getItem('last-search-data')) {
@@ -23,7 +27,7 @@ function SearchForm(props) {
   async function handleSubmit(evt) {
     evt.preventDefault();
     if (values.search === '') {
-      setErrText('Нужно ввести ключевое слово');
+      setErrText(EMPTY_SEARCH_INPUT_ERROR_TEXT);
       return;
     } else {
       setErrText('');

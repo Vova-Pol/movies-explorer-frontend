@@ -2,12 +2,16 @@ import './MoviesCard.css';
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import countDuration from '../../utils/utils';
-import { imagesUrl } from '../../utils/constants';
+import {
+  IMAGES_URL,
+  MOVIES_PAGE_URL,
+  SAVED_MOVIES_PAGE_URL,
+} from '../../utils/constants';
 import { mainApi } from '../../utils/MainApi';
 
 function MoviesCard(props) {
-  const isOnSearchPage = useLocation().pathname === '/movies';
-  const isOnSavedPage = useLocation().pathname === '/saved-movies';
+  const isOnSearchPage = useLocation().pathname === MOVIES_PAGE_URL;
+  const isOnSavedPage = useLocation().pathname === SAVED_MOVIES_PAGE_URL;
 
   // Имеются как общие, так и различные пропсы для
   // карточек пришедших с разных api (moviesApi и mainApi)
@@ -41,11 +45,11 @@ function MoviesCard(props) {
       duration,
       year,
       description,
-      image: `${imagesUrl}${image.url}`,
+      image: `${IMAGES_URL}${image.url}`,
       trailerLink,
       nameRU,
       nameEN,
-      thumbnail: `${imagesUrl}${image.formats.thumbnail.url}`,
+      thumbnail: `${IMAGES_URL}${image.formats.thumbnail.url}`,
       movieId: id,
     };
     if (!isLiked) {
@@ -119,7 +123,7 @@ function MoviesCard(props) {
           alt={nameRU}
           src={
             isOnSearchPage
-              ? `${imagesUrl}${image.formats.thumbnail.url}`
+              ? `${IMAGES_URL}${image.formats.thumbnail.url}`
               : thumbnail
           }
         ></img>

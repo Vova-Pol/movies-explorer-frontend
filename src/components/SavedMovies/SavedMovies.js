@@ -23,7 +23,7 @@ function SavedMovies(props) {
       })
       .catch((err) => {
         setIsServerError(true);
-        console.error(`Ошибка на сервере: ${err}`);
+        console.error(err);
       });
   }, []);
 

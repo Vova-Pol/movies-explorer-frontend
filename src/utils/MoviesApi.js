@@ -1,4 +1,4 @@
-const moviesApiURL = 'https://api.nomoreparties.co/beatfilm-movies';
+import { MOVIES_API_URL } from './constants';
 
 const init = {
   method: 'GET',
@@ -9,11 +9,11 @@ const init = {
 };
 
 function getMoviesList() {
-  return fetch(moviesApiURL, init).then((res) => {
+  return fetch(MOVIES_API_URL, init).then((res) => {
     if (res.ok) {
       return res.json();
     } else {
-      return Promise.reject('Сервер ответил ошибкой: ' + res.status);
+      return Promise.reject(res);
     }
   });
 }
