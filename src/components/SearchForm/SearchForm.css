@@ -8,7 +8,7 @@
 }
 
 .search-form__input-container {
-  margin-bottom: 30px;
+  margin-bottom: 5px;
   display: flex;
   align-items: center;
 }
@@ -24,6 +24,10 @@
   font-weight: 400;
   font-size: 14px;
   line-height: 18px;
+}
+
+.search-form__input:focus-visible {
+  outline: none;
 }
 
 .search-form__button {
@@ -42,6 +46,18 @@
 
 .search-form__button:hover {
   opacity: 0.8;
+}
+
+.search-form__input-error {
+  font-size: 12px;
+  line-height: 20px;
+  min-height: 20px;
+  display: block;
+  color: #ee3465;
+  font-weight: 400;
+  margin-bottom: 5px;
+  text-align: left;
+  padding-left: 12px;
 }
 
 .search-form__line {

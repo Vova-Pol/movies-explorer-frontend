@@ -1,7 +1,6 @@
 import './AboutMe.css';
 import { Link } from 'react-router-dom';
 import studentImg from '../../images/student.png';
-import { ReactComponent as ArrowIcon } from '../../images/icon-arrow.svg';
 
 function AboutMe() {
   return (
@@ -34,21 +33,30 @@ function AboutMe() {
       <h3 className="about-me__portfolio-title">Портфолио</h3>
       <ul className="about-me__portfolio-list">
         <li>
-          <Link to="" className="about-me__portfolio-link">
+          <Link
+            to="https://github.com/Vova-Pol?tab=repositories"
+            className="about-me__portfolio-link"
+          >
             <p className="about-me__portfolio-text">Статичный сайт</p>
             <span className="about-me__portfolio-arrow"></span>
           </Link>
         </li>
         <div className="about-me__portfolio-line"></div>
         <li>
-          <Link to="" className="about-me__portfolio-link">
+          <Link
+            to="https://github.com/Vova-Pol?tab=repositories"
+            className="about-me__portfolio-link"
+          >
             <p className="about-me__portfolio-text">Адаптивный сайт</p>
             <span className="about-me__portfolio-arrow"></span>
           </Link>
         </li>
         <div className="about-me__portfolio-line"></div>
         <li>
-          <Link to="" className="about-me__portfolio-link">
+          <Link
+            to="https://github.com/Vova-Pol?tab=repositories"
+            className="about-me__portfolio-link"
+          >
             <p className="about-me__portfolio-text">
               Одностраничное приложение
             </p>
