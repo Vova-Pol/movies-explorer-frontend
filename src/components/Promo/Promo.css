@@ -1,0 +1,37 @@
+.promo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 524px;
+}
+
+.promo__title {
+  max-width: 730px;
+  font-size: 50px;
+  font-weight: 400;
+  line-height: 58px;
+  text-align: center;
+  letter-spacing: -0.04em;
+  margin: 0;
+}
+
+.promo__background {
+  position: absolute;
+}
+
+@media screen and (max-width: 420px) {
+  .promo {
+    min-height: 570px;
+  }
+
+  .promo__title {
+    max-width: 300px;
+    font-size: 31px;
+    line-height: 39px;
+  }
+
+  .promo__background {
+    width: 248px;
+    height: 248px;
+  }
+}
