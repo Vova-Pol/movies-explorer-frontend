@@ -1,5 +1,6 @@
 .promo {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   min-height: 524px;
@@ -7,16 +8,31 @@
 
 .promo__title {
   max-width: 730px;
-  font-size: 50px;
+  font-size: 80px;
   font-weight: 400;
-  line-height: 58px;
+  line-height: 1;
   text-align: center;
   letter-spacing: -0.04em;
   margin: 0;
+  margin-bottom: 15px;
+  z-index: 1;
+}
+
+.promo__subtitle {
+  font-size: 35px;
+  font-weight: 300;
+  text-align: center;
+  margin: 0;
+  z-index: 1;
 }
 
 .promo__background {
   position: absolute;
+  max-width: 300px;
+  height: auto;
+  transform: rotate(40deg);
+  opacity: 0.4;
+  z-index: 0;
 }
 
 @media screen and (max-width: 420px) {
@@ -27,7 +43,11 @@
   .promo__title {
     max-width: 300px;
     font-size: 31px;
-    line-height: 39px;
+  }
+
+  .promo__subtitle {
+    max-width: 300px;
+    font-size: 24px;
   }
 
   .promo__background {
