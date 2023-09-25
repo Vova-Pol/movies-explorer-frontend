@@ -94,17 +94,19 @@ function Movies(props) {
       setIsNothingFound(false);
       setIsServerError(false);
 
-      if (localStorage.getItem('saved-movies-list')) {
-        setSavedMoviesList(
-          JSON.parse(localStorage.getItem('saved-movies-list')),
-        );
-      } else {
-        const savedMoviesList = await mainApi.getSavedMovies();
-        setSavedMoviesList(savedMoviesList.data);
-        localStorage.setItem(
-          'saved-movies-list',
-          JSON.stringify(savedMoviesList.data),
-        );
+      if (props.loggedIn) {
+        if (localStorage.getItem('saved-movies-list')) {
+          setSavedMoviesList(
+            JSON.parse(localStorage.getItem('saved-movies-list')),
+          );
+        } else {
+          const savedMoviesList = await mainApi.getSavedMovies();
+          setSavedMoviesList(savedMoviesList.data);
+          localStorage.setItem(
+            'saved-movies-list',
+            JSON.stringify(savedMoviesList.data),
+          );
+        }
       }
 
       const fetchedMoviesList = await getMoviesList();
