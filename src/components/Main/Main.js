@@ -7,7 +7,8 @@ import Footer from '../Footer/Footer';
 function Main(props) {
   return (
     <div className="main">
-      <Header loggedIn={props.loggedIn} />
+      {/* <Header loggedIn={props.loggedIn} /> */}
+      <Header loggedIn={true} />
       <main>
         <Promo />
       </main>
