@@ -1,12 +1,12 @@
 import './Movies.css';
 import { useContext, useEffect, useState } from 'react';
 import useResize from '../../hooks/useResize';
-import Header from '../Header/Header';
-import SearchForm from '../SearchForm/SearchForm';
-import Preloader from '../Preloader/Preloader';
-import MoviesCardList from '../MoviesCardList/MoviesCardList';
-import Footer from '../Footer/Footer';
-import More from '../More/More';
+import Header from '../../components/Header/Header';
+import SearchForm from '../../components/SearchForm/SearchForm';
+import Preloader from '../../components/Preloader/Preloader';
+import MoviesCardList from '../../components/MoviesCardList/MoviesCardList';
+import Footer from '../../components/Footer/Footer';
+import More from '../../components/More/More';
 import getMoviesList from '../../utils/MoviesApi';
 import { mainApi } from '../../utils/MainApi';
 import {

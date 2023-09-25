@@ -1,6 +1,6 @@
 import './Register.css';
-import AuthTop from '../AuthTop/AuthTop';
-import AuthBottom from '../AuthBottom/AuthBottom';
+import AuthTop from '../../components/AuthTop/AuthTop';
+import AuthBottom from '../../components/AuthBottom/AuthBottom';
 import { useFormAndValidation } from '../../hooks/useFormAndValidation';
 import {
   LOGIN_PAGE_URL,

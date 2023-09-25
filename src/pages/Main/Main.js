@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import './Main.css';
-import Header from '../Header/Header';
-import Promo from '../Promo/Promo';
-import Footer from '../Footer/Footer';
+import Header from '../../components/Header/Header';
+import Promo from '../../components/Promo/Promo';
+import Footer from '../../components/Footer/Footer';
 
 function Main(props) {
   return (

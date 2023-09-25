@@ -1,9 +1,9 @@
 import './SavedMovies.css';
 import { useEffect, useState } from 'react';
-import Header from '../Header/Header';
-import SearchForm from '../SearchForm/SearchForm';
-import MoviesCardList from '../MoviesCardList/MoviesCardList';
-import Footer from '../Footer/Footer';
+import Header from '../../components/Header/Header';
+import SearchForm from '../../components/SearchForm/SearchForm';
+import MoviesCardList from '../../components/MoviesCardList/MoviesCardList';
+import Footer from '../../components/Footer/Footer';
 import { mainApi } from '../../utils/MainApi';
 import { SHORT_MOVIE_DURATION } from '../../utils/constants';
 
