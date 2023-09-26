@@ -1,0 +1,12 @@
+.best-british {
+  background-color: #202020;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 50px 70px;
+}
+
+.best-british__title {
+  margin: 0 0 25px 0;
+  font-weight: 400;
+  font-size: 30px;
+}

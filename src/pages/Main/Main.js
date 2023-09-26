@@ -8,10 +8,12 @@ import MoviesCardList from '../../components/MoviesCardList/MoviesCardList';
 import MoviesCard from '../../components/MoviesCard/MoviesCard';
 import { Latest } from '../../components/Latest/Latest';
 import { BestAmerican } from '../../components/BestAmerican/BestAmerican';
+import { BestBritish } from '../../components/BestBritish/BestBritish';
 
 function Main(props) {
   const [latestMoviesList, setLatesMoviestList] = useState([]);
   const [bestAmericanMoviesList, setBestAmericanMoviesList] = useState([]);
+  const [bestBritishMoviesList, setBestBritishMoviesList] = useState([]);
 
   useEffect(() => {
     getMoviesList().then((data) => {
@@ -20,6 +22,11 @@ function Main(props) {
 
       const bestAmericanMovies = data.filter((movie) => movie.country == 'США');
       setBestAmericanMoviesList(bestAmericanMovies);
+
+      const bestBritishMovies = data.filter(
+        (movie) => movie.country == 'Великобритания',
+      );
+      setBestBritishMoviesList(bestBritishMovies);
     });
   }, []);
 
@@ -32,6 +39,7 @@ function Main(props) {
         <Promo />
         <Latest moviesList={latestMoviesList} />
         <BestAmerican moviesList={bestAmericanMoviesList} />
+        <BestBritish moviesList={bestBritishMoviesList} />
       </main>
       <Footer />
     </div>
