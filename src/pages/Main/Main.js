@@ -15,6 +15,7 @@ function Main(props) {
     getMoviesList().then((data) => {
       const latestMovies = data.filter((movie) => movie.year == '2016');
       setLatesMoviestList(latestMovies);
+      console.log(data);
     });
   }, []);
 

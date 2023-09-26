@@ -3,7 +3,6 @@ import './PreviewMovieCard.css';
 import { IMAGES_URL } from '../../utils/constants';
 
 export const PreviewMovieCard = ({ card }) => {
-  console.log(card);
   return (
     <div className="preview-movie-card">
       <img
