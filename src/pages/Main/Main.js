@@ -7,15 +7,19 @@ import getMoviesList from '../../utils/MoviesApi';
 import MoviesCardList from '../../components/MoviesCardList/MoviesCardList';
 import MoviesCard from '../../components/MoviesCard/MoviesCard';
 import { Latest } from '../../components/Latest/Latest';
+import { BestAmerican } from '../../components/BestAmerican/BestAmerican';
 
 function Main(props) {
   const [latestMoviesList, setLatesMoviestList] = useState([]);
+  const [bestAmericanMoviesList, setBestAmericanMoviesList] = useState([]);
 
   useEffect(() => {
     getMoviesList().then((data) => {
       const latestMovies = data.filter((movie) => movie.year == '2016');
       setLatesMoviestList(latestMovies);
-      console.log(data);
+
+      const bestAmericanMovies = data.filter((movie) => movie.country == 'США');
+      setBestAmericanMoviesList(bestAmericanMovies);
     });
   }, []);
 
@@ -27,6 +31,7 @@ function Main(props) {
       <main>
         <Promo />
         <Latest moviesList={latestMoviesList} />
+        <BestAmerican moviesList={bestAmericanMoviesList} />
       </main>
       <Footer />
     </div>
