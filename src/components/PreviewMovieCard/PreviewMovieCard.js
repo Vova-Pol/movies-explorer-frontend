@@ -1,13 +1,16 @@
 import React, { useState } from 'react';
 import './PreviewMovieCard.css';
 import { IMAGES_URL } from '../../utils/constants';
+import { AiOutlineHeart } from 'react-icons/ai';
+import { AiFillHeart } from 'react-icons/ai';
 
 export const PreviewMovieCard = ({ card }) => {
   const [isLiked, setIsLiked] = useState(false);
 
   function handleLikeButton() {
-    console.log('Like Button was pressed');
+    setIsLiked(!isLiked);
   }
+
   return (
     <div className="preview-movie-card">
       <img
@@ -18,14 +21,9 @@ export const PreviewMovieCard = ({ card }) => {
         <p className="preview-movie-card__title">{card.nameRU}</p>
         <p className="preview-movie-card__year">{card.year}</p>
       </div>
-      <button
-        onClick={handleLikeButton}
-        className={
-          isLiked
-            ? 'preview-movie-card__icon preview-movie-card__icon_type_liked'
-            : 'preview-movie-card__icon preview-movie-card__icon_type_disliked'
-        }
-      ></button>
+      <button onClick={handleLikeButton} className="preview-movie-card__icon">
+        {isLiked ? <AiFillHeart /> : <AiOutlineHeart />}
+      </button>
     </div>
   );
 };

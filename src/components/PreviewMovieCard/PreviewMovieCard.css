@@ -20,20 +20,11 @@
   position: absolute;
   top: 15px;
   right: 15px;
-  width: 14px;
-  height: 12px;
   cursor: pointer;
   border: none;
+  color: tomato;
   padding: 0;
   background-color: #ffffff00;
-}
-
-.preview-movie-card__icon_type_disliked {
-  background-image: url('../../images/icon-unliked.svg');
-}
-
-.preview-movie-card__icon_type_liked {
-  background-image: url('../../images/icon-liked.svg');
 }
 
 .preview-movie-card__icon:hover {
