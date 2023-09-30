@@ -2,6 +2,8 @@ import './MoviesCard.css';
 import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import countDuration from '../../utils/utils';
+import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
+import { RxCross2 } from 'react-icons/rx';
 import {
   IMAGES_URL,
   MOVIES_PAGE_URL,
@@ -128,21 +130,22 @@ function MoviesCard(props) {
           <span className="movies-card-list__error-text">
             {isServerError ? SERVER_ERROR_TEXT : ''}
           </span>
-          {isOnSavedPage ? (
+          {isOnSavedPage && (
             <button
               onClick={handleCrossButton}
-              className="movies-card-list__icon movies-card-list__icon_type_cross"
-            ></button>
-          ) : isOnSearchPage ? (
+              className="movies-card-list__icon"
+            >
+              <RxCross2 />
+            </button>
+          )}
+          {isOnSearchPage && (
             <button
               onClick={handleLikeButton}
-              className={
-                isLiked
-                  ? 'movies-card-list__icon movies-card-list__icon_type_liked'
-                  : 'movies-card-list__icon movies-card-list__icon_type_disliked'
-              }
-            ></button>
-          ) : null}
+              className="movies-card-list__icon"
+            >
+              {isLiked ? <AiFillHeart /> : <AiOutlineHeart />}
+            </button>
+          )}
         </div>
       </div>
     </li>

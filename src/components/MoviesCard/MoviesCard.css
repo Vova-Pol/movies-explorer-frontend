@@ -45,26 +45,12 @@
 }
 
 .movies-card-list__icon {
-  width: 14px;
-  height: 12px;
   cursor: pointer;
   border: none;
   padding: 0;
+  color: #ee4e31;
   background-color: #ffffff00;
-}
-
-.movies-card-list__icon_type_disliked {
-  background-image: url('../../images/icon-unliked.svg');
-}
-
-.movies-card-list__icon_type_liked {
-  background-image: url('../../images/icon-liked.svg');
-}
-
-.movies-card-list__icon_type_cross {
-  background-image: url('../../images/icon-saved.svg');
-  background-position: center;
-  background-repeat: no-repeat;
+  margin-right: auto;
 }
 
 .movies-card-list__icon:hover {

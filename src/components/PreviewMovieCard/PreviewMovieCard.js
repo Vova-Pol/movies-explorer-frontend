@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import './PreviewMovieCard.css';
 import { IMAGES_URL } from '../../utils/constants';
-import { AiOutlineHeart } from 'react-icons/ai';
-import { AiFillHeart } from 'react-icons/ai';
+import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
 
 export const PreviewMovieCard = ({ card }) => {
   const [isLiked, setIsLiked] = useState(false);
