@@ -103,6 +103,21 @@ function MoviesCard(props) {
   return (
     <li className="movies-card-list__item">
       <div className="movies-card-list__container">
+        <Link
+          to={trailerLink}
+          target="_blank"
+          className="movies-card-list__image-container"
+        >
+          <img
+            className="movies-card-list__image"
+            alt={nameRU}
+            src={
+              isOnSearchPage
+                ? `${IMAGES_URL}${image.formats.thumbnail.url}`
+                : thumbnail
+            }
+          ></img>
+        </Link>
         <div className="movies-card-list__info">
           <div className="movies-card-list__text-container">
             <p className="movies-card-list__title">{nameRU}</p>
@@ -129,21 +144,6 @@ function MoviesCard(props) {
             ></button>
           ) : null}
         </div>
-        <Link
-          to={trailerLink}
-          target="_blank"
-          className="movies-card-list__image-container"
-        >
-          <img
-            className="movies-card-list__image"
-            alt={nameRU}
-            src={
-              isOnSearchPage
-                ? `${IMAGES_URL}${image.formats.thumbnail.url}`
-                : thumbnail
-            }
-          ></img>
-        </Link>
       </div>
     </li>
   );
