@@ -12,18 +12,21 @@ function Footer() {
         <p className="footer__date">{currentDate.getFullYear()}</p>
         <div className="footer__links-container">
           <Link
+            target="_blank"
             className="footer__link"
             to="https://github.com/Vova-Pol/movies-explorer-frontend"
           >
             Документация
           </Link>
           <Link
+            target="_blank"
             className="footer__link"
             to="https://github.com/Vova-Pol/movies-explorer-frontend"
           >
             Технологии
           </Link>
           <Link
+            target="_blank"
             className="footer__link"
             to="https://github.com/Vova-Pol/movies-explorer-frontend"
           >
