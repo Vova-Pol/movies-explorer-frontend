@@ -1,4 +1,6 @@
+import React from 'react';
 import '../../index.css';
+import { FC } from 'react';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
@@ -25,11 +27,28 @@ import {
   LOGIN_UNAUTHORIZED_ERROR_TEXT,
 } from '../../utils/constants';
 
-function App() {
+interface ILoginFormValues {
+  email: string;
+  password: string;
+}
+
+interface IRegisterFormValues {
+  name: string;
+  email: string;
+  password: string;
+}
+
+interface IUpdateUserFormValues {
+  name?: string;
+  email?: string;
+  password?: string;
+}
+
+const App: FC = () => {
   const navigateTo = useNavigate();
 
   const initialUserState = localStorage.getItem('current-user')
-    ? JSON.parse(localStorage.getItem('current-user'))
+    ? JSON.parse(localStorage.getItem('current-user') || '')
     : {};
 
   const [currentUser, setCurrentUser] = useState(initialUserState);
@@ -56,7 +75,7 @@ function App() {
   }, [isOnProfilePage]);
 
   // Регистрация
-  function handleRegister(body) {
+  function handleRegister(body: IRegisterFormValues) {
     mainApi
       .registerUser(body)
       .then((res) => {
@@ -83,7 +102,7 @@ function App() {
   }
 
   // Логин
-  function handleLogin(body) {
+  function handleLogin(body: ILoginFormValues) {
     mainApi
       .loginUser(body)
       .then((res) => {
@@ -126,7 +145,7 @@ function App() {
   }
 
   // Редактировать профиль
-  function handleUpdateUserInfo(data) {
+  function handleUpdateUserInfo(data: IUpdateUserFormValues) {
     setUpdateUserInfoSuccess(false);
     mainApi
       .updateUserInfo(data)
@@ -180,11 +199,7 @@ function App() {
           }
         />
 
-        <Route
-          exact
-          path={MAIN_PAGE_URL}
-          element={<Main loggedIn={isLoggedIn} />}
-        />
+        <Route path={MAIN_PAGE_URL} element={<Main loggedIn={isLoggedIn} />} />
 
         <Route
           path={MOVIES_PAGE_URL}
@@ -228,6 +243,6 @@ function App() {
       ) : null}
     </div>
   );
-}
+};
 
 export default App;
