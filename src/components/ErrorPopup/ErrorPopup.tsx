@@ -1,7 +1,12 @@
-import { useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import './ErrorPopup.css';
+import React from 'react';
 
-function ErrorPopup(props) {
+interface IErrorPopupProps {
+  onCloseErrorPopup: () => void;
+}
+
+const ErrorPopup: FC<IErrorPopupProps> = ({ onCloseErrorPopup }) => {
   const [isShown, setIsShown] = useState(false);
 
   // Плавное появление
@@ -13,7 +18,7 @@ function ErrorPopup(props) {
   }, []);
 
   function handleCloseButton() {
-    props.onCloseErrorPopup();
+    onCloseErrorPopup();
   }
   return (
     <div
@@ -30,6 +35,6 @@ function ErrorPopup(props) {
       </div>
     </div>
   );
-}
+};
 
 export default ErrorPopup;
