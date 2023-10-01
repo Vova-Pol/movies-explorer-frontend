@@ -1,3 +1,4 @@
+import React, { FC } from 'react';
 import './Header.css';
 import { Link } from 'react-router-dom';
 import useResize from '../../hooks/useResize';
@@ -8,9 +9,11 @@ import MobileMenu from '../MobileMenu/MobileMenu';
 import { ReactComponent as Logo } from '../../images/logo.svg';
 import { MAIN_PAGE_URL } from '../../utils/constants';
 
-function Header(props) {
-  const { loggedIn } = props;
+interface IHeaderProps {
+  loggedIn: boolean;
+}
 
+const Header: FC<IHeaderProps> = ({ loggedIn }) => {
   const { screenWidth, isScreenLaptop, isScreenMobile, isScreenTablet } =
     useResize();
 
@@ -31,6 +34,6 @@ function Header(props) {
       ) : null}
     </header>
   );
-}
+};
 
 export default Header;

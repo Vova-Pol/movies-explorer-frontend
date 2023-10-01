@@ -1,3 +1,4 @@
+import React, { FC } from 'react';
 import './Login.css';
 import AuthTop from '../../components/AuthTop/AuthTop';
 import AuthBottom from '../../components/AuthBottom/AuthBottom';
@@ -8,7 +9,7 @@ import {
   REGEX_PASSWORD,
 } from '../../utils/constants';
 
-function Login(props) {
+const Login: FC = (props) => {
   const { values, handleChange, setValues, errors, isValid, resetForm } =
     useFormAndValidation({
       email: '',
@@ -78,6 +79,6 @@ function Login(props) {
       />
     </div>
   );
-}
+};
 
 export default Login;

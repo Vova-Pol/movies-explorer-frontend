@@ -1,3 +1,4 @@
+import React, { FC } from 'react';
 import { useEffect, useState } from 'react';
 import './Main.css';
 import Header from '../../components/Header/Header';
@@ -10,7 +11,7 @@ import { Latest } from '../../components/Latest/Latest';
 import { BestAmerican } from '../../components/BestAmerican/BestAmerican';
 import { BestBritish } from '../../components/BestBritish/BestBritish';
 
-function Main(props) {
+const Main: FC = (props) => {
   const [latestMoviesList, setLatesMoviestList] = useState([]);
   const [bestAmericanMoviesList, setBestAmericanMoviesList] = useState([]);
   const [bestBritishMoviesList, setBestBritishMoviesList] = useState([]);
@@ -44,6 +45,6 @@ function Main(props) {
       <Footer />
     </div>
   );
-}
+};
 
 export default Main;

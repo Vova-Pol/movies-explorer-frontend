@@ -1,10 +1,11 @@
+import React from 'react';
 import './Profile.css';
-import { useState, useContext, useEffect } from 'react';
+import { useState, useContext, useEffect, FC } from 'react';
 import Header from '../Header/Header';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import { useFormAndValidation } from '../../hooks/useFormAndValidation';
 
-function Profile(props) {
+const Profile: FC = (props) => {
   const currentUser = useContext(CurrentUserContext);
 
   const { values, handleChange, setValues, errors, isValid, resetForm } =
@@ -82,6 +83,6 @@ function Profile(props) {
       </main>
     </div>
   );
-}
+};
 
 export default Profile;

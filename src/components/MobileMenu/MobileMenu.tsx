@@ -1,8 +1,9 @@
+import React, { FC } from 'react';
 import './MobileMenu.css';
 import Navigation from '../Navigation/Navigation';
 import ProfileLink from '../ProfileLink/ProfileLink';
 
-function MobileMenu() {
+const MobileMenu: FC = () => {
   return (
     <div className="mobile-menu">
       <input type="checkbox" className="mobile-menu__toggle"></input>
@@ -14,6 +15,6 @@ function MobileMenu() {
       </div>
     </div>
   );
-}
+};
 
 export default MobileMenu;

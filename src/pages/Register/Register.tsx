@@ -1,3 +1,4 @@
+import React, { FC } from 'react';
 import './Register.css';
 import AuthTop from '../../components/AuthTop/AuthTop';
 import AuthBottom from '../../components/AuthBottom/AuthBottom';
@@ -9,7 +10,7 @@ import {
   REGEX_PASSWORD,
 } from '../../utils/constants';
 
-function Register(props) {
+const Register: FC = (props) => {
   const { values, handleChange, setValues, errors, isValid, resetForm } =
     useFormAndValidation({
       name: '',
@@ -101,6 +102,6 @@ function Register(props) {
       />
     </div>
   );
-}
+};
 
 export default Register;

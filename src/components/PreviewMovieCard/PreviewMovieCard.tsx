@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, FC } from 'react';
 import './PreviewMovieCard.css';
 import { IMAGES_URL } from '../../utils/constants';
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
 
-export const PreviewMovieCard = ({ card }) => {
+const PreviewMovieCard: FC = ({ card }) => {
   const [isLiked, setIsLiked] = useState(false);
 
   function handleLikeButton() {
@@ -26,3 +26,5 @@ export const PreviewMovieCard = ({ card }) => {
     </div>
   );
 };
+
+export default PreviewMovieCard;

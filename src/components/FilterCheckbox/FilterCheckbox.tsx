@@ -1,6 +1,8 @@
+import React from 'react';
+import { FC } from 'react';
 import './FilterCheckbox.css';
 
-function FilterCheckbox(props) {
+const FilterCheckbox: FC = (props) => {
   return (
     <div className="search-form__checkbox-container">
       <label className="search-form__filter-checkbox">
@@ -15,6 +17,6 @@ function FilterCheckbox(props) {
       <p className="search-form__slider-title">Короткометражки</p>
     </div>
   );
-}
+};
 
 export default FilterCheckbox;

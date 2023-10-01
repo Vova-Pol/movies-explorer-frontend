@@ -1,3 +1,4 @@
+import React, { FC } from 'react';
 import './MoviesCardList.css';
 import { useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
@@ -8,7 +9,7 @@ import {
   MOVIES_PAGE_URL,
 } from '../../utils/constants';
 
-function MoviesCardList(props) {
+const MoviesCardList: FC = (props) => {
   const [resultText, setResultText] = useState('');
   const isOnSearchPage = useLocation().pathname === MOVIES_PAGE_URL;
 
@@ -64,6 +65,6 @@ function MoviesCardList(props) {
       )}
     </section>
   );
-}
+};
 
 export default MoviesCardList;

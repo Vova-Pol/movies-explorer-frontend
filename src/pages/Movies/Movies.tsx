@@ -1,3 +1,4 @@
+import React, { FC } from 'react';
 import './Movies.css';
 import { useContext, useEffect, useState } from 'react';
 import useResize from '../../hooks/useResize';
@@ -17,7 +18,7 @@ import {
   SHORT_MOVIE_DURATION,
 } from '../../utils/constants';
 
-function Movies(props) {
+const Movies: FC = (props) => {
   const { screenWidth, isScreenLaptop, isScreenMobile } = useResize();
   const [moviesList, setMoviesList] = useState([]);
   const [savedMoviesList, setSavedMoviesList] = useState([]);
@@ -179,6 +180,6 @@ function Movies(props) {
       <Footer />
     </div>
   );
-}
+};
 
 export default Movies;

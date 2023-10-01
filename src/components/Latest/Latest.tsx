@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { FC } from 'react';
 import './Latest.css';
 import { PreviewList } from '../PreviewList/PreviewList';
 
-export const Latest = ({ moviesList }) => {
+const Latest: FC = ({ moviesList }) => {
   return (
     <section className="latest">
       <h2 className="latest__title">Новинки</h2>
@@ -10,3 +10,5 @@ export const Latest = ({ moviesList }) => {
     </section>
   );
 };
+
+export default Latest;

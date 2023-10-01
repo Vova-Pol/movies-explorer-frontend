@@ -1,6 +1,8 @@
+import React from 'react';
+import { FC } from 'react';
 import './More.css';
 
-function More(props) {
+const More: FC = (props) => {
   return (
     <div className="more">
       <button className="more__button" onClick={props.onLoadMoreMovies}>
@@ -8,6 +10,6 @@ function More(props) {
       </button>
     </div>
   );
-}
+};
 
 export default More;

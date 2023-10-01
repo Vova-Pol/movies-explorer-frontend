@@ -1,5 +1,6 @@
+import React from 'react';
 import './MoviesCard.css';
-import { useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import countDuration from '../../utils/utils';
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
@@ -12,7 +13,7 @@ import {
 } from '../../utils/constants';
 import { mainApi } from '../../utils/MainApi';
 
-function MoviesCard(props) {
+const MoviesCard: FC = (props) => {
   const [isServerError, setIsServerError] = useState(false);
 
   const isOnSearchPage = useLocation().pathname === MOVIES_PAGE_URL;
@@ -150,6 +151,6 @@ function MoviesCard(props) {
       </div>
     </li>
   );
-}
+};
 
 export default MoviesCard;

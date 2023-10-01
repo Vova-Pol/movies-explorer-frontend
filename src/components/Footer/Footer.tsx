@@ -1,7 +1,8 @@
+import React, { FC } from 'react';
 import './Footer.css';
 import { Link } from 'react-router-dom';
 
-function Footer() {
+const Footer: FC = () => {
   const currentDate = new Date();
 
   return (
@@ -36,6 +37,6 @@ function Footer() {
       </div>
     </footer>
   );
-}
+};
 
 export default Footer;

@@ -1,7 +1,9 @@
+import React from 'react';
 import './Promo.css';
 import { ReactComponent as BackgroundIcon } from '../../images/promo-background.svg';
+import { FC } from 'react';
 
-function Promo() {
+const Promo: FC = () => {
   return (
     <section className="promo">
       <h1 className="promo__title">Movie Explorer</h1>
@@ -9,6 +11,6 @@ function Promo() {
       <BackgroundIcon className="promo__background" />
     </section>
   );
-}
+};
 
 export default Promo;

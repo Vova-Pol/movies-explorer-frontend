@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { FC } from 'react';
 import './BestAmerican.css';
 import { PreviewList } from '../PreviewList/PreviewList';
 
-export const BestAmerican = ({ moviesList }) => {
+const BestAmerican: FC = ({ moviesList }) => {
   return (
     <section className="best-american">
       <h2 className="best-american__title">Лучшее из США</h2>
@@ -10,3 +10,5 @@ export const BestAmerican = ({ moviesList }) => {
     </section>
   );
 };
+
+export default BestAmerican;

@@ -1,3 +1,4 @@
+import React, { FC } from 'react';
 import './SavedMovies.css';
 import { useEffect, useState } from 'react';
 import Header from '../../components/Header/Header';
@@ -7,7 +8,7 @@ import Footer from '../../components/Footer/Footer';
 import { mainApi } from '../../utils/MainApi';
 import { SHORT_MOVIE_DURATION } from '../../utils/constants';
 
-function SavedMovies(props) {
+const SavedMovies: FC = (props) => {
   const [moviesList, setMoviesList] = useState([]);
   const [isNothingFound, setIsNothingFound] = useState(false);
   const [isServerError, setIsServerError] = useState(false);
@@ -77,6 +78,6 @@ function SavedMovies(props) {
       <Footer />
     </div>
   );
-}
+};
 
 export default SavedMovies;

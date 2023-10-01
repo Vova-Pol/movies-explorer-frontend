@@ -1,3 +1,4 @@
+import React, { FC } from 'react';
 import './SearchForm.css';
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
@@ -8,7 +9,7 @@ import {
   EMPTY_SEARCH_INPUT_ERROR_TEXT,
 } from '../../utils/constants';
 
-function SearchForm(props) {
+const SearchForm: FC = (props) => {
   const { values, handleChange, setValues, errors, isValid, resetForm } =
     useFormAndValidation({ search: '' });
 
@@ -62,6 +63,6 @@ function SearchForm(props) {
       <div className="search-form__line"></div>
     </section>
   );
-}
+};
 
 export default SearchForm;

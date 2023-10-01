@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { FC } from 'react';
 import './BestBritish.css';
 import { PreviewList } from '../PreviewList/PreviewList';
 
-export const BestBritish = ({ moviesList }) => {
+const BestBritish: FC = ({ moviesList }) => {
   return (
     <section className="best-british">
       <h2 className="best-british__title">Лучшее из Великобритании</h2>
@@ -10,3 +10,5 @@ export const BestBritish = ({ moviesList }) => {
     </section>
   );
 };
+
+export default BestBritish;

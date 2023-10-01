@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { FC } from 'react';
 import './PreviewList.css';
 import { PreviewMovieCard } from '../PreviewMovieCard/PreviewMovieCard';
 
-export const PreviewList = ({ moviesList }) => {
+const PreviewList: FC = ({ moviesList }) => {
   return (
     <ul className="preview-list">
       {moviesList.map((card) => {
@@ -15,3 +15,5 @@ export const PreviewList = ({ moviesList }) => {
     </ul>
   );
 };
+
+export default PreviewList;

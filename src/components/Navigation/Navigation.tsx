@@ -1,3 +1,4 @@
+import React, { FC } from 'react';
 import './Navigation.css';
 import { Link } from 'react-router-dom';
 import useResize from '../../hooks/useResize';
@@ -7,7 +8,7 @@ import {
   SAVED_MOVIES_PAGE_URL,
 } from '../../utils/constants';
 
-function Navigation() {
+const Navigation: FC = () => {
   const { isScreenTablet, isScreenMobile } = useResize();
 
   return (
@@ -25,6 +26,6 @@ function Navigation() {
       </Link>
     </nav>
   );
-}
+};
 
 export default Navigation;
