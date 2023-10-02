@@ -1,8 +1,9 @@
-import React, { FC } from 'react';
+import React, { FC, FormEvent } from 'react';
 import './Register.css';
 import AuthTop from '../../components/AuthTop/AuthTop';
 import AuthBottom from '../../components/AuthBottom/AuthBottom';
 import { useFormAndValidation } from '../../hooks/useFormAndValidation';
+import { IRegisterFormValues } from '../../types/auth';
 import {
   LOGIN_PAGE_URL,
   REGEX_EMAIL,
@@ -10,7 +11,12 @@ import {
   REGEX_PASSWORD,
 } from '../../utils/constants';
 
-const Register: FC = (props) => {
+interface IRegisterProps {
+  handleRegister: (values: IRegisterFormValues) => void;
+  serverErrorText: string;
+}
+
+const Register: FC<IRegisterProps> = ({ handleRegister, serverErrorText }) => {
   const { values, handleChange, setValues, errors, isValid, resetForm } =
     useFormAndValidation({
       name: '',
@@ -23,9 +29,9 @@ const Register: FC = (props) => {
   const linkPath = LOGIN_PAGE_URL;
   const linkText = 'Войти';
 
-  function handleSubmit(evt) {
+  function handleSubmit(evt: FormEvent<HTMLFormElement>) {
     evt.preventDefault();
-    props.handleRegister(values);
+    handleRegister(values);
   }
 
   return (
@@ -43,8 +49,8 @@ const Register: FC = (props) => {
           onChange={handleChange}
           value={values.name}
           required
-          minLength="2"
-          maxLength="30"
+          minLength={2}
+          maxLength={30}
           pattern={REGEX_NAME.source}
         ></input>
         <span className="register__error-text">
@@ -77,14 +83,14 @@ const Register: FC = (props) => {
           onChange={handleChange}
           value={values.password}
           required
-          minLength="8"
+          minLength={8}
           pattern={REGEX_PASSWORD.source}
         ></input>
         <span className="register__error-text">
           {isValid ? '' : errors.password}
         </span>
 
-        <p className="register__server-error-text">{props.serverErrorText}</p>
+        <p className="register__server-error-text">{serverErrorText}</p>
 
         <button
           type="submit"

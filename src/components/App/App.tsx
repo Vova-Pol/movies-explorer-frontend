@@ -15,6 +15,7 @@ import Profile from '../Profile/Profile';
 import { mainApi } from '../../utils/MainApi';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import ErrorPopup from '../ErrorPopup/ErrorPopup';
+import { IRegisterFormValues, ILoginFormValues } from '../../types/auth';
 import {
   REGISTER_PAGE_URL,
   LOGIN_PAGE_URL,
@@ -26,23 +27,7 @@ import {
   REGISTER_CONFLICT_ERROR_TEXT,
   LOGIN_UNAUTHORIZED_ERROR_TEXT,
 } from '../../utils/constants';
-
-interface ILoginFormValues {
-  email: string;
-  password: string;
-}
-
-interface IRegisterFormValues {
-  name: string;
-  email: string;
-  password: string;
-}
-
-interface IUpdateUserFormValues {
-  name?: string;
-  email?: string;
-  password?: string;
-}
+import { IUpdateUserFormValues } from '../../types/user';
 
 const App: FC = () => {
   const navigateTo = useNavigate();

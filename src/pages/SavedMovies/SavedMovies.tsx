@@ -8,7 +8,11 @@ import Footer from '../../components/Footer/Footer';
 import { mainApi } from '../../utils/MainApi';
 import { SHORT_MOVIE_DURATION } from '../../utils/constants';
 
-const SavedMovies: FC = (props) => {
+interface ISavedMoviesProps {
+  loggedIn: boolean;
+}
+
+const SavedMovies: FC<ISavedMoviesProps> = ({ loggedIn }) => {
   const [moviesList, setMoviesList] = useState([]);
   const [isNothingFound, setIsNothingFound] = useState(false);
   const [isServerError, setIsServerError] = useState(false);
@@ -59,7 +63,7 @@ const SavedMovies: FC = (props) => {
 
   return (
     <div className="saved-movies">
-      <Header loggedIn={props.loggedIn} />
+      <Header loggedIn={loggedIn} />
       <main>
         <SearchForm
           onHandleSubmit={handleSearchForm}

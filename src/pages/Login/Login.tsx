@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, FormEvent } from 'react';
 import './Login.css';
 import AuthTop from '../../components/AuthTop/AuthTop';
 import AuthBottom from '../../components/AuthBottom/AuthBottom';
@@ -8,8 +8,14 @@ import {
   REGEX_EMAIL,
   REGEX_PASSWORD,
 } from '../../utils/constants';
+import { ILoginFormValues } from '../../types/auth';
 
-const Login: FC = (props) => {
+interface ILoginProps {
+  handleLogin: (values: ILoginFormValues) => void;
+  serverErrorText: string;
+}
+
+const Login: FC<ILoginProps> = ({ handleLogin, serverErrorText }) => {
   const { values, handleChange, setValues, errors, isValid, resetForm } =
     useFormAndValidation({
       email: '',
@@ -21,9 +27,9 @@ const Login: FC = (props) => {
   const linkPath = REGISTER_PAGE_URL;
   const linkText = 'Регистрация';
 
-  function handleSubmit(evt) {
+  function handleSubmit(evt: FormEvent<HTMLFormElement>) {
     evt.preventDefault();
-    props.handleLogin(values);
+    handleLogin(values);
   }
 
   return (
@@ -55,13 +61,13 @@ const Login: FC = (props) => {
           onChange={handleChange}
           value={values.password}
           required
-          minLength="8"
+          minLength={8}
           pattern={REGEX_PASSWORD.source}
         ></input>
         <span className="login__error-text">
           {isValid ? '' : errors.password}
         </span>
-        <p className="login__server-error-text">{props.serverErrorText}</p>
+        <p className="login__server-error-text">{serverErrorText}</p>
 
         <button
           type="submit"

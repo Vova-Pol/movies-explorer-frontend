@@ -5,13 +5,15 @@ import Header from '../../components/Header/Header';
 import Promo from '../../components/Promo/Promo';
 import Footer from '../../components/Footer/Footer';
 import getMoviesList from '../../utils/MoviesApi';
-import MoviesCardList from '../../components/MoviesCardList/MoviesCardList';
-import MoviesCard from '../../components/MoviesCard/MoviesCard';
-import { Latest } from '../../components/Latest/Latest';
-import { BestAmerican } from '../../components/BestAmerican/BestAmerican';
-import { BestBritish } from '../../components/BestBritish/BestBritish';
+import Latest from '../../components/Latest/Latest';
+import BestAmerican from '../../components/BestAmerican/BestAmerican';
+import BestBritish from '../../components/BestBritish/BestBritish';
 
-const Main: FC = (props) => {
+interface IMainProps {
+  loggedIn: boolean;
+}
+
+const Main: FC<IMainProps> = ({ loggedIn }) => {
   const [latestMoviesList, setLatesMoviestList] = useState([]);
   const [bestAmericanMoviesList, setBestAmericanMoviesList] = useState([]);
   const [bestBritishMoviesList, setBestBritishMoviesList] = useState([]);
@@ -34,7 +36,7 @@ const Main: FC = (props) => {
   console.log(latestMoviesList);
   return (
     <div className="main">
-      {/* <Header loggedIn={props.loggedIn} /> */}
+      {/* <Header loggedIn={loggedIn} /> */}
       <Header loggedIn={true} />
       <main>
         <Promo />

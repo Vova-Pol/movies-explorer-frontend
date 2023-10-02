@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import './Movies.css';
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import useResize from '../../hooks/useResize';
 import Header from '../../components/Header/Header';
 import SearchForm from '../../components/SearchForm/SearchForm';
@@ -18,7 +18,11 @@ import {
   SHORT_MOVIE_DURATION,
 } from '../../utils/constants';
 
-const Movies: FC = (props) => {
+interface IMoviesProps {
+  loggedIn: boolean;
+}
+
+const Movies: FC<IMoviesProps> = ({ loggedIn }) => {
   const { screenWidth, isScreenLaptop, isScreenMobile } = useResize();
   const [moviesList, setMoviesList] = useState([]);
   const [savedMoviesList, setSavedMoviesList] = useState([]);
@@ -95,7 +99,7 @@ const Movies: FC = (props) => {
       setIsNothingFound(false);
       setIsServerError(false);
 
-      if (props.loggedIn) {
+      if (loggedIn) {
         if (localStorage.getItem('saved-movies-list')) {
           setSavedMoviesList(
             JSON.parse(localStorage.getItem('saved-movies-list')),
@@ -155,7 +159,7 @@ const Movies: FC = (props) => {
 
   return (
     <div className="movies">
-      <Header loggedIn={props.loggedIn} />
+      <Header loggedIn={loggedIn} />
       <main>
         <SearchForm
           onHandleSubmit={handleSearchForm}

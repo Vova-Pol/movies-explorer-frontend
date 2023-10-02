@@ -1,11 +1,24 @@
 import React from 'react';
 import './Profile.css';
-import { useState, useContext, useEffect, FC } from 'react';
+import { useContext, FC } from 'react';
 import Header from '../Header/Header';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import { useFormAndValidation } from '../../hooks/useFormAndValidation';
+import { IUpdateUserFormValues } from '../../types/user';
 
-const Profile: FC = (props) => {
+interface IProfileProps {
+  onUpdateUserInfo: (values: IUpdateUserFormValues) => void;
+  loggedIn: boolean;
+  isUpdateSuccess: boolean;
+  onLogout: () => void;
+}
+
+const Profile: FC<IProfileProps> = ({
+  onLogout,
+  onUpdateUserInfo,
+  loggedIn,
+  isUpdateSuccess,
+}) => {
   const currentUser = useContext(CurrentUserContext);
 
   const { values, handleChange, setValues, errors, isValid, resetForm } =
@@ -19,12 +32,12 @@ const Profile: FC = (props) => {
 
   function handleSubmit(evt) {
     evt.preventDefault();
-    props.onUpdateUserInfo(values);
+    onUpdateUserInfo(values);
   }
 
   return (
     <div className="profile">
-      <Header loggedIn={props.loggedIn} />
+      <Header loggedIn={loggedIn} />
       <main>
         <div className="profile__container">
           <h1 className="profile__title">{`Привет, ${currentUser.name}!`}</h1>
@@ -57,7 +70,7 @@ const Profile: FC = (props) => {
             </div>
             <span
               className={
-                props.isUpdateSuccess
+                isUpdateSuccess
                   ? 'profile__success-text profile__success-text_type_active'
                   : 'profile__success-text'
               }
@@ -75,7 +88,7 @@ const Profile: FC = (props) => {
           <button
             type="button"
             className="profile__exit-button"
-            onClick={props.onLogout}
+            onClick={onLogout}
           >
             Выйти из аккаунта
           </button>
