@@ -17,6 +17,7 @@ import {
   MOVIES_AMOUNT_STEP_MOBILE,
   SHORT_MOVIE_DURATION,
 } from '../../utils/constants';
+import { ISearchFormValues } from '../../types/search';
 
 interface IMoviesProps {
   loggedIn: boolean;
@@ -91,7 +92,7 @@ const Movies: FC<IMoviesProps> = ({ loggedIn }) => {
 
   // Кнопка "Найти"
 
-  async function handleSearchForm(values) {
+  async function handleSearchForm(values: ISearchFormValues) {
     try {
       localStorage.removeItem('last-search-data');
 

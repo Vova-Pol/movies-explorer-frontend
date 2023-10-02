@@ -2,10 +2,14 @@ import React from 'react';
 import { FC } from 'react';
 import './More.css';
 
-const More: FC = (props) => {
+interface IMoreProps {
+  onLoadMoreMovies: () => void;
+}
+
+const More: FC<IMoreProps> = ({ onLoadMoreMovies }) => {
   return (
     <div className="more">
-      <button className="more__button" onClick={props.onLoadMoreMovies}>
+      <button className="more__button" onClick={onLoadMoreMovies}>
         Ещё
       </button>
     </div>

@@ -2,15 +2,20 @@ import React from 'react';
 import { FC } from 'react';
 import './FilterCheckbox.css';
 
-const FilterCheckbox: FC = (props) => {
+interface IFilterCheckboxProps {
+  isChecked: boolean;
+  onChange: () => void;
+}
+
+const FilterCheckbox: FC<IFilterCheckboxProps> = ({ isChecked, onChange }) => {
   return (
     <div className="search-form__checkbox-container">
       <label className="search-form__filter-checkbox">
         <input
           className="search-form__switch-input"
           type="checkbox"
-          checked={props.checked}
-          onChange={props.onChange}
+          checked={isChecked}
+          onChange={onChange}
         ></input>
         <span className="search-form__slider"></span>
       </label>

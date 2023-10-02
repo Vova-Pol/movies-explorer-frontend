@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import './Latest.css';
-import { PreviewList } from '../PreviewList/PreviewList';
+import PreviewList from '../PreviewList/PreviewList';
 
 const Latest: FC = ({ moviesList }) => {
   return (

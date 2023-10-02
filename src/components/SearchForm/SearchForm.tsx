@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, FormEvent } from 'react';
 import './SearchForm.css';
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
@@ -8,8 +8,19 @@ import {
   MOVIES_PAGE_URL,
   EMPTY_SEARCH_INPUT_ERROR_TEXT,
 } from '../../utils/constants';
+import { ISearchFormValues } from '../../types/search';
 
-const SearchForm: FC = (props) => {
+interface ISearchFormProps {
+  onHandleSubmit: (values: ISearchFormValues) => void;
+  onHandleCheckbox: () => void;
+  isChecked: boolean;
+}
+
+const SearchForm: FC<ISearchFormProps> = ({
+  isChecked,
+  onHandleCheckbox,
+  onHandleSubmit,
+}) => {
   const { values, handleChange, setValues, errors, isValid, resetForm } =
     useFormAndValidation({ search: '' });
 
@@ -25,14 +36,14 @@ const SearchForm: FC = (props) => {
     }
   }, []);
 
-  async function handleSubmit(evt) {
+  async function handleSubmit(evt: FormEvent<HTMLFormElement>) {
     evt.preventDefault();
     if (values.search === '') {
       setErrText(EMPTY_SEARCH_INPUT_ERROR_TEXT);
       return;
     } else {
       setErrText('');
-      props.onHandleSubmit(values);
+      onHandleSubmit(values);
       return;
     }
   }
@@ -55,10 +66,7 @@ const SearchForm: FC = (props) => {
           </button>
         </div>
         <span className="search-form__input-error">{errText}</span>
-        <FilterCheckbox
-          onChange={props.onHandleCheckbox}
-          checked={props.isChecked}
-        />
+        <FilterCheckbox onChange={onHandleCheckbox} isChecked={isChecked} />
       </form>
       <div className="search-form__line"></div>
     </section>

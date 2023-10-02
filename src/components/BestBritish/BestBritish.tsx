@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import './BestBritish.css';
-import { PreviewList } from '../PreviewList/PreviewList';
+import PreviewList from '../PreviewList/PreviewList';
 
 const BestBritish: FC = ({ moviesList }) => {
   return (

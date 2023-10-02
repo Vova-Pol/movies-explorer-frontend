@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FormEvent } from 'react';
 import './Profile.css';
 import { useContext, FC } from 'react';
 import Header from '../Header/Header';
@@ -30,7 +30,7 @@ const Profile: FC<IProfileProps> = ({
   const valuesChanged =
     values.name !== currentUser.name || values.email !== currentUser.email;
 
-  function handleSubmit(evt) {
+  function handleSubmit(evt: FormEvent<HTMLFormElement>) {
     evt.preventDefault();
     onUpdateUserInfo(values);
   }
@@ -49,7 +49,7 @@ const Profile: FC<IProfileProps> = ({
                 type="text"
                 name="name"
                 required
-                minLength="2"
+                minLength={2}
                 value={values.name}
                 placeholder="Имя"
                 onChange={handleChange}

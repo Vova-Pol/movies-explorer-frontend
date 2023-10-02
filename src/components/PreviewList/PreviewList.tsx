@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import './PreviewList.css';
-import { PreviewMovieCard } from '../PreviewMovieCard/PreviewMovieCard';
+import PreviewMovieCard from '../PreviewMovieCard/PreviewMovieCard';
 
 const PreviewList: FC = ({ moviesList }) => {
   return (
