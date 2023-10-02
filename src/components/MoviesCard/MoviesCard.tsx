@@ -13,7 +13,12 @@ import {
 } from '../../utils/constants';
 import { mainApi } from '../../utils/MainApi';
 
-const MoviesCard: FC = (props) => {
+interface IMoviesCardProps {
+  handleDeleteMovie: (_id: number) => void;
+  isLiked: boolean;
+}
+
+const MoviesCard: FC<IMoviesCardProps> = ({ handleDeleteMovie, isLiked }) => {
   const [isServerError, setIsServerError] = useState(false);
 
   const isOnSearchPage = useLocation().pathname === MOVIES_PAGE_URL;
@@ -36,11 +41,11 @@ const MoviesCard: FC = (props) => {
   const { id, image } = props.cardData; // Поиск
   const { _id, thumbnail } = props.cardData; // Сохраненные
 
-  const [isLiked, setIsLiked] = useState(false);
+  const [isCardLiked, setIsCardLiked] = useState(false);
 
   useEffect(() => {
-    if (props.isLiked) {
-      setIsLiked(true);
+    if (isLiked) {
+      setIsCardLiked(true);
     }
   }, []);
 
@@ -58,12 +63,12 @@ const MoviesCard: FC = (props) => {
       thumbnail: `${IMAGES_URL}${image.formats.thumbnail.url}`,
       movieId: id,
     };
-    if (!isLiked) {
+    if (!isCardLiked) {
       mainApi
         .saveMovie(savedMovieData)
         .then((res) => {
           if (res) {
-            setIsLiked(true);
+            setIsCardLiked(true);
             localStorage.removeItem('saved-movies-list');
           }
         })
@@ -76,7 +81,7 @@ const MoviesCard: FC = (props) => {
         .deleteMovie(props.savedId)
         .then((res) => {
           if (res) {
-            setIsLiked(false);
+            setIsCardLiked(false);
             localStorage.removeItem('saved-movies-list');
           }
         })
@@ -92,8 +97,8 @@ const MoviesCard: FC = (props) => {
       .deleteMovie(_id)
       .then((res) => {
         if (res) {
-          setIsLiked(false);
-          props.handleDeleteMovie(res.data._id);
+          setIsCardLiked(false);
+          handleDeleteMovie(res.data._id);
           localStorage.removeItem('saved-movies-list');
         }
       })
@@ -144,7 +149,7 @@ const MoviesCard: FC = (props) => {
               onClick={handleLikeButton}
               className="movies-card-list__icon"
             >
-              {isLiked ? <AiFillHeart /> : <AiOutlineHeart />}
+              {isCardLiked ? <AiFillHeart /> : <AiOutlineHeart />}
             </button>
           )}
         </div>

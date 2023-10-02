@@ -8,32 +8,47 @@ import {
   SERVER_ERROR_TEXT,
   MOVIES_PAGE_URL,
 } from '../../utils/constants';
+import { IMovie } from '../../types/movie';
 
-const MoviesCardList: FC = (props) => {
+interface IMoviesCardListProps {
+  isNothingFound: boolean;
+  isServerError: boolean;
+  onDeleteMovie: (_id: number) => void;
+  moviesList: IMovie[];
+  moviesAmount: number;
+}
+
+const MoviesCardList: FC<IMoviesCardListProps> = ({
+  isNothingFound,
+  isServerError,
+  onDeleteMovie,
+  moviesList,
+  moviesAmount,
+}) => {
   const [resultText, setResultText] = useState('');
   const isOnSearchPage = useLocation().pathname === MOVIES_PAGE_URL;
 
   useEffect(() => {
-    if (props.nothingFound) {
+    if (isNothingFound) {
       setResultText(NOTHING_FOUND_ERROR_TEXT);
     }
-    if (props.serverError) {
+    if (isServerError) {
       setResultText(SERVER_ERROR_TEXT);
     }
-  }, [props]);
+  }, [isNothingFound, isServerError]);
 
-  function handleDeleteMovie(_id) {
-    props.onDeleteMovie(_id);
+  function handleDeleteMovie(_id: number) {
+    onDeleteMovie(_id);
   }
 
   return (
     <section className="movies-card-list">
-      {props.nothingFound || props.serverError ? (
+      {isNothingFound || isServerError ? (
         <span className="movies-card-list__result-text">{resultText}</span>
       ) : (
         <ul className="movies-card-list__list">
-          {props.moviesList.map((card, index) => {
-            if (index <= props.moviesAmount - 1) {
+          {moviesList.map((card, index) => {
+            if (index <= moviesAmount - 1) {
               let isLiked;
               let savedId;
               if (isOnSearchPage) {

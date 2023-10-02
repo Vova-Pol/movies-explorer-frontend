@@ -1,8 +1,13 @@
 import React, { FC } from 'react';
 import './PreviewList.css';
 import PreviewMovieCard from '../PreviewMovieCard/PreviewMovieCard';
+import { IMovie } from '../../types/movie';
 
-const PreviewList: FC = ({ moviesList }) => {
+interface IPreviewListProps {
+  moviesList: IMovie[];
+}
+
+const PreviewList: FC<IPreviewListProps> = ({ moviesList }) => {
   return (
     <ul className="preview-list">
       {moviesList.map((card) => {

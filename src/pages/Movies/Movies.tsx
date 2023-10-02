@@ -18,6 +18,7 @@ import {
   SHORT_MOVIE_DURATION,
 } from '../../utils/constants';
 import { ISearchFormValues } from '../../types/search';
+import { IMovie } from '../../types/movie';
 
 interface IMoviesProps {
   loggedIn: boolean;
@@ -118,13 +119,13 @@ const Movies: FC<IMoviesProps> = ({ loggedIn }) => {
       const fetchedMoviesList = await getMoviesList();
       // Все фильмы по запросу
       const filteredMoviesList = fetchedMoviesList.filter(
-        (movie) =>
+        (movie: IMovie) =>
           movie.nameEN.toLowerCase().includes(values.search.toLowerCase()) ||
           movie.nameRU.toLowerCase().includes(values.search.toLowerCase()),
       );
       // Только короткометражки
       const shortsMoviesList = filteredMoviesList.filter(
-        (movie) => movie.duration <= SHORT_MOVIE_DURATION,
+        (movie: IMovie) => movie.duration <= SHORT_MOVIE_DURATION,
       );
 
       if (showShortMovies) {
@@ -172,8 +173,8 @@ const Movies: FC<IMoviesProps> = ({ loggedIn }) => {
         ) : (
           <MoviesCardList
             moviesList={moviesList}
-            nothingFound={isNothingFound}
-            serverError={isServerError}
+            isNothingFound={isNothingFound}
+            isServerError={isServerError}
             moviesAmount={moviesAmount}
             savedMoviesList={savedMoviesList}
           />

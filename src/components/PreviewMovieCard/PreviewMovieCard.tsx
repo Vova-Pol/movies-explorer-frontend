@@ -2,8 +2,13 @@ import React, { useState, FC } from 'react';
 import './PreviewMovieCard.css';
 import { IMAGES_URL } from '../../utils/constants';
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
+import { IMovie } from '../../types/movie';
 
-const PreviewMovieCard: FC = ({ card }) => {
+interface IPreviewMovieCardProps {
+  card: IMovie;
+}
+
+const PreviewMovieCard: FC<IPreviewMovieCardProps> = ({ card }) => {
   const [isLiked, setIsLiked] = useState(false);
 
   function handleLikeButton() {

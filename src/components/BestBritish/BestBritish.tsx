@@ -1,8 +1,13 @@
 import React, { FC } from 'react';
 import './BestBritish.css';
 import PreviewList from '../PreviewList/PreviewList';
+import { IMovie } from '../../types/movie';
 
-const BestBritish: FC = ({ moviesList }) => {
+interface IBestBritishProps {
+  moviesList: IMovie[];
+}
+
+const BestBritish: FC<IBestBritishProps> = ({ moviesList }) => {
   return (
     <section className="best-british">
       <h2 className="best-british__title">Лучшее из Великобритании</h2>
