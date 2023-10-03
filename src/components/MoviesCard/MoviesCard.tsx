@@ -12,13 +12,19 @@ import {
   SERVER_ERROR_TEXT,
 } from '../../utils/constants';
 import { mainApi } from '../../utils/MainApi';
+import { IMovie, ISavedMovie } from '../../types/movie';
 
 interface IMoviesCardProps {
-  handleDeleteMovie: (_id: number) => void;
+  handleDeleteMovie: (id: number) => void;
   isLiked: boolean;
+  cardData: ISavedMovie | IMovie;
 }
 
-const MoviesCard: FC<IMoviesCardProps> = ({ handleDeleteMovie, isLiked }) => {
+const MoviesCard: FC<IMoviesCardProps> = ({
+  handleDeleteMovie,
+  isLiked,
+  cardData,
+}) => {
   const [isServerError, setIsServerError] = useState(false);
 
   const isOnSearchPage = useLocation().pathname === MOVIES_PAGE_URL;
@@ -28,25 +34,22 @@ const MoviesCard: FC<IMoviesCardProps> = ({ handleDeleteMovie, isLiked }) => {
   // карточек пришедших с разных api (moviesApi и mainApi)
 
   const {
+    id,
     country,
     director,
     duration,
     year,
+    image,
     description,
     trailerLink,
     nameRU,
     nameEN,
-  } = props.cardData; // Общие пропсы
-
-  const { id, image } = props.cardData; // Поиск
-  const { _id, thumbnail } = props.cardData; // Сохраненные
+  } = cardData;
 
   const [isCardLiked, setIsCardLiked] = useState(false);
 
   useEffect(() => {
-    if (isLiked) {
-      setIsCardLiked(true);
-    }
+    if (isLiked) setIsCardLiked(true);
   }, []);
 
   function handleLikeButton() {
@@ -78,7 +81,7 @@ const MoviesCard: FC<IMoviesCardProps> = ({ handleDeleteMovie, isLiked }) => {
         });
     } else {
       mainApi
-        .deleteMovie(props.savedId)
+        .deleteMovie(id)
         .then((res) => {
           if (res) {
             setIsCardLiked(false);
@@ -94,7 +97,7 @@ const MoviesCard: FC<IMoviesCardProps> = ({ handleDeleteMovie, isLiked }) => {
 
   function handleCrossButton() {
     mainApi
-      .deleteMovie(_id)
+      .deleteMovie(id)
       .then((res) => {
         if (res) {
           setIsCardLiked(false);

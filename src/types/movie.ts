@@ -20,7 +20,7 @@ interface IImage {
   caption: string;
   width: number;
   height: number;
-  formats: Formats;
+  formats: IFormats;
   hash: string;
   ext: string;
   mime: string;
@@ -33,7 +33,7 @@ interface IImage {
   updated_at: Date;
 }
 
-interface Formats {
+interface IFormats {
   thumbnail: ISmall;
   small: ISmall;
 }
@@ -47,4 +47,19 @@ interface ISmall {
   size: number;
   path: null;
   url: string;
+}
+
+export interface ISavedMovie {
+  id: number;
+  nameRU: string;
+  nameEN: string;
+  director: string;
+  country: string;
+  year: string;
+  duration: number;
+  description: string;
+  trailerLink: string;
+  created_at: Date;
+  updated_at: Date;
+  image: string;
 }

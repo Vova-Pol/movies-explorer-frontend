@@ -8,14 +8,15 @@ import {
   SERVER_ERROR_TEXT,
   MOVIES_PAGE_URL,
 } from '../../utils/constants';
-import { IMovie } from '../../types/movie';
+import { IMovie, ISavedMovie } from '../../types/movie';
 
 interface IMoviesCardListProps {
   isNothingFound: boolean;
   isServerError: boolean;
-  onDeleteMovie: (_id: number) => void;
-  moviesList: IMovie[];
+  moviesList?: IMovie[];
   moviesAmount: number;
+  savedMoviesList: ISavedMovie[];
+  onDeleteMovie: (id: number) => void;
 }
 
 const MoviesCardList: FC<IMoviesCardListProps> = ({
@@ -24,9 +25,10 @@ const MoviesCardList: FC<IMoviesCardListProps> = ({
   onDeleteMovie,
   moviesList,
   moviesAmount,
+  savedMoviesList,
 }) => {
   const [resultText, setResultText] = useState('');
-  const isOnSearchPage = useLocation().pathname === MOVIES_PAGE_URL;
+  const isOnMoviesPage = useLocation().pathname === MOVIES_PAGE_URL;
 
   useEffect(() => {
     if (isNothingFound) {
@@ -37,8 +39,8 @@ const MoviesCardList: FC<IMoviesCardListProps> = ({
     }
   }, [isNothingFound, isServerError]);
 
-  function handleDeleteMovie(_id: number) {
-    onDeleteMovie(_id);
+  function handleDeleteMovie(id: number) {
+    onDeleteMovie(id);
   }
 
   return (
@@ -47,35 +49,29 @@ const MoviesCardList: FC<IMoviesCardListProps> = ({
         <span className="movies-card-list__result-text">{resultText}</span>
       ) : (
         <ul className="movies-card-list__list">
-          {moviesList.map((card, index) => {
-            if (index <= moviesAmount - 1) {
-              let isLiked;
-              let savedId;
-              if (isOnSearchPage) {
-                for (let savedMovie of props.savedMoviesList) {
-                  if (savedMovie.movieId === card.id) {
-                    isLiked = true;
-                    savedId = savedMovie._id;
-                    break;
-                  } else {
-                    isLiked = false;
-                    savedId = null;
+          {moviesList &&
+            moviesList.map((card, index) => {
+              if (index <= moviesAmount - 1) {
+                let isLiked = false;
+                if (isOnMoviesPage) {
+                  for (let savedMovie of savedMoviesList) {
+                    if (savedMovie.id === card.id) {
+                      isLiked = true;
+                      break;
+                    }
                   }
                 }
+                return (
+                  <MoviesCard
+                    key={card.id}
+                    cardData={card}
+                    handleDeleteMovie={handleDeleteMovie}
+                    isLiked={isLiked}
+                  />
+                );
               }
-              return (
-                <MoviesCard
-                  key={isOnSearchPage ? card.id : card._id}
-                  cardData={card}
-                  handleDeleteMovie={handleDeleteMovie}
-                  isLiked={isLiked}
-                  savedId={savedId}
-                />
-              );
-            } else {
               return;
-            }
-          })}
+            })}
         </ul>
       )}
     </section>

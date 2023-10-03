@@ -7,13 +7,15 @@ import MoviesCardList from '../../components/MoviesCardList/MoviesCardList';
 import Footer from '../../components/Footer/Footer';
 import { mainApi } from '../../utils/MainApi';
 import { SHORT_MOVIE_DURATION } from '../../utils/constants';
+import { ISavedMovie } from '../../types/movie';
+import { ISearchFormValues } from '../../types/search';
 
 interface ISavedMoviesProps {
   loggedIn: boolean;
 }
 
 const SavedMovies: FC<ISavedMoviesProps> = ({ loggedIn }) => {
-  const [moviesList, setMoviesList] = useState([]);
+  const [moviesList, setMoviesList] = useState<ISavedMovie[]>([]);
   const [isNothingFound, setIsNothingFound] = useState(false);
   const [isServerError, setIsServerError] = useState(false);
 
@@ -40,11 +42,11 @@ const SavedMovies: FC<ISavedMoviesProps> = ({ loggedIn }) => {
     setShowShortMovies(!showShortMovies);
   }
 
-  function handleDeleteMovie(_id) {
-    setMoviesList(moviesList.filter((movie) => movie._id !== _id));
+  function handleDeleteMovie(id: number) {
+    setMoviesList(moviesList.filter((movie) => movie.id !== id));
   }
 
-  function handleSearchForm(values) {
+  function handleSearchForm(values: ISearchFormValues) {
     let filteredMoviesList = moviesList.filter(
       (movie) =>
         movie.nameEN.toLowerCase().includes(values.search.toLowerCase()) ||
@@ -71,12 +73,11 @@ const SavedMovies: FC<ISavedMoviesProps> = ({ loggedIn }) => {
           onHandleCheckbox={handleShortMoviesCheckbox}
         />
         <MoviesCardList
-          moviesList={moviesList}
+          savedMoviesList={moviesList}
           moviesAmount={moviesList.length}
-          nothingFound={isNothingFound}
-          serverError={isServerError}
+          isNothingFound={isNothingFound}
+          isServerError={isServerError}
           onDeleteMovie={handleDeleteMovie}
-          isShortMovies={showShortMovies}
         />
       </main>
       <Footer />
