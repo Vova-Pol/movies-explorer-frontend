@@ -13,6 +13,7 @@ import {
 } from '../../utils/constants';
 import { mainApi } from '../../utils/MainApi';
 import { IMovie, ISavedMovie } from '../../types/movie';
+import { useLocalStorage } from '../../hooks/useLocalStorage';
 
 interface IMoviesCardProps {
   handleDeleteMovie: (id: number) => void;
@@ -26,6 +27,7 @@ const MoviesCard: FC<IMoviesCardProps> = ({
   cardData,
 }) => {
   const [isServerError, setIsServerError] = useState(false);
+  const { removeFromLs } = useLocalStorage();
 
   const isOnSearchPage = useLocation().pathname === MOVIES_PAGE_URL;
   const isOnSavedPage = useLocation().pathname === SAVED_MOVIES_PAGE_URL;
@@ -72,7 +74,7 @@ const MoviesCard: FC<IMoviesCardProps> = ({
         .then((res) => {
           if (res) {
             setIsCardLiked(true);
-            localStorage.removeItem('saved-movies-list');
+            removeFromLs('saved-movies-list');
           }
         })
         .catch((err) => {
@@ -85,7 +87,7 @@ const MoviesCard: FC<IMoviesCardProps> = ({
         .then((res) => {
           if (res) {
             setIsCardLiked(false);
-            localStorage.removeItem('saved-movies-list');
+            removeFromLs('saved-movies-list');
           }
         })
         .catch((err) => {
@@ -102,7 +104,7 @@ const MoviesCard: FC<IMoviesCardProps> = ({
         if (res) {
           setIsCardLiked(false);
           handleDeleteMovie(res.data._id);
-          localStorage.removeItem('saved-movies-list');
+          removeFromLs('saved-movies-list');
         }
       })
       .catch((err) => {

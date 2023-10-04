@@ -9,6 +9,7 @@ import { mainApi } from '../../utils/MainApi';
 import { SHORT_MOVIE_DURATION } from '../../utils/constants';
 import { ISavedMovie } from '../../types/movie';
 import { ISearchFormValues } from '../../types/search';
+import { useLocalStorage } from '../../hooks/useLocalStorage';
 
 interface ISavedMoviesProps {
   loggedIn: boolean;
@@ -18,6 +19,7 @@ const SavedMovies: FC<ISavedMoviesProps> = ({ loggedIn }) => {
   const [moviesList, setMoviesList] = useState<ISavedMovie[]>([]);
   const [isNothingFound, setIsNothingFound] = useState(false);
   const [isServerError, setIsServerError] = useState(false);
+  const { saveToLs } = useLocalStorage();
 
   // Запрос к сохраннемнным фильмам
   useEffect(() => {
@@ -26,7 +28,7 @@ const SavedMovies: FC<ISavedMoviesProps> = ({ loggedIn }) => {
       .then((res) => {
         if (res) {
           setMoviesList(res.data);
-          localStorage.setItem('saved-movies-list', JSON.stringify(res.data));
+          saveToLs('saved-movies-list', res.data);
         }
       })
       .catch((err) => {
