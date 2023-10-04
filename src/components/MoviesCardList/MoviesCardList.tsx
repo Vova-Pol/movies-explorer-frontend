@@ -49,29 +49,39 @@ const MoviesCardList: FC<IMoviesCardListProps> = ({
         <span className="movies-card-list__result-text">{resultText}</span>
       ) : (
         <ul className="movies-card-list__list">
-          {moviesList &&
-            moviesList.map((card, index) => {
-              if (index <= moviesAmount - 1) {
-                let isLiked = false;
-                if (isOnMoviesPage) {
-                  for (let savedMovie of savedMoviesList) {
-                    if (savedMovie.id === card.id) {
-                      isLiked = true;
-                      break;
+          {moviesList
+            ? moviesList.map((card, index) => {
+                if (index <= moviesAmount - 1) {
+                  let isLiked = false;
+                  if (isOnMoviesPage) {
+                    for (let savedMovie of savedMoviesList) {
+                      if (savedMovie.id === card.id) {
+                        isLiked = true;
+                        break;
+                      }
                     }
                   }
+                  return (
+                    <MoviesCard
+                      key={card.id}
+                      cardData={card}
+                      handleDeleteMovie={handleDeleteMovie}
+                      isLiked={isLiked}
+                    />
+                  );
                 }
+                return;
+              })
+            : savedMoviesList.map((card) => {
                 return (
                   <MoviesCard
                     key={card.id}
                     cardData={card}
                     handleDeleteMovie={handleDeleteMovie}
-                    isLiked={isLiked}
+                    isLiked={true}
                   />
                 );
-              }
-              return;
-            })}
+              })}
         </ul>
       )}
     </section>
