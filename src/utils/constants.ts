@@ -35,3 +35,7 @@ export const MOVIES_AMOUNT_STEP_MOBILE = 5;
 
 // Длина короткометражки
 export const SHORT_MOVIE_DURATION = 40;
+
+// Ключи для хранения в Local Storage
+export const SAVED_MOVIES_LIST_LS_KEY = 'saved-movies-list';
+export const LAST_SEARCH_DATA_LS_KEY = 'last-search-data';

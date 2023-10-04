@@ -11,10 +11,12 @@ import More from '../../components/More/More';
 import getMoviesList from '../../utils/MoviesApi';
 import { mainApi } from '../../utils/MainApi';
 import {
+  LAST_SEARCH_DATA_LS_KEY,
   MOVIES_AMOUNT_SHOWN_LAPTOP,
   MOVIES_AMOUNT_SHOWN_MOBILE,
   MOVIES_AMOUNT_STEP_LAPTOP,
   MOVIES_AMOUNT_STEP_MOBILE,
+  SAVED_MOVIES_LIST_LS_KEY,
   SHORT_MOVIE_DURATION,
 } from '../../utils/constants';
 import { ISearchFormValues } from '../../types/search';
@@ -38,8 +40,8 @@ const Movies: FC<IMoviesProps> = ({ loggedIn }) => {
     useLocalStorage();
 
   // Стейт и контроллер для переключателя "короткометражки"
-  const showShortMoviesInitial = isPresentInLs('last-search-data')
-    ? getFromLs('last-search-data').showShortMovies
+  const showShortMoviesInitial = isPresentInLs(LAST_SEARCH_DATA_LS_KEY)
+    ? getFromLs(LAST_SEARCH_DATA_LS_KEY).showShortMovies
     : false;
 
   const [showShortMovies, setShowShortMovies] = useState(
@@ -47,8 +49,8 @@ const Movies: FC<IMoviesProps> = ({ loggedIn }) => {
   );
 
   function handleShortMoviesCheckbox() {
-    const lastSearchData = isPresentInLs('last-search-data')
-      ? getFromLs('last-search-data')
+    const lastSearchData = isPresentInLs(LAST_SEARCH_DATA_LS_KEY)
+      ? getFromLs(LAST_SEARCH_DATA_LS_KEY)
       : null;
 
     if (lastSearchData && !showShortMovies) {
@@ -61,7 +63,7 @@ const Movies: FC<IMoviesProps> = ({ loggedIn }) => {
 
     if (lastSearchData) {
       lastSearchData.showShortMovies = !lastSearchData.showShortMovies;
-      saveToLs('last-search-data', lastSearchData);
+      saveToLs(LAST_SEARCH_DATA_LS_KEY, lastSearchData);
     }
 
     setShowShortMovies(!showShortMovies);
@@ -82,14 +84,15 @@ const Movies: FC<IMoviesProps> = ({ loggedIn }) => {
   // Вывод данных последнего поиска из Локального Хранилища
 
   useEffect(() => {
-    if (isPresentInLs('last-search-data')) {
-      const { showShortMovies, fullMoviesList, shortsMoviesList } =
-        getFromLs('last-search-data');
+    if (isPresentInLs(LAST_SEARCH_DATA_LS_KEY)) {
+      const { showShortMovies, fullMoviesList, shortsMoviesList } = getFromLs(
+        LAST_SEARCH_DATA_LS_KEY,
+      );
       setShowShortMovies(showShortMovies);
       setMoviesList(showShortMovies ? shortsMoviesList : fullMoviesList);
     }
-    if (isPresentInLs('saved-movies-list')) {
-      setSavedMoviesList(getFromLs('saved-movies-list'));
+    if (isPresentInLs(SAVED_MOVIES_LIST_LS_KEY)) {
+      setSavedMoviesList(getFromLs(SAVED_MOVIES_LIST_LS_KEY));
     }
   }, []);
 
@@ -97,19 +100,19 @@ const Movies: FC<IMoviesProps> = ({ loggedIn }) => {
 
   async function handleSearchForm(values: ISearchFormValues) {
     try {
-      removeFromLs('last-search-data');
+      removeFromLs(LAST_SEARCH_DATA_LS_KEY);
 
       setIsLoading(true);
       setIsNothingFound(false);
       setIsServerError(false);
 
       if (loggedIn) {
-        if (isPresentInLs('saved-movies-list')) {
-          setSavedMoviesList(getFromLs('saved-movies-list'));
+        if (isPresentInLs(SAVED_MOVIES_LIST_LS_KEY)) {
+          setSavedMoviesList(getFromLs(SAVED_MOVIES_LIST_LS_KEY));
         } else {
           const savedMoviesList = await mainApi.getSavedMovies();
           setSavedMoviesList(savedMoviesList.data);
-          saveToLs('saved-movies-list', savedMoviesList.data);
+          saveToLs(SAVED_MOVIES_LIST_LS_KEY, savedMoviesList.data);
         }
       }
 
@@ -142,7 +145,7 @@ const Movies: FC<IMoviesProps> = ({ loggedIn }) => {
         searchInput: values.search,
       };
 
-      saveToLs('last-search-data', lastSearchData);
+      saveToLs(LAST_SEARCH_DATA_LS_KEY, lastSearchData);
     } catch (err) {
       setIsLoading(false);
       setIsServerError(true);

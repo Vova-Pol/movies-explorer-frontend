@@ -8,6 +8,7 @@ import { RxCross2 } from 'react-icons/rx';
 import {
   IMAGES_URL,
   MOVIES_PAGE_URL,
+  SAVED_MOVIES_LIST_LS_KEY,
   SAVED_MOVIES_PAGE_URL,
   SERVER_ERROR_TEXT,
 } from '../../utils/constants';
@@ -74,7 +75,7 @@ const MoviesCard: FC<IMoviesCardProps> = ({
         .then((res) => {
           if (res) {
             setIsCardLiked(true);
-            removeFromLs('saved-movies-list');
+            removeFromLs(SAVED_MOVIES_LIST_LS_KEY);
           }
         })
         .catch((err) => {
@@ -87,7 +88,7 @@ const MoviesCard: FC<IMoviesCardProps> = ({
         .then((res) => {
           if (res) {
             setIsCardLiked(false);
-            removeFromLs('saved-movies-list');
+            removeFromLs(SAVED_MOVIES_LIST_LS_KEY);
           }
         })
         .catch((err) => {
@@ -104,7 +105,7 @@ const MoviesCard: FC<IMoviesCardProps> = ({
         if (res) {
           setIsCardLiked(false);
           handleDeleteMovie(res.data._id);
-          removeFromLs('saved-movies-list');
+          removeFromLs(SAVED_MOVIES_LIST_LS_KEY);
         }
       })
       .catch((err) => {

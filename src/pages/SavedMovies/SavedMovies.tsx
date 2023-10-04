@@ -6,7 +6,10 @@ import SearchForm from '../../components/SearchForm/SearchForm';
 import MoviesCardList from '../../components/MoviesCardList/MoviesCardList';
 import Footer from '../../components/Footer/Footer';
 import { mainApi } from '../../utils/MainApi';
-import { SHORT_MOVIE_DURATION } from '../../utils/constants';
+import {
+  SAVED_MOVIES_LIST_LS_KEY,
+  SHORT_MOVIE_DURATION,
+} from '../../utils/constants';
 import { ISavedMovie } from '../../types/movie';
 import { ISearchFormValues } from '../../types/search';
 import { useLocalStorage } from '../../hooks/useLocalStorage';
@@ -28,7 +31,7 @@ const SavedMovies: FC<ISavedMoviesProps> = ({ loggedIn }) => {
       .then((res) => {
         if (res) {
           setMoviesList(res.data);
-          saveToLs('saved-movies-list', res.data);
+          saveToLs(SAVED_MOVIES_LIST_LS_KEY, res.data);
         }
       })
       .catch((err) => {
