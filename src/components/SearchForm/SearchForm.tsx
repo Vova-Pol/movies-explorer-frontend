@@ -7,8 +7,10 @@ import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 import {
   MOVIES_PAGE_URL,
   EMPTY_SEARCH_INPUT_ERROR_TEXT,
+  LAST_SEARCH_DATA_LS_KEY,
 } from '../../utils/constants';
 import { ISearchFormValues } from '../../types/search';
+import { useLocalStorage } from '../../hooks/useLocalStorage';
 
 interface ISearchFormProps {
   onHandleSubmit: (values: ISearchFormValues) => void;
@@ -24,15 +26,14 @@ const SearchForm: FC<ISearchFormProps> = ({
   const { values, handleChange, setValues, errors, isValid, resetForm } =
     useFormAndValidation({ search: '' });
 
+  const { isPresentInLs, getFromLs } = useLocalStorage();
+
   const [errText, setErrText] = useState('');
   const isSearchPage = useLocation().pathname === MOVIES_PAGE_URL;
 
   useEffect(() => {
-    if (isSearchPage && localStorage.getItem('last-search-data')) {
-      const lastSearchInput = JSON.parse(
-        localStorage.getItem('last-search-data'),
-      );
-      setValues({ search: lastSearchInput.searchInput });
+    if (isSearchPage && isPresentInLs(LAST_SEARCH_DATA_LS_KEY)) {
+      setValues({ search: getFromLs(LAST_SEARCH_DATA_LS_KEY).searchInput });
     }
   }, []);
 
