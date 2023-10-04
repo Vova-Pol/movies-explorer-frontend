@@ -8,14 +8,14 @@ import {
   SERVER_ERROR_TEXT,
   MOVIES_PAGE_URL,
 } from '../../utils/constants';
-import { IMovie, ISavedMovie } from '../../types/movie';
+import { IMovie } from '../../types/movie';
 
 interface IMoviesCardListProps {
   isNothingFound: boolean;
   isServerError: boolean;
   moviesList?: IMovie[];
   moviesAmount: number;
-  savedMoviesList: ISavedMovie[];
+  savedMoviesList: IMovie[];
   onDeleteMovie: (id: number) => void;
 }
 

@@ -10,7 +10,7 @@ import {
   SAVED_MOVIES_LIST_LS_KEY,
   SHORT_MOVIE_DURATION,
 } from '../../utils/constants';
-import { ISavedMovie } from '../../types/movie';
+import { IMovie } from '../../types/movie';
 import { ISearchFormValues } from '../../types/search';
 import { useLocalStorage } from '../../hooks/useLocalStorage';
 
@@ -19,7 +19,7 @@ interface ISavedMoviesProps {
 }
 
 const SavedMovies: FC<ISavedMoviesProps> = ({ loggedIn }) => {
-  const [moviesList, setMoviesList] = useState<ISavedMovie[]>([]);
+  const [moviesList, setMoviesList] = useState<IMovie[]>([]);
   const [isNothingFound, setIsNothingFound] = useState(false);
   const [isServerError, setIsServerError] = useState(false);
   const { saveToLs } = useLocalStorage();

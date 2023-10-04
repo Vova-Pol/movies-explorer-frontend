@@ -13,13 +13,13 @@ import {
   SERVER_ERROR_TEXT,
 } from '../../utils/constants';
 import { mainApi } from '../../utils/MainApi';
-import { IMovie, ISavedMovie } from '../../types/movie';
+import { IMovie } from '../../types/movie';
 import { useLocalStorage } from '../../hooks/useLocalStorage';
 
 interface IMoviesCardProps {
-  handleDeleteMovie: (id: number) => void;
+  handleDeleteMovie?: (id: number) => void;
   isLiked: boolean;
-  cardData: ISavedMovie | IMovie;
+  cardData: IMovie;
 }
 
 const MoviesCard: FC<IMoviesCardProps> = ({
@@ -56,22 +56,9 @@ const MoviesCard: FC<IMoviesCardProps> = ({
   }, []);
 
   function handleLikeButton() {
-    const savedMovieData = {
-      country,
-      director,
-      duration,
-      year,
-      description,
-      image: `${IMAGES_URL}${image.url}`,
-      trailerLink,
-      nameRU,
-      nameEN,
-      thumbnail: `${IMAGES_URL}${image.formats.thumbnail.url}`,
-      movieId: id,
-    };
     if (!isCardLiked) {
       mainApi
-        .saveMovie(savedMovieData)
+        .saveMovie(cardData)
         .then((res) => {
           if (res) {
             setIsCardLiked(true);
@@ -125,11 +112,7 @@ const MoviesCard: FC<IMoviesCardProps> = ({
           <img
             className="movies-card-list__image"
             alt={nameRU}
-            src={
-              isOnSearchPage
-                ? `${IMAGES_URL}${image.formats.thumbnail.url}`
-                : thumbnail
-            }
+            src={`${IMAGES_URL}${image.formats.thumbnail.url}`}
           ></img>
         </Link>
         <div className="movies-card-list__info">
