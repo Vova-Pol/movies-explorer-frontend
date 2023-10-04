@@ -28,32 +28,11 @@ const MoviesCard: FC<IMoviesCardProps> = ({
   cardData,
 }) => {
   const [isServerError, setIsServerError] = useState(false);
+  const [isCardLiked, setIsCardLiked] = useState(isLiked);
   const { removeFromLs } = useLocalStorage();
 
-  const isOnSearchPage = useLocation().pathname === MOVIES_PAGE_URL;
-  const isOnSavedPage = useLocation().pathname === SAVED_MOVIES_PAGE_URL;
-
-  // Имеются как общие, так и различные пропсы для
-  // карточек пришедших с разных api (moviesApi и mainApi)
-
-  const {
-    id,
-    country,
-    director,
-    duration,
-    year,
-    image,
-    description,
-    trailerLink,
-    nameRU,
-    nameEN,
-  } = cardData;
-
-  const [isCardLiked, setIsCardLiked] = useState(false);
-
-  useEffect(() => {
-    if (isLiked) setIsCardLiked(true);
-  }, []);
+  const isOnMoviesPage = useLocation().pathname === MOVIES_PAGE_URL;
+  const isOnSavedMoviesPage = useLocation().pathname === SAVED_MOVIES_PAGE_URL;
 
   function handleLikeButton() {
     if (!isCardLiked) {
@@ -71,7 +50,7 @@ const MoviesCard: FC<IMoviesCardProps> = ({
         });
     } else {
       mainApi
-        .deleteMovie(id)
+        .deleteMovie(cardData.id)
         .then((res) => {
           if (res) {
             setIsCardLiked(false);
@@ -87,11 +66,11 @@ const MoviesCard: FC<IMoviesCardProps> = ({
 
   function handleCrossButton() {
     mainApi
-      .deleteMovie(id)
+      .deleteMovie(cardData.id)
       .then((res) => {
         if (res) {
           setIsCardLiked(false);
-          handleDeleteMovie(res.data._id);
+          handleDeleteMovie!(res.data.id);
           removeFromLs(SAVED_MOVIES_LIST_LS_KEY);
         }
       })
@@ -105,27 +84,27 @@ const MoviesCard: FC<IMoviesCardProps> = ({
     <li className="movies-card-list__item">
       <div className="movies-card-list__container">
         <Link
-          to={trailerLink}
+          to={cardData.trailerLink}
           target="_blank"
           className="movies-card-list__image-container"
         >
           <img
             className="movies-card-list__image"
-            alt={nameRU}
-            src={`${IMAGES_URL}${image.formats.thumbnail.url}`}
+            alt={cardData.nameRU}
+            src={`${IMAGES_URL}${cardData.image.formats.thumbnail.url}`}
           ></img>
         </Link>
         <div className="movies-card-list__info">
           <div className="movies-card-list__text-container">
-            <p className="movies-card-list__title">{nameRU}</p>
+            <p className="movies-card-list__title">{cardData.nameRU}</p>
             <p className="movies-card-list__duration">
-              {countDuration(duration)}
+              {countDuration(cardData.duration)}
             </p>
           </div>
           <span className="movies-card-list__error-text">
             {isServerError ? SERVER_ERROR_TEXT : ''}
           </span>
-          {isOnSavedPage && (
+          {isOnSavedMoviesPage && (
             <button
               onClick={handleCrossButton}
               className="movies-card-list__icon"
@@ -133,7 +112,7 @@ const MoviesCard: FC<IMoviesCardProps> = ({
               <RxCross2 />
             </button>
           )}
-          {isOnSearchPage && (
+          {isOnMoviesPage && (
             <button
               onClick={handleLikeButton}
               className="movies-card-list__icon"
