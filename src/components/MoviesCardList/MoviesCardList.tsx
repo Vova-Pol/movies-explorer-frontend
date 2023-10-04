@@ -16,7 +16,7 @@ interface IMoviesCardListProps {
   moviesList?: IMovie[];
   moviesAmount: number;
   savedMoviesList: IMovie[];
-  onDeleteMovie: (id: number) => void;
+  onDeleteMovie?: (id: number) => void;
 }
 
 const MoviesCardList: FC<IMoviesCardListProps> = ({
@@ -40,7 +40,7 @@ const MoviesCardList: FC<IMoviesCardListProps> = ({
   }, [isNothingFound, isServerError]);
 
   function handleDeleteMovie(id: number) {
-    onDeleteMovie(id);
+    onDeleteMovie!(id);
   }
 
   return (
@@ -65,7 +65,6 @@ const MoviesCardList: FC<IMoviesCardListProps> = ({
                     <MoviesCard
                       key={card.id}
                       cardData={card}
-                      handleDeleteMovie={handleDeleteMovie}
                       isLiked={isLiked}
                     />
                   );
