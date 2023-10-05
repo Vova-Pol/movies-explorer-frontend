@@ -11,7 +11,7 @@ import Movies from '../../pages/Movies/Movies';
 import Register from '../../pages/Register/Register';
 import SavedMovies from '../../pages/SavedMovies/SavedMovies';
 import NotFound from '../NotFound/NotFound';
-import Profile from '../Profile/Profile';
+import Profile from '../../pages/Profile/Profile';
 import { mainApi } from '../../utils/MainApi';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import ErrorPopup from '../ErrorPopup/ErrorPopup';

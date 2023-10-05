@@ -1,7 +1,7 @@
 import React, { FormEvent } from 'react';
 import './Profile.css';
 import { useContext, FC } from 'react';
-import Header from '../Header/Header';
+import Header from '../../components/Header/Header';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import { useFormAndValidation } from '../../hooks/useFormAndValidation';
 import { IUpdateUserFormValues } from '../../types/user';
