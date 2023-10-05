@@ -22,7 +22,7 @@ const Profile: FC<IProfileProps> = ({
   const currentUser = useContext(CurrentUserContext);
 
   const { values, handleChange, setValues, errors, isValid, resetForm } =
-    useFormAndValidation({
+    useFormAndValidation<IUpdateUserFormValues>({
       name: currentUser.name,
       email: currentUser.email,
     });
