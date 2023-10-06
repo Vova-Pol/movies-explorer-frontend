@@ -14,13 +14,12 @@ interface IHeaderProps {
 }
 
 const Header: FC<IHeaderProps> = ({ loggedIn }) => {
-  const { screenWidth, isScreenLaptop, isScreenMobile, isScreenTablet } =
-    useResize();
+  const { isScreenLaptop, isScreenMobile, isScreenTablet } = useResize();
 
   return (
     <header className="header">
       <Link to={MAIN_PAGE_URL} className="header__logo">
-        <RiMovie2Line />
+        <RiMovie2Line className="header__logo-icon" />
       </Link>
       {!loggedIn ? (
         <LoginLink />
