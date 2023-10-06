@@ -8,6 +8,7 @@ import getMoviesList from '../../utils/MoviesApi';
 import Latest from '../../components/Latest/Latest';
 import BestAmerican from '../../components/BestAmerican/BestAmerican';
 import BestBritish from '../../components/BestBritish/BestBritish';
+import { IMovie } from '../../types/movie';
 
 interface IMainProps {
   loggedIn: boolean;
@@ -20,14 +21,16 @@ const Main: FC<IMainProps> = ({ loggedIn }) => {
 
   useEffect(() => {
     getMoviesList().then((data) => {
-      const latestMovies = data.filter((movie) => movie.year == '2016');
+      const latestMovies = data.filter((movie: IMovie) => movie.year == '2016');
       setLatesMoviestList(latestMovies);
 
-      const bestAmericanMovies = data.filter((movie) => movie.country == 'США');
+      const bestAmericanMovies = data.filter(
+        (movie: IMovie) => movie.country == 'США',
+      );
       setBestAmericanMoviesList(bestAmericanMovies);
 
       const bestBritishMovies = data.filter(
-        (movie) => movie.country == 'Великобритания',
+        (movie: IMovie) => movie.country == 'Великобритания',
       );
       setBestBritishMoviesList(bestBritishMovies);
     });
