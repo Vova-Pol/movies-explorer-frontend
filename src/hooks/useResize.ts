@@ -1,11 +1,11 @@
-import { useState, useEffect, SetStateAction } from 'react';
+import { useState, useEffect, SetStateAction, FormEvent } from 'react';
 
 function useResize() {
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
 
   useEffect(() => {
-    function handleResize(evt) {
-      setScreenWidth(evt.target.innerWidth);
+    function handleResize() {
+      setScreenWidth(window.innerWidth);
     }
 
     window.addEventListener('resize', handleResize);
