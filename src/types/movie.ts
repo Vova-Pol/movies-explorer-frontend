@@ -13,6 +13,21 @@ export interface IMovie {
   image: IImage;
 }
 
+export interface ISavedMovie {
+  id: number;
+  nameRU: string;
+  nameEN: string;
+  director: string;
+  country: string;
+  year: string;
+  duration: number;
+  description: string;
+  trailerLink: string;
+  created_at: Date;
+  updated_at: Date;
+  image: string;
+}
+
 interface IImage {
   id: number;
   name: string;

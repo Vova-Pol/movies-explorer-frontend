@@ -36,8 +36,13 @@ const MoviesCard: FC<IMoviesCardProps> = ({
 
   function handleLikeButton() {
     if (!isCardLiked) {
+      const savedMovieData = {
+        ...cardData,
+        image: cardData.image.formats.thumbnail.url,
+      };
+
       mainApi
-        .saveMovie(cardData)
+        .saveMovie(savedMovieData)
         .then((res) => {
           if (res) {
             setIsCardLiked(true);

@@ -2,7 +2,7 @@ import { MAIN_API_URL } from './constants';
 import { DataType, MethodType } from '../types/api';
 import { ILoginFormValues, IRegisterFormValues } from '../types/auth';
 import { IUpdateUserFormValues, IUser } from '../types/user';
-import { IMovie } from '../types/movie';
+import { IMovie, ISavedMovie } from '../types/movie';
 
 class Api {
   _baseUrl: string;
@@ -56,7 +56,7 @@ class Api {
 
   // Movies Methods
 
-  saveMovie(data: IMovie) {
+  saveMovie(data: ISavedMovie) {
     return this._sendRequest('/movies', 'POST', data);
   }
 
