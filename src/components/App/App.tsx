@@ -26,19 +26,22 @@ import {
   NOT_FOUND_PAGE_URL,
   REGISTER_CONFLICT_ERROR_TEXT,
   LOGIN_UNAUTHORIZED_ERROR_TEXT,
+  CURRENT_USER_LS_KEY,
 } from '../../utils/constants';
 import { IUpdateUserFormValues } from '../../types/user';
+import { useLocalStorage } from '../../hooks/useLocalStorage';
 
 const App: FC = () => {
   const navigateTo = useNavigate();
+  const { isPresentInLs, getFromLs, saveToLs } = useLocalStorage();
 
-  const initialUserState = localStorage.getItem('current-user')
-    ? JSON.parse(localStorage.getItem('current-user') || '')
+  const initialUserState = isPresentInLs(CURRENT_USER_LS_KEY)
+    ? getFromLs(CURRENT_USER_LS_KEY)
     : {};
 
   const [currentUser, setCurrentUser] = useState(initialUserState);
   const [isLoggedIn, setIsLoggedIn] = useState(
-    Boolean(localStorage.getItem('current-user')),
+    isPresentInLs(CURRENT_USER_LS_KEY),
   );
   const [serverErrorText, setServerErrorText] = useState('');
   const [isErrorPopup, setIsErrorPopup] = useState(false);
@@ -71,7 +74,7 @@ const App: FC = () => {
           };
 
           setCurrentUser(registeredUser);
-          localStorage.setItem('current-user', JSON.stringify(registeredUser));
+          saveToLs(CURRENT_USER_LS_KEY, registeredUser);
           setIsLoggedIn(true);
           navigateTo(MOVIES_PAGE_URL);
         }
@@ -97,7 +100,7 @@ const App: FC = () => {
         };
 
         setCurrentUser(loggedInUser);
-        localStorage.setItem('current-user', JSON.stringify(loggedInUser));
+        saveToLs(CURRENT_USER_LS_KEY, loggedInUser);
         setIsLoggedIn(true);
         navigateTo(MOVIES_PAGE_URL);
       })
@@ -142,7 +145,7 @@ const App: FC = () => {
           };
 
           setCurrentUser(updatedUser);
-          localStorage.setItem('current-user', JSON.stringify(updatedUser));
+          saveToLs(CURRENT_USER_LS_KEY, updatedUser);
           setUpdateUserInfoSuccess(true);
         }
       })
