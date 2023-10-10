@@ -23,12 +23,12 @@ const Profile: FC<IProfileProps> = ({
 
   const { values, handleChange, setValues, errors, isValid, resetForm } =
     useFormAndValidation<IUpdateUserFormValues>({
-      name: currentUser.name,
+      name: currentUser.username,
       email: currentUser.email,
     });
 
   const valuesChanged =
-    values.name !== currentUser.name || values.email !== currentUser.email;
+    values.name !== currentUser.username || values.email !== currentUser.email;
 
   function handleSubmit(evt: FormEvent<HTMLFormElement>) {
     evt.preventDefault();
@@ -40,7 +40,7 @@ const Profile: FC<IProfileProps> = ({
       <Header loggedIn={loggedIn} />
       <main>
         <div className="profile__container">
-          <h1 className="profile__title">{`Привет, ${currentUser.name}!`}</h1>
+          <h1 className="profile__title">{`Привет, ${currentUser.username}!`}</h1>
           <form className="profile__form" onSubmit={handleSubmit}>
             <div className="profile__info-container">
               <label className="profile__info-item">Имя</label>

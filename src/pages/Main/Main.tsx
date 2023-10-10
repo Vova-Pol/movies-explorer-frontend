@@ -39,8 +39,7 @@ const Main: FC<IMainProps> = ({ loggedIn }) => {
   console.log(latestMoviesList);
   return (
     <div className="main">
-      {/* <Header loggedIn={loggedIn} /> */}
-      <Header loggedIn={true} />
+      <Header loggedIn={loggedIn} />
       <main>
         <Promo />
         <Latest moviesList={latestMoviesList} />

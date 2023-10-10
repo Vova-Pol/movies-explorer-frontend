@@ -68,10 +68,18 @@ const App: FC = () => {
       .registerUser(body)
       .then((res) => {
         if (res) {
+          // const registeredUser = {
+          //   name: res.data.name,
+          //   email: res.data.email,
+          // };
+
+          const jwtToken = res.token;
+
           const registeredUser = {
-            name: res.data.name,
-            email: res.data.email,
+            name: body.username,
           };
+
+          mainApi.setToken(jwtToken);
 
           setCurrentUser(registeredUser);
           saveToLs(CURRENT_USER_LS_KEY, registeredUser);
@@ -116,20 +124,26 @@ const App: FC = () => {
 
   // Выход
   function handleLogout() {
-    mainApi
-      .logoutUser(currentUser)
-      .then((res) => {
-        if (res) {
-          setCurrentUser({});
-          localStorage.clear();
-          setIsLoggedIn(false);
-          navigateTo(MAIN_PAGE_URL);
-        }
-      })
-      .catch((err) => {
-        setIsErrorPopup(true);
-        console.error(err);
-      });
+    // mainApi
+    //   .logoutUser(currentUser)
+    //   .then((res) => {
+    //     if (res) {
+    //       setCurrentUser({});
+    //       localStorage.clear();
+    //       setIsLoggedIn(false);
+    //       navigateTo(MAIN_PAGE_URL);
+    //     }
+    //   })
+    //   .catch((err) => {
+    //     setIsErrorPopup(true);
+    //     console.error(err);
+    //   });
+
+    setCurrentUser({});
+    localStorage.clear();
+    setIsLoggedIn(false);
+    mainApi.unsetToken();
+    navigateTo(MAIN_PAGE_URL);
   }
 
   // Редактировать профиль
@@ -192,8 +206,7 @@ const App: FC = () => {
         <Route
           path={MOVIES_PAGE_URL}
           element={
-            // <ProtectedRoute loggedIn={isLoggedIn}>
-            <ProtectedRoute loggedIn={true}>
+            <ProtectedRoute loggedIn={isLoggedIn}>
               <Movies loggedIn={isLoggedIn} />
             </ProtectedRoute>
           }

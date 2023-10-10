@@ -4,7 +4,7 @@ export interface ILoginFormValues {
 }
 
 export interface IRegisterFormValues {
-  name: string;
-  email: string;
+  username: string;
+  // email: string;
   password: string;
 }
