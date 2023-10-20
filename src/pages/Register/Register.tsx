@@ -13,10 +13,10 @@ import {
 
 interface IRegisterProps {
   handleRegister: (values: IRegisterFormValues) => void;
-  serverErrorText: string;
+  errorText: string;
 }
 
-const Register: FC<IRegisterProps> = ({ handleRegister, serverErrorText }) => {
+const Register: FC<IRegisterProps> = ({ handleRegister, errorText }) => {
   const { values, handleChange, setValues, errors, isValid, resetForm } =
     useFormAndValidation({
       username: '',
@@ -90,7 +90,7 @@ const Register: FC<IRegisterProps> = ({ handleRegister, serverErrorText }) => {
           {isValid ? '' : errors.password}
         </span>
 
-        <p className="register__server-error-text">{serverErrorText}</p>
+        <p className="register__server-error-text">{errorText}</p>
 
         <button
           type="submit"

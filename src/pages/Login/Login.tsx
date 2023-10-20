@@ -13,10 +13,10 @@ import { ILoginFormValues } from '../../types/auth';
 
 interface ILoginProps {
   handleLogin: (values: ILoginFormValues) => void;
-  serverErrorText: string;
+  errorText: string;
 }
 
-const Login: FC<ILoginProps> = ({ handleLogin, serverErrorText }) => {
+const Login: FC<ILoginProps> = ({ handleLogin, errorText }) => {
   const { values, handleChange, setValues, errors, isValid, resetForm } =
     useFormAndValidation({
       username: '',
@@ -70,7 +70,7 @@ const Login: FC<ILoginProps> = ({ handleLogin, serverErrorText }) => {
         <span className="login__error-text">
           {isValid ? '' : errors.password}
         </span>
-        <p className="login__server-error-text">{serverErrorText}</p>
+        <p className="login__server-error-text">{errorText}</p>
 
         <button
           type="submit"

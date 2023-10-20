@@ -14,7 +14,6 @@ import NotFound from '../NotFound/NotFound';
 import Profile from '../../pages/Profile/Profile';
 import { mainApi } from '../../utils/MainApi';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
-import ErrorPopup from '../ErrorPopup/ErrorPopup';
 import { IRegisterFormValues, ILoginFormValues } from '../../types/auth';
 import {
   REGISTER_PAGE_URL,
@@ -27,6 +26,7 @@ import {
   REGISTER_CONFLICT_ERROR_TEXT,
   LOGIN_UNAUTHORIZED_ERROR_TEXT,
   CURRENT_USER_LS_KEY,
+  SERVER_ERROR_TEXT,
 } from '../../utils/constants';
 import { ICurrentUser, IUpdateUserFormValues } from '../../types/user';
 import { useLocalStorage } from '../../hooks/useLocalStorage';
@@ -45,8 +45,7 @@ const App: FC = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(
     isPresentInLs(CURRENT_USER_LS_KEY),
   );
-  const [serverErrorText, setServerErrorText] = useState('');
-  const [isErrorPopup, setIsErrorPopup] = useState(false);
+  const [errorText, setErrorText] = useState('');
   const [updateUserInfoSuccess, setUpdateUserInfoSuccess] = useState(false);
 
   // Очистить сообщение об ошибке при регистрации/логине
@@ -54,7 +53,7 @@ const App: FC = () => {
   const isOnRegisterPage = useLocation().pathname === REGISTER_PAGE_URL;
 
   useEffect(() => {
-    setServerErrorText('');
+    setErrorText('');
   }, [isOnLoginPage, isOnRegisterPage]);
 
   // Очистить сообщение об успешном обновлении инф. профайла
@@ -71,35 +70,31 @@ const App: FC = () => {
     } else {
       mainApi.unsetToken();
     }
-  }, []);
+  }, [currentUser]);
 
   // Регистрация
   function handleRegister(body: IRegisterFormValues) {
     mainApi
       .registerUser(body)
       .then((res) => {
-        if (res.data) {
-          const currentUser = {
-            ...res.data.user,
-            jwt: res.data.jwt,
-          };
-          mainApi.setToken(res.data.jwt);
-          setCurrentUser(currentUser);
-          saveToLs(CURRENT_USER_LS_KEY, currentUser);
-          setIsLoggedIn(true);
-          navigateTo(MOVIES_PAGE_URL);
-        }
+        const currentUser = {
+          ...res.data.user,
+          jwt: res.data.jwt,
+        };
+        mainApi.setToken(res.data.jwt);
+        setCurrentUser(currentUser);
+        saveToLs(CURRENT_USER_LS_KEY, currentUser);
+        setIsLoggedIn(true);
+        navigateTo(MOVIES_PAGE_URL);
       })
       .catch((err) => {
-        if (err.status === 409) {
-          setServerErrorText(REGISTER_CONFLICT_ERROR_TEXT);
-          console.error(err);
-          console.log(err.response.data);
-        } else {
-          setIsErrorPopup(true);
-          console.error(err);
-          console.log(err.response.data);
-        }
+        err.status === 409
+          ? setErrorText(REGISTER_CONFLICT_ERROR_TEXT)
+          : setErrorText(SERVER_ERROR_TEXT);
+
+        // Дебаг
+        console.error(err);
+        console.log(err.response.data);
       });
   }
 
@@ -119,15 +114,13 @@ const App: FC = () => {
         navigateTo(MOVIES_PAGE_URL);
       })
       .catch((err) => {
-        if (err.status === 401) {
-          setServerErrorText(LOGIN_UNAUTHORIZED_ERROR_TEXT);
-          console.error(err);
-          console.log(err.response.data);
-        } else {
-          setIsErrorPopup(true);
-          console.error(err);
-          console.log(err.response.data);
-        }
+        err.status === 401
+          ? setErrorText(LOGIN_UNAUTHORIZED_ERROR_TEXT)
+          : setErrorText(SERVER_ERROR_TEXT);
+
+        // Дебаг
+        console.error(err);
+        console.log(err.response.data);
       });
   }
 
@@ -144,7 +137,7 @@ const App: FC = () => {
         }
       })
       .catch((err) => {
-        setIsErrorPopup(true);
+        // Дебаг
         console.error(err);
         console.log(err.response.data);
       });
@@ -170,18 +163,8 @@ const App: FC = () => {
         }
       })
       .catch((err) => {
-        setIsErrorPopup(true);
         console.error(err);
       });
-  }
-
-  // Попап с ошибкой
-  function handleCloseErrorPopup() {
-    setIsErrorPopup(false);
-  }
-
-  function showErrorPopup() {
-    setIsErrorPopup(true);
   }
 
   return (
@@ -190,21 +173,13 @@ const App: FC = () => {
         <Route
           path={REGISTER_PAGE_URL}
           element={
-            <Register
-              handleRegister={handleRegister}
-              serverErrorText={serverErrorText}
-            />
+            <Register handleRegister={handleRegister} errorText={errorText} />
           }
         />
 
         <Route
           path={LOGIN_PAGE_URL}
-          element={
-            <Login
-              handleLogin={handleLogin}
-              serverErrorText={serverErrorText}
-            />
-          }
+          element={<Login handleLogin={handleLogin} errorText={errorText} />}
         />
 
         <Route path={MAIN_PAGE_URL} element={<Main loggedIn={isLoggedIn} />} />
@@ -245,9 +220,6 @@ const App: FC = () => {
 
         <Route path={NOT_FOUND_PAGE_URL} element={<NotFound />} />
       </Routes>
-      {isErrorPopup ? (
-        <ErrorPopup onCloseErrorPopup={handleCloseErrorPopup} />
-      ) : null}
     </div>
   );
 };

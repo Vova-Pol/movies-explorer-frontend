@@ -7,10 +7,10 @@ export const IMAGES_URL = 'https://api.nomoreparties.co';
 // Тексты ошибок
 export const NOTHING_FOUND_ERROR_TEXT = 'Ничего не найдено';
 export const SERVER_ERROR_TEXT =
-  'Произошла ошибка на сервере. Перезагрузите страницу и попробуйте ещё раз.';
+  'Ошибка на сервере. Перезагрузите страницу и попробуйте ещё раз';
 export const REGISTER_CONFLICT_ERROR_TEXT =
-  'Пользователь с таким email уже существует';
-export const LOGIN_UNAUTHORIZED_ERROR_TEXT = 'Неправильные почта или пароль';
+  'Пользователь с таким именем или email уже существует';
+export const LOGIN_UNAUTHORIZED_ERROR_TEXT = 'Неправильные имя или пароль';
 export const EMPTY_SEARCH_INPUT_ERROR_TEXT = 'Нужно ввести ключевое слово';
 
 // Регулярные выражения
