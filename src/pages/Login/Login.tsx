@@ -7,6 +7,7 @@ import {
   REGISTER_PAGE_URL,
   REGEX_EMAIL,
   REGEX_PASSWORD,
+  REGEX_NAME,
 } from '../../utils/constants';
 import { ILoginFormValues } from '../../types/auth';
 
@@ -18,7 +19,7 @@ interface ILoginProps {
 const Login: FC<ILoginProps> = ({ handleLogin, serverErrorText }) => {
   const { values, handleChange, setValues, errors, isValid, resetForm } =
     useFormAndValidation({
-      email: '',
+      username: '',
       password: '',
     });
 
@@ -37,19 +38,21 @@ const Login: FC<ILoginProps> = ({ handleLogin, serverErrorText }) => {
       <AuthTop title={formGreeting} />
 
       <form className="login__form" noValidate onSubmit={handleSubmit}>
-        <label htmlFor="email" className="login__label">
-          E-mail
+        <label htmlFor="username" className="login__label">
+          Имя
         </label>
         <input
-          type="email"
-          name="email"
+          type="text"
+          name="username"
           className="login__input"
           onChange={handleChange}
-          value={values.email}
+          value={values.username}
           required
-          pattern={REGEX_EMAIL.source}
+          // pattern={REGEX_NAME.source}
         ></input>
-        <span className="login__error-text">{isValid ? '' : errors.email}</span>
+        <span className="login__error-text">
+          {isValid ? '' : errors.username}
+        </span>
 
         <label htmlFor="password" className="login__label">
           Пароль

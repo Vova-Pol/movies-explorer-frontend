@@ -20,15 +20,22 @@ const Profile: FC<IProfileProps> = ({
   isUpdateSuccess,
 }) => {
   const currentUser = useContext(CurrentUserContext);
+  const initialValues = currentUser
+    ? {
+        username: currentUser.username,
+        email: currentUser.email,
+      }
+    : {
+        username: '',
+        email: '',
+      };
 
   const { values, handleChange, setValues, errors, isValid, resetForm } =
-    useFormAndValidation<IUpdateUserFormValues>({
-      name: currentUser.username,
-      email: currentUser.email,
-    });
+    useFormAndValidation<IUpdateUserFormValues>(initialValues);
 
   const valuesChanged =
-    values.name !== currentUser.username || values.email !== currentUser.email;
+    values.username !== currentUser!.username ||
+    values.email !== currentUser!.email;
 
   function handleSubmit(evt: FormEvent<HTMLFormElement>) {
     evt.preventDefault();
@@ -40,17 +47,17 @@ const Profile: FC<IProfileProps> = ({
       <Header loggedIn={loggedIn} />
       <main>
         <div className="profile__container">
-          <h1 className="profile__title">{`Привет, ${currentUser.username}!`}</h1>
+          <h1 className="profile__title">Профайл</h1>
           <form className="profile__form" onSubmit={handleSubmit}>
             <div className="profile__info-container">
               <label className="profile__info-item">Имя</label>
               <input
                 className="profile__input"
                 type="text"
-                name="name"
+                name="username"
                 required
                 minLength={2}
-                value={values.name}
+                value={values.username}
                 placeholder="Имя"
                 onChange={handleChange}
               ></input>
