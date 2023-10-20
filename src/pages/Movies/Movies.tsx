@@ -8,7 +8,7 @@ import Preloader from '../../components/Preloader/Preloader';
 import MoviesCardList from '../../components/MoviesCardList/MoviesCardList';
 import Footer from '../../components/Footer/Footer';
 import More from '../../components/More/More';
-import getMoviesList from '../../utils/MoviesApi';
+import { moviesApi } from '../../utils/MoviesApi';
 import { mainApi } from '../../utils/MainApi';
 import {
   LAST_SEARCH_DATA_LS_KEY,
@@ -116,7 +116,7 @@ const Movies: FC<IMoviesProps> = ({ loggedIn }) => {
         }
       }
 
-      const fetchedMoviesList = await getMoviesList();
+      const fetchedMoviesList = (await moviesApi.getMoviesList()).data;
       // Все фильмы по запросу
       const filteredMoviesList = fetchedMoviesList.filter(
         (movie: IMovie) =>

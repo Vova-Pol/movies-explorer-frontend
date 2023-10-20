@@ -4,7 +4,7 @@ import './Main.css';
 import Header from '../../components/Header/Header';
 import Promo from '../../components/Promo/Promo';
 import Footer from '../../components/Footer/Footer';
-import getMoviesList from '../../utils/MoviesApi';
+import { moviesApi } from '../../utils/MoviesApi';
 import Latest from '../../components/Latest/Latest';
 import BestAmerican from '../../components/BestAmerican/BestAmerican';
 import BestBritish from '../../components/BestBritish/BestBritish';
@@ -20,23 +20,24 @@ const Main: FC<IMainProps> = ({ loggedIn }) => {
   const [bestBritishMoviesList, setBestBritishMoviesList] = useState([]);
 
   useEffect(() => {
-    getMoviesList().then((data) => {
-      const latestMovies = data.filter((movie: IMovie) => movie.year == '2016');
+    moviesApi.getMoviesList().then((res) => {
+      const latestMovies = res.data.filter(
+        (movie: IMovie) => movie.year == '2016',
+      );
       setLatesMoviestList(latestMovies);
 
-      const bestAmericanMovies = data.filter(
+      const bestAmericanMovies = res.data.filter(
         (movie: IMovie) => movie.country == 'США',
       );
       setBestAmericanMoviesList(bestAmericanMovies);
 
-      const bestBritishMovies = data.filter(
+      const bestBritishMovies = res.data.filter(
         (movie: IMovie) => movie.country == 'Великобритания',
       );
       setBestBritishMoviesList(bestBritishMovies);
     });
   }, []);
 
-  console.log(latestMoviesList);
   return (
     <div className="main">
       <Header loggedIn={loggedIn} />
