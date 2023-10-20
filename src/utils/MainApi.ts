@@ -3,8 +3,9 @@ import { DataType, MethodType } from '../types/api';
 import { ILoginFormValues, IRegisterFormValues } from '../types/auth';
 import { IUpdateUserFormValues, IUser } from '../types/user';
 import { ISavedMovie } from '../types/movie';
+import axios from 'axios';
 
-class Api {
+class MainApi {
   _baseUrl: string;
   _init: RequestInit;
 
@@ -36,12 +37,12 @@ class Api {
 
   unsetToken() {
     this._init.headers = {
-      ...this._init.headers,
-      Authorization: '',
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
     };
   }
 
-  _sendRequest(urlEnding: string, method: MethodType, data?: DataType) {
+  _sendRequest(urlEnding: string, method: MethodType, data?: DataType | null) {
     this._setMethod(method);
     const url = this._baseUrl + urlEnding;
 
@@ -59,17 +60,15 @@ class Api {
   // User Methods
 
   registerUser(data: IRegisterFormValues) {
-    // return this._sendRequest('/signup', 'POST', data);
-    return this._sendRequest('/authenticate', 'POST', data);
+    return this._sendRequest('/signup', 'POST', data);
   }
 
   loginUser(data: ILoginFormValues) {
-    // return this._sendRequest('/signin', 'POST', data);
-    return this._sendRequest('/authenticate', 'POST', data);
+    return this._sendRequest('/signin', 'POST', data);
   }
 
-  logoutUser(data: IUser) {
-    return this._sendRequest('/signout', 'POST', data);
+  logoutUser() {
+    return this._sendRequest('/signout', 'POST', null);
   }
 
   updateUserInfo(data: IUpdateUserFormValues) {
@@ -91,4 +90,4 @@ class Api {
   }
 }
 
-export const mainApi = new Api(MAIN_API_URL);
+export const mainApi = new MainApi(MAIN_API_URL);
