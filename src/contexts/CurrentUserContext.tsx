@@ -1,8 +1,6 @@
 import React from 'react';
-import { IUser } from '../types/user';
+import { ICurrentUser } from '../types/user';
 
-export const CurrentUserContext = React.createContext<IUser>({
-  username: '',
-  email: '',
-  password: '',
-});
+export const CurrentUserContext = React.createContext<ICurrentUser | null>(
+  null,
+);
