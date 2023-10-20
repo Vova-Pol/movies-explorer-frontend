@@ -20,7 +20,7 @@ const Register: FC<IRegisterProps> = ({ handleRegister, serverErrorText }) => {
   const { values, handleChange, setValues, errors, isValid, resetForm } =
     useFormAndValidation({
       username: '',
-      // email: '',
+      email: '',
       password: '',
     });
 
@@ -57,7 +57,7 @@ const Register: FC<IRegisterProps> = ({ handleRegister, serverErrorText }) => {
           {isValid ? '' : errors.username}
         </span>
 
-        {/* <label htmlFor="email" className="register__label">
+        <label htmlFor="email" className="register__label">
           E-mail
         </label>
         <input
@@ -71,7 +71,7 @@ const Register: FC<IRegisterProps> = ({ handleRegister, serverErrorText }) => {
         ></input>
         <span className="register__error-text">
           {isValid ? '' : errors.email}
-        </span> */}
+        </span>
 
         <label htmlFor="password" className="register__label">
           Пароль
