@@ -88,7 +88,7 @@ const App: FC = () => {
         navigateTo(MOVIES_PAGE_URL);
       })
       .catch((err) => {
-        err.status === 409
+        err.response.status === 409
           ? setErrorText(REGISTER_CONFLICT_ERROR_TEXT)
           : setErrorText(SERVER_ERROR_TEXT);
 
@@ -114,7 +114,7 @@ const App: FC = () => {
         navigateTo(MOVIES_PAGE_URL);
       })
       .catch((err) => {
-        err.status === 401
+        err.response.status === 401
           ? setErrorText(LOGIN_UNAUTHORIZED_ERROR_TEXT)
           : setErrorText(SERVER_ERROR_TEXT);
 
