@@ -3,90 +3,55 @@ import { DataType, MethodType } from '../types/api';
 import { ILoginFormValues, IRegisterFormValues } from '../types/auth';
 import { IUpdateUserFormValues, IUser } from '../types/user';
 import { ISavedMovie } from '../types/movie';
-import axios from 'axios';
+import axios, { AxiosInstance } from 'axios';
 
 class MainApi {
-  _baseUrl: string;
-  _init: RequestInit;
+  apiClient: AxiosInstance;
 
-  constructor(url: string) {
-    this._baseUrl = url;
-    this._init = {
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      // credentials: 'include',
-    };
-  }
-
-  _setMethod(method: MethodType) {
-    this._init.method = method;
-  }
-
-  _setBody(body: DataType) {
-    this._init.body = JSON.stringify(body);
+  constructor(baseUrl: string) {
+    this.apiClient = axios.create({
+      baseURL: baseUrl,
+    });
   }
 
   setToken(token: string) {
-    this._init.headers = {
-      ...this._init.headers,
-      Authorization: `Bearer ${token}`,
-    };
+    this.apiClient.defaults.headers.common['Authorization'] = `Bearer ${token}`;
   }
 
   unsetToken() {
-    this._init.headers = {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    };
-  }
-
-  _sendRequest(urlEnding: string, method: MethodType, data?: DataType | null) {
-    this._setMethod(method);
-    const url = this._baseUrl + urlEnding;
-
-    if (method !== 'GET' && method !== 'DELETE' && data) this._setBody(data);
-
-    return fetch(url, this._init).then((res) => {
-      if (res.ok) {
-        return res.json();
-      } else {
-        return Promise.reject(res);
-      }
-    });
+    this.apiClient.defaults.headers.common['Authorization'] = null;
   }
 
   // User Methods
 
   registerUser(data: IRegisterFormValues) {
-    return this._sendRequest('/signup', 'POST', data);
+    return this.apiClient.post('/signup', data);
   }
 
   loginUser(data: ILoginFormValues) {
-    return this._sendRequest('/signin', 'POST', data);
+    return this.apiClient.post('/signin', data);
   }
 
   logoutUser() {
-    return this._sendRequest('/signout', 'POST', null);
+    return this.apiClient.post('/signout', null);
   }
 
   updateUserInfo(data: IUpdateUserFormValues) {
-    return this._sendRequest('/users/me', 'PATCH', data);
+    return this.apiClient.patch('/users/me', data);
   }
 
   // Movies Methods
 
   saveMovie(data: ISavedMovie) {
-    return this._sendRequest('/movies', 'POST', data);
+    return this.apiClient.post('/movies', data);
   }
 
   getSavedMovies() {
-    return this._sendRequest('/movies', 'GET');
+    return this.apiClient.get('/movies');
   }
 
   deleteMovie(id: number) {
-    return this._sendRequest(`/movies/${id}`, 'DELETE');
+    return this.apiClient.delete(`/movies/${id}`);
   }
 }
 

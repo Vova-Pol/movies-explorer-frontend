@@ -110,7 +110,7 @@ const Movies: FC<IMoviesProps> = ({ loggedIn }) => {
         if (isPresentInLs(SAVED_MOVIES_LIST_LS_KEY)) {
           setSavedMoviesList(getFromLs(SAVED_MOVIES_LIST_LS_KEY));
         } else {
-          const savedMoviesList = await mainApi.getSavedMovies();
+          const savedMoviesList = (await mainApi.getSavedMovies()).data;
           setSavedMoviesList(savedMoviesList.data);
           saveToLs(SAVED_MOVIES_LIST_LS_KEY, savedMoviesList.data);
         }
