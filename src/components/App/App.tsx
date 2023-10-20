@@ -28,7 +28,7 @@ import {
   LOGIN_UNAUTHORIZED_ERROR_TEXT,
   CURRENT_USER_LS_KEY,
 } from '../../utils/constants';
-import { IUpdateUserFormValues } from '../../types/user';
+import { ICurrentUser, IUpdateUserFormValues } from '../../types/user';
 import { useLocalStorage } from '../../hooks/useLocalStorage';
 
 const App: FC = () => {
@@ -39,7 +39,9 @@ const App: FC = () => {
     ? getFromLs(CURRENT_USER_LS_KEY)
     : {};
 
-  const [currentUser, setCurrentUser] = useState(initialUserState);
+  const [currentUser, setCurrentUser] = useState<ICurrentUser | null>(
+    initialUserState,
+  );
   const [isLoggedIn, setIsLoggedIn] = useState(
     isPresentInLs(CURRENT_USER_LS_KEY),
   );
@@ -62,27 +64,28 @@ const App: FC = () => {
     setUpdateUserInfoSuccess(false);
   }, [isOnProfilePage]);
 
+  // JWT
+  useEffect(() => {
+    if (isPresentInLs(CURRENT_USER_LS_KEY)) {
+      mainApi.setToken(getFromLs(CURRENT_USER_LS_KEY).jwt);
+    } else {
+      mainApi.unsetToken();
+    }
+  }, []);
+
   // Регистрация
   function handleRegister(body: IRegisterFormValues) {
     mainApi
       .registerUser(body)
       .then((res) => {
-        if (res) {
-          // const registeredUser = {
-          //   name: res.data.name,
-          //   email: res.data.email,
-          // };
-
-          const jwtToken = res.token;
-
-          const registeredUser = {
-            name: body.username,
+        if (res.data) {
+          const currentUser = {
+            ...res.data.user,
+            jwt: res.data.jwt,
           };
-
-          mainApi.setToken(jwtToken);
-
-          setCurrentUser(registeredUser);
-          saveToLs(CURRENT_USER_LS_KEY, registeredUser);
+          mainApi.setToken(res.data.jwt);
+          setCurrentUser(currentUser);
+          saveToLs(CURRENT_USER_LS_KEY, currentUser);
           setIsLoggedIn(true);
           navigateTo(MOVIES_PAGE_URL);
         }
@@ -90,9 +93,12 @@ const App: FC = () => {
       .catch((err) => {
         if (err.status === 409) {
           setServerErrorText(REGISTER_CONFLICT_ERROR_TEXT);
+          console.error(err);
+          console.log(err.response.data);
         } else {
           setIsErrorPopup(true);
           console.error(err);
+          console.log(err.response.data);
         }
       });
   }
@@ -102,48 +108,46 @@ const App: FC = () => {
     mainApi
       .loginUser(body)
       .then((res) => {
-        const loggedInUser = {
-          name: res.data.name,
-          email: res.data.email,
+        const currentUser = {
+          ...res.data.user,
+          jwt: res.data.jwt,
         };
-
-        setCurrentUser(loggedInUser);
-        saveToLs(CURRENT_USER_LS_KEY, loggedInUser);
+        mainApi.setToken(res.data.jwt);
+        setCurrentUser(currentUser);
+        saveToLs(CURRENT_USER_LS_KEY, currentUser);
         setIsLoggedIn(true);
         navigateTo(MOVIES_PAGE_URL);
       })
       .catch((err) => {
         if (err.status === 401) {
           setServerErrorText(LOGIN_UNAUTHORIZED_ERROR_TEXT);
+          console.error(err);
+          console.log(err.response.data);
         } else {
           setIsErrorPopup(true);
           console.error(err);
+          console.log(err.response.data);
         }
       });
   }
 
   // Выход
   function handleLogout() {
-    // mainApi
-    //   .logoutUser(currentUser)
-    //   .then((res) => {
-    //     if (res) {
-    //       setCurrentUser({});
-    //       localStorage.clear();
-    //       setIsLoggedIn(false);
-    //       navigateTo(MAIN_PAGE_URL);
-    //     }
-    //   })
-    //   .catch((err) => {
-    //     setIsErrorPopup(true);
-    //     console.error(err);
-    //   });
-
-    setCurrentUser({});
-    localStorage.clear();
-    setIsLoggedIn(false);
-    mainApi.unsetToken();
-    navigateTo(MAIN_PAGE_URL);
+    mainApi
+      .logoutUser()
+      .then((res) => {
+        if (res) {
+          setCurrentUser(null);
+          localStorage.clear();
+          setIsLoggedIn(false);
+          navigateTo(MAIN_PAGE_URL);
+        }
+      })
+      .catch((err) => {
+        setIsErrorPopup(true);
+        console.error(err);
+        console.log(err.response.data);
+      });
   }
 
   // Редактировать профиль
@@ -153,9 +157,11 @@ const App: FC = () => {
       .updateUserInfo(data)
       .then((res) => {
         if (res) {
+          // доработать в зависимости от ответа сервера
+
           const updatedUser = {
-            name: res.data.name,
-            email: res.data.email,
+            ...res.data.user,
+            jwt: currentUser?.jwt,
           };
 
           setCurrentUser(updatedUser);
