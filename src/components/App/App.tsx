@@ -4,7 +4,10 @@ import { FC } from 'react';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { CurrentUserContext } from '../../contexts/CurrentUserContext';
+import {
+  CurrentUserContext,
+  defaultCurrentUserValues,
+} from '../../contexts/CurrentUserContext';
 import Login from '../../pages/Login/Login';
 import Main from '../../pages/Main/Main';
 import Movies from '../../pages/Movies/Movies';
@@ -37,11 +40,10 @@ const App: FC = () => {
 
   const initialUserState = isPresentInLs(CURRENT_USER_LS_KEY)
     ? getFromLs(CURRENT_USER_LS_KEY)
-    : {};
+    : defaultCurrentUserValues;
 
-  const [currentUser, setCurrentUser] = useState<ICurrentUser | null>(
-    initialUserState,
-  );
+  const [currentUser, setCurrentUser] =
+    useState<ICurrentUser>(initialUserState);
   const [isLoggedIn, setIsLoggedIn] = useState(
     isPresentInLs(CURRENT_USER_LS_KEY),
   );
@@ -130,7 +132,7 @@ const App: FC = () => {
       .logoutUser()
       .then((res) => {
         if (res) {
-          setCurrentUser(null);
+          setCurrentUser(defaultCurrentUserValues);
           localStorage.clear();
           setIsLoggedIn(false);
           navigateTo(MAIN_PAGE_URL);
