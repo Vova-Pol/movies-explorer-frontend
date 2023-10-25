@@ -1,10 +1,12 @@
-import React, { FormEvent } from 'react';
+import React, { useState } from 'react';
 import './Profile.css';
 import { useContext, FC } from 'react';
 import Header from '../../components/Header/Header';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
-import { useFormAndValidation } from '../../hooks/useFormAndValidation';
 import { IUpdateUserFormValues } from '../../types/user';
+import { FiEdit3, FiSettings } from 'react-icons/fi';
+import { EditProfilePopup } from '../../components/EdirProfilePopup/EditProfilePopup';
+const defaultAvatar = require('../../images/default-avatar.jpeg');
 
 interface IProfileProps {
   onUpdateUserInfo: (values: IUpdateUserFormValues) => void;
@@ -20,86 +22,63 @@ const Profile: FC<IProfileProps> = ({
   isUpdateSuccess,
 }) => {
   const currentUser = useContext(CurrentUserContext);
-  const initialValues = currentUser
-    ? {
-        username: currentUser.username,
-        email: currentUser.email,
-      }
-    : {
-        username: '',
-        email: '',
-      };
 
-  const { values, handleChange, setValues, errors, isValid, resetForm } =
-    useFormAndValidation<IUpdateUserFormValues>(initialValues);
+  const [isEditPopupOpen, setIsEditPopupOpen] = useState(false);
 
-  const valuesChanged =
-    values.username !== currentUser!.username ||
-    values.email !== currentUser!.email;
-
-  function handleSubmit(evt: FormEvent<HTMLFormElement>) {
-    evt.preventDefault();
-    onUpdateUserInfo(values);
-  }
+  const favoutites = ['комедия', 'документальный', 'боевик', 'детектив'];
 
   return (
     <div className="profile">
       <Header loggedIn={loggedIn} />
       <main>
         <div className="profile__container">
-          <h1 className="profile__title">Профайл</h1>
-          <form className="profile__form" onSubmit={handleSubmit}>
-            <div className="profile__info-container">
-              <label className="profile__info-item">Имя</label>
-              <input
-                className="profile__input"
-                type="text"
-                name="username"
-                required
-                minLength={2}
-                value={values.username}
-                placeholder="Имя"
-                onChange={handleChange}
-              ></input>
+          <img className="profile__avatar" src={defaultAvatar}></img>
+          <div className="profile__info-container">
+            <div className="profile__title-container">
+              <h1 className="profile__title">Владимир Иванов</h1>
+              <FiSettings
+                className="profile__edit-profile-icon"
+                onClick={() => setIsEditPopupOpen(true)}
+              />
+            </div>
+            <div className="profile__username-container">
+              <span className="profile__username">@{currentUser.username}</span>
+              <FiEdit3 className="profile__edit-username-icon" />
+            </div>
+            <div className="profile__field-container">
+              <p className="profile__field-title">E-mail</p>
+              <p className="profile__field-value">{currentUser.email}</p>
             </div>
             <div className="profile__line"></div>
-            <div className="profile__info-container">
-              <label className="profile__info-item">E-mail</label>
-              <input
-                className="profile__input"
-                type="email"
-                name="email"
-                required
-                value={values.email}
-                placeholder="Почта"
-                onChange={handleChange}
-              ></input>
+            <div className="profile__field-container">
+              <p className="profile__field-title">Возраст</p>
+              <p className="profile__field-value">29</p>
             </div>
-            <span
-              className={
-                isUpdateSuccess
-                  ? 'profile__success-text profile__success-text_type_active'
-                  : 'profile__success-text'
-              }
-            >
-              Изменения внесены &#10003;
-            </span>
+            <div className="profile__line"></div>
+            <div className="profile__field-container">
+              <p className="profile__field-title">Любимые жарны</p>
+              <ul className="profile__field-value profile__genres-list">
+                {favoutites.map((fav) => (
+                  <li className="profile__genre">{fav}</li>
+                ))}
+              </ul>
+            </div>
+            <div className="profile__line"></div>
             <button
-              type="submit"
-              className="profile__edit-button"
-              disabled={isValid && valuesChanged ? false : true}
+              type="button"
+              className="profile__exit-button"
+              onClick={onLogout}
             >
-              Редактировать
+              Выйти из аккаунта
             </button>
-          </form>
-          <button
-            type="button"
-            className="profile__exit-button"
-            onClick={onLogout}
-          >
-            Выйти из аккаунта
-          </button>
+          </div>
         </div>
+        {isEditPopupOpen && (
+          <EditProfilePopup
+            onUpdateUserInfo={onUpdateUserInfo}
+            isUpdateSuccess={isUpdateSuccess}
+          />
+        )}
       </main>
     </div>
   );
