@@ -1,7 +1,6 @@
 import { MAIN_API_URL } from './constants';
-import { DataType, MethodType } from '../types/api';
 import { ILoginFormValues, IRegisterFormValues } from '../types/auth';
-import { IUpdateUserFormValues, IUser } from '../types/user';
+import { IUpdateUserFormValues } from '../types/user';
 import { ISavedMovie } from '../types/movie';
 import axios, { AxiosInstance } from 'axios';
 

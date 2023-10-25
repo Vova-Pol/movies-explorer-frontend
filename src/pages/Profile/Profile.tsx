@@ -25,6 +25,14 @@ const Profile: FC<IProfileProps> = ({
 
   const [isEditPopupOpen, setIsEditPopupOpen] = useState(false);
 
+  function onEditPopupOpen() {
+    setIsEditPopupOpen(true);
+  }
+
+  function onEditPopupClose() {
+    setIsEditPopupOpen(false);
+  }
+
   const favoutites = ['комедия', 'документальный', 'боевик', 'детектив'];
 
   return (
@@ -38,7 +46,7 @@ const Profile: FC<IProfileProps> = ({
               <h1 className="profile__title">Владимир Иванов</h1>
               <FiSettings
                 className="profile__edit-profile-icon"
-                onClick={() => setIsEditPopupOpen(true)}
+                onClick={onEditPopupOpen}
               />
             </div>
             <div className="profile__username-container">
@@ -77,6 +85,7 @@ const Profile: FC<IProfileProps> = ({
           <EditProfilePopup
             onUpdateUserInfo={onUpdateUserInfo}
             isUpdateSuccess={isUpdateSuccess}
+            onClose={onEditPopupClose}
           />
         )}
       </main>
