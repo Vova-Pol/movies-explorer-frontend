@@ -5,7 +5,7 @@ export interface ICurrentUser {
   firstName: string;
   lastName: string;
   dateOfBirth: string;
-  favouriteGenres: Genre[];
+  favouriteGenres: string[];
 }
 
 export interface IUpdateUsernameFormValues {
@@ -18,7 +18,7 @@ export interface IUpdateUserProfileFormValues {
   firstName: string;
   lastName: string;
   dateOfBirth: string;
-  favouriteGenres: Genre[];
+  favouriteGenres: string[];
 }
 
 export enum Genre {
