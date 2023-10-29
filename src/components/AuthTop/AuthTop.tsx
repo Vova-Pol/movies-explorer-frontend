@@ -13,7 +13,7 @@ const AuthTop: FC<IAuthTopProps> = ({ title }) => {
   return (
     <div className="auth-top">
       <Link to={MAIN_PAGE_URL} className="auth-top__logo">
-        <RiMovie2Line />
+        <RiMovie2Line className="auth-top__logo-icon" />
       </Link>
       <h1 className="auth-top__title">{title}</h1>
     </div>
