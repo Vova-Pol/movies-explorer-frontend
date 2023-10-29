@@ -40,3 +40,10 @@ export const SHORT_MOVIE_DURATION = 40;
 export const CURRENT_USER_LS_KEY = 'current-user';
 export const SAVED_MOVIES_LIST_LS_KEY = 'saved-movies-list';
 export const LAST_SEARCH_DATA_LS_KEY = 'last-search-data';
+
+// Валидация форм
+const date = new Date();
+export const MIN_BIRTH_DATE_VALUE = '1900-01-01';
+export const MAX_BIRTH_DATE_VALUE = `${
+  date.getFullYear() - 14
+}-${date.getMonth()}-${date.getDate()}`;
