@@ -39,6 +39,10 @@ class MainApi {
     return this.apiClient.patch('/users/me/profile', data);
   }
 
+  getUserInfo() {
+    return this.apiClient.get('users/me');
+  }
+
   // Movies Methods
 
   saveMovie(data: ISavedMovie) {

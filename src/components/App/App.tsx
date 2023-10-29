@@ -50,6 +50,24 @@ const App: FC = () => {
   const [errorText, setErrorText] = useState('');
   const [updateUserInfoSuccess, setUpdateUserInfoSuccess] = useState(false);
 
+  // Проверить не истек ли токен
+  useEffect(() => {
+    mainApi
+      .getUserInfo()
+      .then((res) => console.log(res.data))
+      .catch((err) => {
+        if (err.response.status === 401) {
+          setCurrentUser(defaultCurrentUserValues);
+          localStorage.clear();
+          setIsLoggedIn(false);
+          navigateTo(LOGIN_PAGE_URL);
+        }
+        // Дебаг
+        console.error(err);
+        console.log(err.response.data);
+      });
+  }, []);
+
   // Очистить сообщение об ошибке при регистрации/логине
   const isOnLoginPage = useLocation().pathname === LOGIN_PAGE_URL;
   const isOnRegisterPage = useLocation().pathname === REGISTER_PAGE_URL;
