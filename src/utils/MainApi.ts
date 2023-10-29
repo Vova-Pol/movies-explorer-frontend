@@ -1,8 +1,8 @@
 import { MAIN_API_URL } from './constants';
 import { ILoginFormValues, IRegisterFormValues } from '../types/auth';
-import { IUpdateUserFormValues } from '../types/user';
 import { ISavedMovie } from '../types/movie';
 import axios, { AxiosInstance } from 'axios';
+import { IUpdateUserProfileFormValues } from '../types/user';
 
 class MainApi {
   apiClient: AxiosInstance;
@@ -35,8 +35,8 @@ class MainApi {
     return this.apiClient.post('/signout', null);
   }
 
-  updateUserInfo(data: IUpdateUserFormValues) {
-    return this.apiClient.patch('/users/me', data);
+  updateUserProfile(data: IUpdateUserProfileFormValues) {
+    return this.apiClient.patch('/users/me/profile', data);
   }
 
   // Movies Methods

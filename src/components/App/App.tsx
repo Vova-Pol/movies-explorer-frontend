@@ -31,7 +31,7 @@ import {
   CURRENT_USER_LS_KEY,
   SERVER_ERROR_TEXT,
 } from '../../utils/constants';
-import { ICurrentUser, IUpdateUserFormValues } from '../../types/user';
+import { ICurrentUser, IUpdateUserProfileFormValues } from '../../types/user';
 import { useLocalStorage } from '../../hooks/useLocalStorage';
 
 const App: FC = () => {
@@ -81,6 +81,10 @@ const App: FC = () => {
       .then((res) => {
         const currentUser = {
           ...res.data.user,
+          firstName: '',
+          lastName: '',
+          dateOfBirth: new Date(),
+          favouriteGenres: [],
           jwt: res.data.jwt,
         };
         mainApi.setToken(res.data.jwt);
@@ -146,17 +150,17 @@ const App: FC = () => {
   }
 
   // Редактировать профиль
-  function handleUpdateUserInfo(data: IUpdateUserFormValues) {
+  function handleUpdateUserProfile(data: IUpdateUserProfileFormValues) {
     setUpdateUserInfoSuccess(false);
     mainApi
-      .updateUserInfo(data)
+      .updateUserProfile(data)
       .then((res) => {
         if (res) {
           // доработать в зависимости от ответа сервера
 
           const updatedUser = {
             ...res.data.user,
-            jwt: currentUser?.jwt,
+            jwt: currentUser.jwt,
           };
 
           setCurrentUser(updatedUser);
@@ -165,7 +169,9 @@ const App: FC = () => {
         }
       })
       .catch((err) => {
+        // Дебаг
         console.error(err);
+        console.log(err.response.data);
       });
   }
 
@@ -212,7 +218,7 @@ const App: FC = () => {
                 <Profile
                   loggedIn={isLoggedIn}
                   onLogout={handleLogout}
-                  onUpdateUserInfo={handleUpdateUserInfo}
+                  onUpdateUserProfile={handleUpdateUserProfile}
                   isUpdateSuccess={updateUserInfoSuccess}
                 />
               </ProtectedRoute>

@@ -3,13 +3,13 @@ import './Profile.css';
 import { useContext, FC } from 'react';
 import Header from '../../components/Header/Header';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
-import { IUpdateUserFormValues } from '../../types/user';
 import { FiEdit3, FiSettings } from 'react-icons/fi';
 import { EditProfilePopup } from '../../components/EdirProfilePopup/EditProfilePopup';
+import { IUpdateUserProfileFormValues } from '../../types/user';
 const defaultAvatar = require('../../images/default-avatar.jpeg');
 
 interface IProfileProps {
-  onUpdateUserInfo: (values: IUpdateUserFormValues) => void;
+  onUpdateUserProfile: (values: IUpdateUserProfileFormValues) => void;
   loggedIn: boolean;
   isUpdateSuccess: boolean;
   onLogout: () => void;
@@ -17,7 +17,7 @@ interface IProfileProps {
 
 const Profile: FC<IProfileProps> = ({
   onLogout,
-  onUpdateUserInfo,
+  onUpdateUserProfile,
   loggedIn,
   isUpdateSuccess,
 }) => {
@@ -67,7 +67,9 @@ const Profile: FC<IProfileProps> = ({
               <p className="profile__field-title">Любимые жарны</p>
               <ul className="profile__field-value profile__genres-list">
                 {favoutites.map((fav) => (
-                  <li className="profile__genre">{fav}</li>
+                  <li className="profile__genre" key={fav}>
+                    {fav}
+                  </li>
                 ))}
               </ul>
             </div>
@@ -83,7 +85,7 @@ const Profile: FC<IProfileProps> = ({
         </div>
         {isEditPopupOpen && (
           <EditProfilePopup
-            onUpdateUserInfo={onUpdateUserInfo}
+            onUpdateUserProfile={onUpdateUserProfile}
             isUpdateSuccess={isUpdateSuccess}
             onClose={onEditPopupClose}
           />
