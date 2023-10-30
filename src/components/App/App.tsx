@@ -74,7 +74,7 @@ const App: FC = () => {
     }
   }, [currentUser]);
 
-  // Проверить не истек ли токен
+  // Проверить, не истек ли токен
   useEffect(() => {
     mainApi
       .getUserInfo()
@@ -101,7 +101,7 @@ const App: FC = () => {
           ...res.data.user,
           firstName: '',
           lastName: '',
-          dateOfBirth: new Date(),
+          dateOfBirth: '',
           favouriteGenres: [],
           jwt: res.data.jwt,
         };

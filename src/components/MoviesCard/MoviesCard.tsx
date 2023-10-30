@@ -1,8 +1,8 @@
 import React from 'react';
 import './MoviesCard.css';
-import { FC, useEffect, useState } from 'react';
+import { FC, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import countDuration from '../../utils/utils';
+import { countDuration } from '../../utils/utils';
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
 import { RxCross2 } from 'react-icons/rx';
 import {
