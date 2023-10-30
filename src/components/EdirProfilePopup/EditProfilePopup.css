@@ -58,6 +58,24 @@
   margin-bottom: 17px;
 }
 
+.edit-profile-popup__fieldset {
+  border: 1px solid #424242;
+}
+
+.edit-profile-popup__legend {
+  font-weight: 300;
+  font-size: 13px;
+  line-height: 13px;
+  margin-bottom: 10px;
+  padding: 0 5px;
+}
+
+.edit-profile-popup__checkbox-container {
+  display: flex;
+  column-gap: 10px;
+  margin-bottom: 5px;
+}
+
 .edit-profile-popup__success-text {
   min-height: 24px;
   margin-bottom: 180px;

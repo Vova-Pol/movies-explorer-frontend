@@ -1,33 +1,51 @@
-import React, { FC, FormEvent } from 'react';
+import React, { ChangeEvent, FC, FormEvent, useContext } from 'react';
 import './EditProfilePopup.css';
-import { useContext } from 'react';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import { useFormAndValidation } from '../../hooks/useFormAndValidation';
-import { IUpdateUserFormValues } from '../../types/user';
+import { Genre, IUpdateUserProfileFormValues } from '../../types/user';
+import {
+  MAX_BIRTH_DATE_VALUE,
+  MIN_BIRTH_DATE_VALUE,
+} from '../../utils/constants';
 
 interface IEditProfilePopupProps {
-  onUpdateUserInfo: (values: IUpdateUserFormValues) => void;
+  onUpdateUserProfile: (values: IUpdateUserProfileFormValues) => void;
   onClose: () => void;
   isUpdateSuccess: boolean;
 }
 
 export const EditProfilePopup: FC<IEditProfilePopupProps> = ({
-  onUpdateUserInfo,
+  onUpdateUserProfile,
   isUpdateSuccess,
   onClose,
 }) => {
   const currentUser = useContext(CurrentUserContext);
 
   const { values, handleChange, setValues, errors, isValid, resetForm } =
-    useFormAndValidation<IUpdateUserFormValues>(currentUser);
+    useFormAndValidation<IUpdateUserProfileFormValues>(currentUser);
 
   const valuesChanged =
-    values.username !== currentUser!.username ||
-    values.email !== currentUser!.email;
+    values.email !== currentUser.email ||
+    values.firstName !== currentUser.firstName ||
+    values.lastName !== currentUser.lastName ||
+    values.dateOfBirth !== currentUser.dateOfBirth ||
+    values.favouriteGenres !== currentUser.favouriteGenres;
+
+  function handleFavouriteGenreCheckbox(evt: ChangeEvent<HTMLInputElement>) {
+    const checked = evt.target.checked;
+    const value = evt.target.value;
+
+    if (checked) {
+      values.favouriteGenres.push(value);
+    } else {
+      values.favouriteGenres.filter((el) => el != value);
+    }
+    console.log(values.favouriteGenres);
+  }
 
   function handleSubmit(evt: FormEvent<HTMLFormElement>) {
     evt.preventDefault();
-    onUpdateUserInfo(values);
+    onUpdateUserProfile(values);
   }
 
   return (
@@ -39,10 +57,10 @@ export const EditProfilePopup: FC<IEditProfilePopupProps> = ({
           <input
             className="edit-profile-popup__input"
             type="text"
-            name="username"
+            name="firstName"
             required
             minLength={2}
-            value="Владимир Пол"
+            value={values.firstName}
             placeholder="Имя"
             onChange={handleChange}
           ></input>
@@ -53,11 +71,11 @@ export const EditProfilePopup: FC<IEditProfilePopupProps> = ({
           <input
             className="edit-profile-popup__input"
             type="text"
-            name="username"
+            name="lastName"
             required
             minLength={2}
-            value="Владимир Пол"
-            placeholder="Имя"
+            value={values.lastName}
+            placeholder="Фамилия"
             onChange={handleChange}
           ></input>
         </div>
@@ -79,27 +97,45 @@ export const EditProfilePopup: FC<IEditProfilePopupProps> = ({
           <label className="edit-profile-popup__info-item">Дата Рождения</label>
           <input
             className="edit-profile-popup__input"
-            type="email"
-            name="email"
+            type="date"
+            name="dateOfBirth"
             required
-            value={values.email}
-            placeholder="Почта"
+            value={currentUser.dateOfBirth}
             onChange={handleChange}
+            min={MIN_BIRTH_DATE_VALUE}
+            max={MAX_BIRTH_DATE_VALUE}
           ></input>
         </div>
         <div className="edit-profile-popup__line"></div>
-        <div className="edit-profile-popup__field-container">
-          <label className="edit-profile-popup__info-item">Любимые жанры</label>
-          <input
-            className="edit-profile-popup__input"
-            type="email"
-            name="email"
-            required
-            value={values.email}
-            placeholder="Почта"
-            onChange={handleChange}
-          ></input>
-        </div>
+        <fieldset className="edit-profile-popup__fieldset">
+          <legend className="edit-profile-popup__legend">Любимые жанры</legend>
+          {Object.values(Genre).map((genreValue) => {
+            return (
+              <div
+                className="edit-profile-popup__checkbox-container"
+                key={genreValue}
+              >
+                <input
+                  className="edit-profile-popup__input"
+                  type="checkbox"
+                  id={genreValue}
+                  name="favouriteGenres"
+                  value={genreValue}
+                  onChange={handleFavouriteGenreCheckbox}
+                  checked={values.favouriteGenres.some(
+                    (val) => val === genreValue,
+                  )}
+                ></input>
+                <label
+                  className="edit-profile-popup__info-item"
+                  htmlFor={genreValue}
+                >
+                  {genreValue}
+                </label>
+              </div>
+            );
+          })}
+        </fieldset>
         <span
           className={
             isUpdateSuccess
@@ -112,7 +148,7 @@ export const EditProfilePopup: FC<IEditProfilePopupProps> = ({
         <button
           type="submit"
           className="edit-profile-popup__edit-button"
-          disabled={isValid && valuesChanged ? false : true}
+          disabled={!isValid && !valuesChanged}
         >
           Редактировать
         </button>
