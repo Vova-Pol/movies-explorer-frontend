@@ -6,6 +6,7 @@ import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import { FiEdit3, FiSettings } from 'react-icons/fi';
 import { EditProfilePopup } from '../../components/EdirProfilePopup/EditProfilePopup';
 import { IUpdateUserProfileFormValues } from '../../types/user';
+import { countUserAge } from '../../utils/utils';
 const defaultAvatar = require('../../images/default-avatar.jpeg');
 
 interface IProfileProps {
@@ -33,7 +34,14 @@ const Profile: FC<IProfileProps> = ({
     setIsEditPopupOpen(false);
   }
 
-  const favoutites = ['комедия', 'документальный', 'боевик', 'детектив'];
+  const userFullName =
+    currentUser.firstName && currentUser.lastName
+      ? `${currentUser.firstName} ${currentUser.lastName}`
+      : 'Unnamed';
+
+  const userAge = currentUser.dateOfBirth
+    ? countUserAge(currentUser.dateOfBirth)
+    : '-';
 
   return (
     <div className="profile">
@@ -43,7 +51,7 @@ const Profile: FC<IProfileProps> = ({
           <img className="profile__avatar" src={defaultAvatar}></img>
           <div className="profile__info-container">
             <div className="profile__title-container">
-              <h1 className="profile__title">Владимир Иванов</h1>
+              <h1 className="profile__title">{userFullName}</h1>
               <FiSettings
                 className="profile__edit-profile-icon"
                 onClick={onEditPopupOpen}
@@ -60,13 +68,13 @@ const Profile: FC<IProfileProps> = ({
             <div className="profile__line"></div>
             <div className="profile__field-container">
               <p className="profile__field-title">Возраст</p>
-              <p className="profile__field-value">29</p>
+              <p className="profile__field-value">{userAge}</p>
             </div>
             <div className="profile__line"></div>
             <div className="profile__field-container">
               <p className="profile__field-title">Любимые жарны</p>
               <ul className="profile__field-value profile__genres-list">
-                {favoutites.map((fav) => (
+                {currentUser.favouriteGenres.map((fav) => (
                   <li className="profile__genre" key={fav}>
                     {fav}
                   </li>
