@@ -82,6 +82,15 @@ const Profile: FC<IProfileProps> = ({
               </ul>
             </div>
             <div className="profile__line"></div>
+            <span
+              className={
+                isUpdateSuccess
+                  ? 'profile__success-text profile__success-text_type_active'
+                  : 'profile__success-text'
+              }
+            >
+              Изменения внесены &#10003;
+            </span>
             <button
               type="button"
               className="profile__exit-button"
