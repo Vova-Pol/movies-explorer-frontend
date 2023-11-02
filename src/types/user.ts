@@ -21,14 +21,14 @@ export interface IUpdateUserProfileFormValues {
   favouriteGenres: string[];
 }
 
-export enum Genre {
-  COMEDY = 'Комедия',
-  THRILLER = 'Боевик',
-  DETECTIVE = 'Детектив',
-  FAMILY = 'Семейный',
-  DOCUMENTARY = 'Докуметальный',
-  HISTORICAL = 'Исторический',
-  FANTASY = 'Фэнтези',
-  DRAMA = 'Драма',
-  ADVENTURE = 'Приключения',
-}
+// export enum Genre {
+//   COMEDY = 'Комедия',
+//   THRILLER = 'Боевик',
+//   DETECTIVE = 'Детектив',
+//   FAMILY = 'Семейный',
+//   DOCUMENTARY = 'Докуметальный',
+//   HISTORICAL = 'Исторический',
+//   FANTASY = 'Фэнтези',
+//   DRAMA = 'Драма',
+//   ADVENTURE = 'Приключения',
+// }

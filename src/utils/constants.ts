@@ -47,3 +47,16 @@ export const MIN_BIRTH_DATE_VALUE = '1900-01-01';
 export const MAX_BIRTH_DATE_VALUE = `${
   date.getFullYear() - 14
 }-${date.getMonth()}-${date.getDate()}`;
+
+// Жанры
+export const GENRES = [
+  'Комедия',
+  'Боевик',
+  'Детектив',
+  'Семейный',
+  'Докуметальный',
+  'Исторический',
+  'Фэнтези',
+  'Драма',
+  'Приключения',
+];
