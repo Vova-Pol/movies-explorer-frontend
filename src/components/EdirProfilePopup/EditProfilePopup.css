@@ -60,6 +60,7 @@
 
 .edit-profile-popup__fieldset {
   border: 1px solid #424242;
+  margin-bottom: 30px;
 }
 
 .edit-profile-popup__legend {
@@ -74,21 +75,6 @@
   display: flex;
   column-gap: 10px;
   margin-bottom: 5px;
-}
-
-.edit-profile-popup__success-text {
-  min-height: 24px;
-  margin-bottom: 180px;
-  font-size: 13px;
-  line-height: 16px;
-  text-align: center;
-  color: #79ec74;
-  opacity: 0;
-  transition: all 1s ease;
-}
-
-.edit-profile-popup__success-text_type_active {
-  opacity: 1;
 }
 
 .edit-profile-popup__edit-button {

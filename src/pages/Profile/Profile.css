@@ -113,6 +113,21 @@
   padding: 5px 10px;
 }
 
+.profile__success-text {
+  min-height: 24px;
+  font-size: 13px;
+  line-height: 16px;
+  text-align: center;
+  display: block;
+  color: #79ec74;
+  opacity: 0;
+  transition: all 1s cubic-bezier(0.98, 0.09, 0.61, 1.05);
+}
+
+.profile__success-text_type_active {
+  opacity: 1;
+}
+
 .profile__exit-button {
   display: block;
   margin: 0 auto;
