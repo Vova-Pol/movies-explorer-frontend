@@ -7,6 +7,7 @@ import { FiEdit3, FiSettings } from 'react-icons/fi';
 import { EditProfilePopup } from '../../components/EdirProfilePopup/EditProfilePopup';
 import { IUpdateUserProfileFormValues } from '../../types/user';
 import { countUserAge } from '../../utils/utils';
+import { EditUsernamePopup } from '../../components/EditUsernamePopup/EditUsernamePopup';
 const defaultAvatar = require('../../images/default-avatar.jpeg');
 
 interface IProfileProps {
@@ -24,14 +25,23 @@ const Profile: FC<IProfileProps> = ({
 }) => {
   const currentUser = useContext(CurrentUserContext);
 
-  const [isEditPopupOpen, setIsEditPopupOpen] = useState(false);
+  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
+  const [isEditUsernamePopupOpen, setIsEditUsernamePopupOpen] = useState(false);
 
-  function onEditPopupOpen() {
-    setIsEditPopupOpen(true);
+  function onEditProfilePopupOpen() {
+    setIsEditProfilePopupOpen(true);
   }
 
-  function onEditPopupClose() {
-    setIsEditPopupOpen(false);
+  function onEditProfilePopupClose() {
+    setIsEditProfilePopupOpen(false);
+  }
+
+  function onEditUsernamePopupOpen() {
+    setIsEditUsernamePopupOpen(true);
+  }
+
+  function onEditUsernamePopupClose() {
+    setIsEditUsernamePopupOpen(false);
   }
 
   const userFullName =
@@ -54,12 +64,15 @@ const Profile: FC<IProfileProps> = ({
               <h1 className="profile__title">{userFullName}</h1>
               <FiSettings
                 className="profile__edit-profile-icon"
-                onClick={onEditPopupOpen}
+                onClick={onEditProfilePopupOpen}
               />
             </div>
             <div className="profile__username-container">
               <span className="profile__username">@{currentUser.username}</span>
-              <FiEdit3 className="profile__edit-username-icon" />
+              <FiEdit3
+                className="profile__edit-username-icon"
+                onClick={onEditUsernamePopupOpen}
+              />
             </div>
             <div className="profile__field-container">
               <p className="profile__field-title">E-mail</p>
@@ -100,13 +113,15 @@ const Profile: FC<IProfileProps> = ({
             </button>
           </div>
         </div>
-        {isEditPopupOpen && (
+        {isEditProfilePopupOpen && (
           <EditProfilePopup
             onUpdateUserProfile={onUpdateUserProfile}
             isUpdateSuccess={isUpdateSuccess}
-            onClose={onEditPopupClose}
+            onClose={onEditProfilePopupClose}
           />
         )}
+
+        {isEditUsernamePopupOpen && <EditUsernamePopup />}
       </main>
     </div>
   );
