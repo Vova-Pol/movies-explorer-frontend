@@ -5,13 +5,17 @@ import Header from '../../components/Header/Header';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import { FiEdit3, FiSettings } from 'react-icons/fi';
 import { EditProfilePopup } from '../../components/EdirProfilePopup/EditProfilePopup';
-import { IUpdateUserProfileFormValues } from '../../types/user';
+import {
+  IUpdateUserProfileFormValues,
+  IUpdateUsernameFormValues,
+} from '../../types/user';
 import { countUserAge } from '../../utils/utils';
 import { EditUsernamePopup } from '../../components/EditUsernamePopup/EditUsernamePopup';
 const defaultAvatar = require('../../images/default-avatar.jpeg');
 
 interface IProfileProps {
   onUpdateUserProfile: (values: IUpdateUserProfileFormValues) => void;
+  onUpdateUsername: (values: IUpdateUsernameFormValues) => void;
   loggedIn: boolean;
   isUpdateSuccess: boolean;
   onLogout: () => void;
@@ -20,6 +24,7 @@ interface IProfileProps {
 const Profile: FC<IProfileProps> = ({
   onLogout,
   onUpdateUserProfile,
+  onUpdateUsername,
   loggedIn,
   isUpdateSuccess,
 }) => {
@@ -121,7 +126,13 @@ const Profile: FC<IProfileProps> = ({
           />
         )}
 
-        {isEditUsernamePopupOpen && <EditUsernamePopup />}
+        {isEditUsernamePopupOpen && (
+          <EditUsernamePopup
+            onUpdateUserProfile={onUpdateUsername}
+            isUpdateSuccess={isUpdateSuccess}
+            onClose={onEditUsernamePopupClose}
+          />
+        )}
       </main>
     </div>
   );

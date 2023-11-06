@@ -1,2 +1,114 @@
 .edit-username-popup {
+  width: 100vw;
+  height: 100vh;
+  background-color: #00000061;
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.edit-username-popup__title {
+  margin: 0;
+  margin-bottom: 45px;
+}
+
+.edit-username-popup__form {
+  padding: 30px 50px;
+  background-color: #202020;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.edit-username-popup__field-container {
+  display: flex;
+  margin-bottom: 16px;
+  justify-content: space-between;
+}
+
+.edit-username-popup__field-container:last-of-type {
+  margin-bottom: 100px;
+}
+
+.edit-username-popup__info-item {
+  font-weight: 500;
+  font-size: 11px;
+  line-height: 13px;
+  margin: 0;
+}
+
+.edit-username-popup__input {
+  font-weight: 500;
+  font-size: 11px;
+  line-height: 13px;
+  background-color: inherit;
+  color: #fff;
+  text-align: right;
+  padding: 0;
+  border: none;
+}
+
+.edit-username-popup__input:focus-visible {
+  outline: none;
+}
+
+.edit-username-popup__line {
+  border-bottom: 1px solid #424242;
+  max-width: 410px;
+  width: 100%;
+  margin-bottom: 17px;
+}
+
+.edit-username-popup__fieldset {
+  border: 1px solid #424242;
+  margin-bottom: 30px;
+}
+
+.edit-username-popup__legend {
+  font-weight: 300;
+  font-size: 13px;
+  line-height: 13px;
+  margin-bottom: 10px;
+  padding: 0 5px;
+}
+
+.edit-username-popup__checkbox-container {
+  display: flex;
+  column-gap: 10px;
+  margin-bottom: 5px;
+}
+
+.edit-username-popup__edit-button {
+  background-color: #ffffff00;
+  border: none;
+  padding: 0;
+  font-size: 13px;
+  line-height: 16px;
+  cursor: pointer;
+  color: #fff;
+  font-weight: 400;
+  margin-bottom: 10px;
+}
+
+.edit-username-popup__edit-button:disabled {
+  opacity: 0.3;
+}
+
+.edit-username-popup__edit-button:disabled:hover {
+  opacity: 0.3;
+}
+
+.edit-username-popup__close-button {
+  font-size: 13px;
+  line-height: 16px;
+  cursor: pointer;
+  color: #ee3465;
+  text-align: center;
+}
+
+.edit-username-popup__close-button:hover {
+  opacity: 0.7;
 }

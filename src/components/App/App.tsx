@@ -31,7 +31,11 @@ import {
   CURRENT_USER_LS_KEY,
   SERVER_ERROR_TEXT,
 } from '../../utils/constants';
-import { ICurrentUser, IUpdateUserProfileFormValues } from '../../types/user';
+import {
+  ICurrentUser,
+  IUpdateUserProfileFormValues,
+  IUpdateUsernameFormValues,
+} from '../../types/user';
 import { useLocalStorage } from '../../hooks/useLocalStorage';
 
 const App: FC = () => {
@@ -191,6 +195,28 @@ const App: FC = () => {
       });
   }
 
+  // Редактировать username
+  function handleUpdateUsername(data: IUpdateUsernameFormValues) {
+    setUpdateUserInfoSuccess(false);
+    mainApi
+      .upadteUsername(data)
+      .then((res) => {
+        const updatedUser = {
+          ...res.data.user,
+          jwt: res.data.jwt,
+        };
+
+        setCurrentUser(updatedUser);
+        saveToLs(CURRENT_USER_LS_KEY, updatedUser);
+        setUpdateUserInfoSuccess(true);
+      })
+      .catch((err) => {
+        // Дебаг
+        console.error(err);
+        console.log(err.response.data);
+      });
+  }
+
   return (
     <div className="app">
       <Routes>
@@ -235,6 +261,7 @@ const App: FC = () => {
                   loggedIn={isLoggedIn}
                   onLogout={handleLogout}
                   onUpdateUserProfile={handleUpdateUserProfile}
+                  onUpdateUsername={handleUpdateUsername}
                   isUpdateSuccess={updateUserInfoSuccess}
                 />
               </ProtectedRoute>

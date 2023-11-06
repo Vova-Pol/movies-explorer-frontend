@@ -2,7 +2,10 @@ import { MAIN_API_URL } from './constants';
 import { ILoginFormValues, IRegisterFormValues } from '../types/auth';
 import { ISavedMovie } from '../types/movie';
 import axios, { AxiosInstance } from 'axios';
-import { IUpdateUserProfileFormValues } from '../types/user';
+import {
+  IUpdateUserProfileFormValues,
+  IUpdateUsernameFormValues,
+} from '../types/user';
 
 class MainApi {
   apiClient: AxiosInstance;
@@ -37,6 +40,10 @@ class MainApi {
 
   updateUserProfile(data: IUpdateUserProfileFormValues) {
     return this.apiClient.patch('/users/me/profile', data);
+  }
+
+  upadteUsername(data: IUpdateUsernameFormValues) {
+    return this.apiClient.patch('users/me/username', data);
   }
 
   getUserInfo() {
