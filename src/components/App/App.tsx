@@ -174,8 +174,6 @@ const App: FC = () => {
       .updateUserProfile(data)
       .then((res) => {
         if (res) {
-          // доработать в зависимости от ответа сервера
-          console.log(res);
           const updatedUser = {
             ...res.data,
             jwt: currentUser.jwt,
