@@ -74,8 +74,7 @@ const MoviesCard: FC<IMoviesCardProps> = ({
       .then((res) => {
         if (res) {
           setIsCardLiked(false);
-          handleDeleteMovie!(res.data.id);
-          removeFromLs(SAVED_MOVIES_LIST_LS_KEY);
+          handleDeleteMovie!(cardData.id);
         }
       })
       .catch((err) => {

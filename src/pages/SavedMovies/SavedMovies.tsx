@@ -48,7 +48,9 @@ const SavedMovies: FC<ISavedMoviesProps> = ({ loggedIn }) => {
   }
 
   function handleDeleteMovie(id: number) {
-    setMoviesList(moviesList.filter((movie) => movie.id !== id));
+    const filteredList = moviesList.filter((movie) => movie.id !== id);
+    setMoviesList(filteredList);
+    saveToLs(SAVED_MOVIES_LIST_LS_KEY, filteredList);
   }
 
   function handleSearchForm(values: ISearchFormValues) {
