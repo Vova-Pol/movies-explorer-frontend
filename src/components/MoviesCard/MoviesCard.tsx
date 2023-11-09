@@ -40,18 +40,17 @@ const MoviesCard: FC<IMoviesCardProps> = ({
         ...cardData,
         image: cardData.image.formats.thumbnail.url,
       };
-
+      console.log(savedMovieData);
       mainApi
         .saveMovie(savedMovieData)
-        .then((res) => {
-          if (res) {
-            setIsCardLiked(true);
-            removeFromLs(SAVED_MOVIES_LIST_LS_KEY);
-          }
+        .then(() => {
+          setIsCardLiked(true);
+          removeFromLs(SAVED_MOVIES_LIST_LS_KEY);
         })
         .catch((err) => {
           setIsServerError(true);
           console.error(err);
+          console.log(err.response.data.message);
         });
     } else {
       mainApi
@@ -96,7 +95,11 @@ const MoviesCard: FC<IMoviesCardProps> = ({
           <img
             className="movies-card-list__image"
             alt={cardData.nameRU}
-            src={`${IMAGES_URL}${cardData.image.formats.thumbnail.url}`}
+            src={`${IMAGES_URL}${
+              isOnMoviesPage
+                ? cardData.image.formats.thumbnail.url
+                : cardData.image
+            }`}
           ></img>
         </Link>
         <div className="movies-card-list__info">
