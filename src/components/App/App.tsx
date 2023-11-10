@@ -54,6 +54,15 @@ const App: FC = () => {
   const [errorText, setErrorText] = useState('');
   const [updateUserInfoSuccess, setUpdateUserInfoSuccess] = useState(false);
 
+  // JWT
+  useEffect(() => {
+    if (isPresentInLs(CURRENT_USER_LS_KEY)) {
+      mainApi.setToken(getFromLs(CURRENT_USER_LS_KEY).jwt);
+    } else {
+      mainApi.unsetToken();
+    }
+  }, [currentUser]);
+
   // Очистить сообщение об ошибке при регистрации/логине
   const isOnLoginPage = useLocation().pathname === LOGIN_PAGE_URL;
   const isOnRegisterPage = useLocation().pathname === REGISTER_PAGE_URL;
@@ -68,15 +77,6 @@ const App: FC = () => {
   useEffect(() => {
     setUpdateUserInfoSuccess(false);
   }, [isOnProfilePage]);
-
-  // JWT
-  useEffect(() => {
-    if (isPresentInLs(CURRENT_USER_LS_KEY)) {
-      mainApi.setToken(getFromLs(CURRENT_USER_LS_KEY).jwt);
-    } else {
-      mainApi.unsetToken();
-    }
-  }, [currentUser]);
 
   // Проверить, не истек ли токен
   useEffect(() => {
