@@ -92,11 +92,12 @@ const Profile: FC<IProfileProps> = ({
             <div className="profile__field-container">
               <p className="profile__field-title">Любимые жарны</p>
               <ul className="profile__field-value profile__genres-list">
-                {currentUser.favouriteGenres.map((fav) => (
-                  <li className="profile__genre" key={fav}>
-                    {fav}
-                  </li>
-                ))}
+                {currentUser.favouriteGenres &&
+                  currentUser.favouriteGenres.map((fav) => (
+                    <li className="profile__genre" key={fav}>
+                      {fav}
+                    </li>
+                  ))}
               </ul>
             </div>
             <div className="profile__line"></div>
