@@ -1,3 +1,5 @@
+import { AuthFields, AuthInputTypes } from '../types/auth';
+
 // Адреса запросов
 // export const MAIN_API_URL = 'https://api.movie-vova-pol.nomoredomains.work';
 export const MAIN_API_URL = 'http://localhost:8080';
@@ -60,3 +62,57 @@ export const GENRES = [
   'Драма',
   'Приключения',
 ];
+
+// Конфиг для компонентов Login и Register
+
+export const REGISTER_CONFIG = {
+  fields: [
+    {
+      labelTitle: 'Имя',
+      inputType: AuthInputTypes.TEXT,
+      inputName: AuthFields.USERNAME,
+      minLength: 2,
+      maxLength: 30,
+      pattern: REGEX_NAME.source,
+    },
+    {
+      labelTitle: 'E-mail',
+      inputType: AuthInputTypes.EMAIL,
+      inputName: AuthFields.EMAIL,
+      minLength: null,
+      maxLength: null,
+      pattern: REGEX_EMAIL.source,
+    },
+    {
+      labelTitle: 'Пароль',
+      inputType: AuthInputTypes.PASSWORD,
+      inputName: AuthFields.PASSWORD,
+      minLength: 8,
+      maxLength: null,
+      pattern: REGEX_PASSWORD.source,
+    },
+  ],
+  submitButtonText: 'Зарегистрироваться',
+};
+
+export const LOGIN_CONFIG = {
+  fields: [
+    {
+      labelTitle: 'Имя',
+      inputType: AuthInputTypes.TEXT,
+      inputName: AuthFields.USERNAME,
+      minLength: 2,
+      maxLength: 30,
+      pattern: REGEX_NAME.source,
+    },
+    {
+      labelTitle: 'Пароль',
+      inputType: AuthInputTypes.PASSWORD,
+      inputName: AuthFields.PASSWORD,
+      minLength: 8,
+      maxLength: null,
+      pattern: REGEX_PASSWORD.source,
+    },
+  ],
+  submitButtonText: 'Войти',
+};
